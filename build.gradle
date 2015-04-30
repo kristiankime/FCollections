@@ -15,6 +15,7 @@ jar {
 eclipse {
 	classpath {
 		// http://stackoverflow.com/questions/11901737/specifiy-jre-container-with-gradle-eclipse-plugin
+		containers.clear()
 		containers 'org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-1.8'
 	}
 }
