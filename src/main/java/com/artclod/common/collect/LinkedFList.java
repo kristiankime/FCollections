@@ -30,4 +30,14 @@ public class LinkedFList<E> extends BaseFList<E> implements Serializable {
 		}
 		return new LinkedFList<O>(create);
 	}
+	
+	public String mkString(String start, String sep, String end){
+		StringBuilder ret = new StringBuilder(start);
+		String s = "";
+		for(E e: this){
+			ret.append(e).append(s);
+			s = sep;
+		}
+		return ret.append(end).toString();
+	}
 }

@@ -13,6 +13,10 @@ import java.util.function.Predicate;
 import java.util.function.UnaryOperator;
 import java.util.stream.Stream;
 
+import com.artclod.common.base.T2;
+import com.artclod.common.base.Tuples;
+import com.google.common.base.Function;
+
 public abstract class BaseFList<E> implements FList<E> {
 	final List<E> inner;
 	
@@ -21,9 +25,34 @@ public abstract class BaseFList<E> implements FList<E> {
 	}
 
 	// ============ FLIST METHODS (or support) =========
+	public boolean nonEmpty() {
+		return !isEmpty();
+	}
+	
 	public FList<E> filter(Predicate<? super E> filter){
 		this.removeIf(filter);
 		return this;
+	}
+
+	public String mkString(String sep){
+		return mkString("", sep, "");
+	}
+	
+	public E reduceLeft(Function<T2<E, E>, E> f) {
+		if(isEmpty()){
+			throw new UnsupportedOperationException("FList was empty");
+		}
+		boolean first = true;
+		E ret = null;
+		for(E e: this){
+			if(first){
+				ret = e;
+				first = false;
+			} else {
+				ret = f.apply(Tuples.t(ret, e));
+			}
+		}
+		return ret;
 	}
 	
 	// ============ DELEGATE METHODS =========

@@ -39,4 +39,16 @@ public class ArrayFList<E> extends BaseFList<E> implements Serializable {
 		}
 		return new ArrayFList<O>(create);
 	}
+	
+	public String mkString(String start, String sep, String end){
+		StringBuilder ret = new StringBuilder(start);
+		String s = "";
+		for(int i = 0; i< inner.size(); i++){
+			ret.append(inner.get(i));
+			if(i > 0){
+				ret.append(s);
+			}
+		}
+		return ret.append(end).toString();
+	}
 }
