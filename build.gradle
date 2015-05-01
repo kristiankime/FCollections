@@ -3,19 +3,25 @@ apply plugin: 'java'
 apply plugin: 'eclipse'
 apply plugin: 'maven-publish'
 
+
 sourceCompatibility = 1.8
 version = '0.0.0'
 group = 'com.artclod'
-def artifact = 'functional-collections'
+def artifactName = 'functional-collections'
 
 jar {
     manifest {
-        attributes 'Implementation-Title': artifact,
+        attributes 'Implementation-Title': artifactName,
                    'Implementation-Version': version
     }
 }
 
 task myJar(type: Jar)
+
+// http://gradle.org/docs/current/javadoc/org/gradle/api/publish/maven/MavenPublication.html
+task sourceJar(type: Jar) {
+    from sourceSets.main.allJava
+}
 
 artifacts {
     archives myJar
@@ -28,6 +34,11 @@ eclipse {
 		containers.clear()
 		containers 'org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-1.8'
 	}
+
+//	project {
+//		natures 'org.springsource.ide.eclipse.gradle.core.nature'
+//	}
+	
 }
 
 repositories {
@@ -47,13 +58,29 @@ publishing {
     publications {
         mavenJava(MavenPublication) {
             groupId group
-            artifactId artifact
+            artifactId artifactName
             version version
             
             from components.java
+            
+            artifact sourceJar {
+                classifier "sources"
+            }
         }
     }
 }
+
+//publishing {
+//    publications {
+//        mavenJava(MavenPublication) {
+//            from components.java
+//
+//            artifact sourceJar {
+//                classifier "sources"
+//            }
+//        }
+//    }
+//}
 
 
 publishing {
