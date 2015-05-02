@@ -1,8 +1,12 @@
-// http://gradle.org/docs/current/userguide/tutorial_java_projects.html
-apply plugin: 'java'
-apply plugin: 'eclipse'
-apply plugin: 'maven-publish'
 
+apply plugin: 'java' // http://gradle.org/docs/current/userguide/tutorial_java_projects.html
+apply plugin: 'eclipse'
+apply plugin: 'maven-publish' // https://gradle.org/docs/current/userguide/publishing_maven.html
+apply plugin: 'signing' // http://gradle.org/docs/current/userguide/signing_plugin.html
+// http://gradle.org/docs/current/userguide/tutorial_this_and_that.html#sec:gradle_properties_and_system_properties
+// http://central.sonatype.org/pages/working-with-pgp-signatures.html
+
+// http://mike-neck.github.io/blog/2013/06/21/how-to-publish-artifacts-with-gradle-maven-publish-plugin-version-1-dot-6/
 
 sourceCompatibility = 1.8
 version = '0.0.0'
@@ -25,6 +29,10 @@ task sourceJar(type: Jar) {
 
 artifacts {
     archives myJar
+}
+
+signing {
+	sign configurations.archives
 }
 
 // http://gradle.org/docs/current/dsl/org.gradle.plugins.ide.eclipse.model.EclipseClasspath.html
@@ -61,7 +69,9 @@ publishing {
             artifactId artifactName
             version version
             
-            from components.java
+			beforeDeployment { MavenDeployment deployment -> signing.signPom(deployment) }
+
+			from components.java
             
             artifact sourceJar {
                 classifier "sources"
@@ -70,19 +80,6 @@ publishing {
     }
 }
 
-//publishing {
-//    publications {
-//        mavenJava(MavenPublication) {
-//            from components.java
-//
-//            artifact sourceJar {
-//                classifier "sources"
-//            }
-//        }
-//    }
-//}
-
-
 publishing {
     repositories {
         maven {
@@ -90,5 +87,11 @@ publishing {
             url "$buildDir/repo"
         }
     }
+}
+
+task printProps << {
+	println signing.keyId
+	println signing.password
+	println signing.secretKeyRingFile
 }
 
