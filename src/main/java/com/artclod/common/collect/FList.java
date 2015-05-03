@@ -4,7 +4,6 @@ import java.util.List;
 import java.util.function.Predicate;
 
 import com.artclod.common.base.Function2;
-import com.artclod.common.base.T2;
 import com.google.common.base.Function;
 
 public interface FList<E> extends List<E> {
@@ -26,11 +25,5 @@ public interface FList<E> extends List<E> {
 	public E reduceLeft(Function2<E, E, E> f);
 
 	public E reduceRight(Function2<E, E, E> f);
-	
-	public E reduce(Function<T2<E, E>, E> f);
-	
-	public E reduceLeft(Function<T2<E, E>, E> f);
-
-	public E reduceRight(Function<T2<E, E>, E> f);
 
 }

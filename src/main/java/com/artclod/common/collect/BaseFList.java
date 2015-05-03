@@ -14,9 +14,6 @@ import java.util.function.UnaryOperator;
 import java.util.stream.Stream;
 
 import com.artclod.common.base.Function2;
-import com.artclod.common.base.T2;
-import com.artclod.common.base.Tuples;
-import com.google.common.base.Function;
 
 public abstract class BaseFList<E> implements FList<E> {
 	final List<E> inner;
@@ -48,9 +45,7 @@ public abstract class BaseFList<E> implements FList<E> {
 		return mkString("", sep, "");
 	}
 	
-	
-	
-	// --- Reduce (2) ---
+	// --- Reduce ---
 	public E reduce(Function2<E, E, E> f) {
 		return reduceLeft(f);
 	}
@@ -79,40 +74,6 @@ public abstract class BaseFList<E> implements FList<E> {
 				first = false;
 			} else {
 				ret = f.apply(ret, e);
-			}
-		}
-		return ret;
-	}
-	
-	// --- Reduce ---
-	public E reduce(Function<T2<E, E>, E> f) {
-		return reduceLeft(f);
-	}
-	
-	public E reduceLeft(Function<T2<E, E>, E> f) {
-		if(isEmpty()){
-			throw new UnsupportedOperationException("FList was empty");
-		}		
-		return reduceInner(f, listIterator());
-	}
-
-	public E reduceRight(Function<T2<E, E>, E> f) {
-		if(isEmpty()){
-			throw new UnsupportedOperationException("FList was empty");
-		}		
-		return reduceInner(f, new ReverseListIterator<E>(this));
-	}
-	
-	private E reduceInner(Function<T2<E, E>, E> f, ListIterator<E> listIterator) {
-		boolean first = true;
-		E ret = null;
-		while(listIterator.hasNext()){
-			E e = listIterator.next(); 
-			if(first){
-				ret = e;
-				first = false;
-			} else {
-				ret = f.apply(Tuples.t(ret, e));
 			}
 		}
 		return ret;
