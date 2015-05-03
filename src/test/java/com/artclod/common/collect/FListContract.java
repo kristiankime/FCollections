@@ -70,6 +70,19 @@ abstract public class FListContract {
 		assertEquals("[]", actual);
 	}
 	
+	
+	// ---- Reduce 1 ----
+	@Test(expected=UnsupportedOperationException.class)
+	public void reduce_no_elements_throws() throws Exception {
+		this.<Integer> fList().reduce((a) -> a._1 + a._2);
+	}
+	
+	@Test
+	public void reduce_works() throws Exception {
+		int actual = fList(1, 2, 3).reduce((a) -> a._1 + a._2);
+		assertEquals(6, actual);
+	}
+	
 	@Test(expected=UnsupportedOperationException.class)
 	public void reduceLeft_no_elements_throws() throws Exception {
 		this.<Integer> fList().reduceLeft((a) -> a._1 + a._2);
@@ -89,6 +102,40 @@ abstract public class FListContract {
 	@Test
 	public void reduceRight_works() throws Exception {
 		int actual = fList(1, 2, 3).reduceRight((a) -> a._1 + a._2);
+		assertEquals(6, actual);
+	}
+	
+	// ---- Reduce 2 ----
+	@Test(expected=UnsupportedOperationException.class)
+	public void reduce2_no_elements_throws() throws Exception {
+		this.<Integer> fList().reduce((a, b) -> a + b);
+	}
+	
+	@Test
+	public void reduce2_works() throws Exception {
+		int actual = fList(1, 2, 3).reduce((a, b) -> a + b);
+		assertEquals(6, actual);
+	}
+	
+	@Test(expected=UnsupportedOperationException.class)
+	public void reduceLeft2_no_elements_throws() throws Exception {
+		this.<Integer> fList().reduceLeft((a, b) -> a + b);
+	}
+	
+	@Test
+	public void reduceLeft2_works() throws Exception {
+		int actual = fList(1, 2, 3).reduceLeft((a, b) -> a + b);
+		assertEquals(6, actual);
+	}
+	
+	@Test(expected=UnsupportedOperationException.class)
+	public void reduceRight2_no_elements_throws() throws Exception {
+		this.<Integer> fList().reduceRight((a, b) -> a + b);
+	}
+	
+	@Test
+	public void reduceRight2_works() throws Exception {
+		int actual = fList(1, 2, 3).reduceRight((a, b) -> a + b);
 		assertEquals(6, actual);
 	}
 }
