@@ -35,7 +35,7 @@ public class LinkedFList<E> extends BaseFList<E> implements Serializable {
 		StringBuilder ret = new StringBuilder(start);
 		String s = "";
 		for(E e: this){
-			ret.append(e).append(s);
+			ret.append(s).append(e);
 			s = sep;
 		}
 		return ret.append(end).toString();

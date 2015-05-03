@@ -42,11 +42,10 @@ public class ArrayFList<E> extends BaseFList<E> implements Serializable {
 	
 	public String mkString(String start, String sep, String end){
 		StringBuilder ret = new StringBuilder(start);
-		String s = "";
 		for(int i = 0; i< inner.size(); i++){
 			ret.append(inner.get(i));
-			if(i > 0){
-				ret.append(s);
+			if(i != (inner.size()-1)){
+				ret.append(sep);
 			}
 		}
 		return ret.append(end).toString();

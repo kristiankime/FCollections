@@ -34,4 +34,15 @@ abstract public class FListContract {
 		assertEquals(asList(1, 2), actual);
 	}
 	
+	@Test
+	public void mkString_with_sep() throws Exception {
+		String actual = fList(1, 2, 3).mkString(", ");
+		assertEquals("1, 2, 3", actual);
+	}
+	
+	@Test
+	public void mkString_with_start_sep_end() throws Exception {
+		String actual = fList(1, 2, 3).mkString("[", ", ", "]");
+		assertEquals("[1, 2, 3]", actual);
+	}
 }
