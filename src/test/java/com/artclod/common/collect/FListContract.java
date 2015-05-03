@@ -41,8 +41,20 @@ abstract public class FListContract {
 	}
 	
 	@Test
+	public void mkString_with_sep_no_elements_returns_empty_string() throws Exception {
+		String actual = fList().mkString(", ");
+		assertEquals("", actual);
+	}
+	
+	@Test
 	public void mkString_with_start_sep_end() throws Exception {
 		String actual = fList(1, 2, 3).mkString("[", ", ", "]");
 		assertEquals("[1, 2, 3]", actual);
+	}
+	
+	@Test
+	public void mkString_with_start_sep_end_no_elements_returns_start_plus_end() throws Exception {
+		String actual = fList(1, 2, 3).mkString("[", ", ", "]");
+		assertEquals("[]", actual);
 	}
 }
