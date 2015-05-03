@@ -24,14 +24,23 @@ public abstract class BaseFList<E> implements FList<E> {
 		this.inner = checkNotNull(inner);
 	}
 
+	// =========== Identity as inner ===========
+	public boolean equals(Object o) {
+		return inner.equals(o);
+	}
+
+	public int hashCode() {
+		return inner.hashCode();
+	}
+
+	@Override
+	public String toString() {
+		return inner.toString();
+	}
+	
 	// ============ FLIST METHODS (or support) =========
 	public boolean nonEmpty() {
 		return !isEmpty();
-	}
-	
-	public FList<E> filter(Predicate<? super E> filter){
-		this.removeIf(filter);
-		return this;
 	}
 
 	public String mkString(String sep){
@@ -53,6 +62,10 @@ public abstract class BaseFList<E> implements FList<E> {
 			}
 		}
 		return ret;
+	}
+	
+	public FList<E> filterNot(Predicate<? super E> filter){
+		return filter(filter.negate());
 	}
 	
 	// ============ DELEGATE METHODS =========
@@ -128,14 +141,6 @@ public abstract class BaseFList<E> implements FList<E> {
 		inner.clear();
 	}
 
-	public boolean equals(Object o) {
-		return inner.equals(o);
-	}
-
-	public int hashCode() {
-		return inner.hashCode();
-	}
-
 	public E get(int index) {
 		return inner.get(index);
 	}
@@ -183,5 +188,5 @@ public abstract class BaseFList<E> implements FList<E> {
 	public Spliterator<E> spliterator() {
 		return inner.spliterator();
 	}
-		
+	
 }

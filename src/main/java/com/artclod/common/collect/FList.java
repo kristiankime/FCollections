@@ -13,7 +13,9 @@ public interface FList<E> extends List<E> {
 	public <O> FList<O> map(Function<E, O> f);
 	
 	public FList<E> filter(Predicate<? super E> filter);
-	
+
+	public FList<E> filterNot(Predicate<? super E> filter);
+
 	public String mkString(String sep);
 
 	public String mkString(String start, String sep, String end);

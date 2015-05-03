@@ -3,6 +3,7 @@ package com.artclod.common.collect;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Iterator;
+import java.util.function.Predicate;
 
 import com.google.common.base.Function;
 import com.google.common.collect.Lists;
@@ -31,6 +32,16 @@ public class ArrayFList<E> extends BaseFList<E> implements Serializable {
 	}
 
 	// ============ FLIST METHODS =========
+	public FList<E> filter(Predicate<? super E> filter){
+		ArrayList<E> create = Lists.newArrayList();
+		for(int i = 0; i< inner.size(); i++){
+			if(filter.test(inner.get(i))){
+				create.add(inner.get(i));
+			}
+		}
+		return new ArrayFList<E>(create);
+	}
+	
 	@Override
 	public <O> ArrayFList<O> map(Function<E, O> f) {
 		ArrayList<O> create = Lists.newArrayListWithCapacity(inner.size());

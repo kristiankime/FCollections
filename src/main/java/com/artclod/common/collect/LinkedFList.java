@@ -2,6 +2,7 @@ package com.artclod.common.collect;
 
 import java.io.Serializable;
 import java.util.LinkedList;
+import java.util.function.Predicate;
 
 import com.google.common.base.Function;
 import com.google.common.collect.Lists;
@@ -22,6 +23,16 @@ public class LinkedFList<E> extends BaseFList<E> implements Serializable {
 	}
 
 	// ============ FLIST METHODS =========
+	public FList<E> filter(Predicate<? super E> filter){
+		LinkedList<E> create = Lists.newLinkedList();
+		for(E e: this) {
+			if(filter.test(e)){
+				create.add(e);
+			}
+		}
+		return new LinkedFList<E>(create);
+	}
+	
 	@Override
 	public <O> LinkedFList<O> map(Function<E, O> f) {
 		LinkedList<O> create = Lists.newLinkedList();
