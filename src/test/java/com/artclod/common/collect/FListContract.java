@@ -80,4 +80,15 @@ abstract public class FListContract {
 		int actual = fList(1, 2, 3).reduceLeft((a) -> a._1 + a._2);
 		assertEquals(6, actual);
 	}
+	
+	@Test(expected=UnsupportedOperationException.class)
+	public void reduceRight_no_elements_throws() throws Exception {
+		this.<Integer> fList().reduceRight((a) -> a._1 + a._2);
+	}
+	
+	@Test
+	public void reduceRight_works() throws Exception {
+		int actual = fList(1, 2, 3).reduceRight((a) -> a._1 + a._2);
+		assertEquals(6, actual);
+	}
 }

@@ -50,10 +50,22 @@ public abstract class BaseFList<E> implements FList<E> {
 	public E reduceLeft(Function<T2<E, E>, E> f) {
 		if(isEmpty()){
 			throw new UnsupportedOperationException("FList was empty");
-		}
+		}		
+		return reduceInner(f, listIterator());
+	}
+
+	public E reduceRight(Function<T2<E, E>, E> f) {
+		if(isEmpty()){
+			throw new UnsupportedOperationException("FList was empty");
+		}		
+		return reduceInner(f, new ReverseListIterator<E>(this));
+	}
+	
+	private E reduceInner(Function<T2<E, E>, E> f, ListIterator<E> listIterator) {
 		boolean first = true;
 		E ret = null;
-		for(E e: this){
+		while(listIterator.hasNext()){
+			E e = listIterator.next(); 
 			if(first){
 				ret = e;
 				first = false;

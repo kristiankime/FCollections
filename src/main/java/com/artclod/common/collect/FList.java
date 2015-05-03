@@ -21,4 +21,7 @@ public interface FList<E> extends List<E> {
 	public String mkString(String start, String sep, String end);
 	
 	public E reduceLeft(Function<T2<E, E>, E> f);
+
+	public E reduceRight(Function<T2<E, E>, E> f);
+
 }
