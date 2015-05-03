@@ -103,4 +103,41 @@ abstract public class FListContract {
 		int actual = fList(1, 2, 3).reduceRight((a, b) -> a + b);
 		assertEquals(6, actual);
 	}
+	
+	// ---- Fold ----
+	@Test
+	public void fold_works() throws Exception {
+		int actual = fList(1, 2, 3).fold(10, (a, b) -> a + b);
+		assertEquals(16, actual);
+	}
+	
+	@Test
+	public void fold_empty_list_returns_initial() throws Exception {
+		int actual = this.<Integer> fList().fold(10, (a, b) -> a + b);
+		assertEquals(10, actual);
+	}
+	
+	@Test
+	public void foldLeft_works() throws Exception {
+		int actual = fList(1, 2, 3).foldLeft(10, (a, b) -> a + b);
+		assertEquals(16, actual);
+	}
+	
+	@Test
+	public void foldLeft_empty_list_returns_initial() throws Exception {
+		int actual = this.<Integer> fList().foldRight(10, (a, b) -> a + b);
+		assertEquals(10, actual);
+	}
+	
+	@Test
+	public void foldRight_works() throws Exception {
+		int actual = fList(1, 2, 3).foldRight(10, (a, b) -> a + b);
+		assertEquals(16, actual);
+	}
+	
+	@Test
+	public void foldRight_empty_list_returns_initial() throws Exception {
+		int actual = this.<Integer> fList().foldRight(10, (a, b) -> a + b);
+		assertEquals(10, actual);
+	}
 }

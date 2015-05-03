@@ -26,4 +26,9 @@ public interface FList<E> extends List<E> {
 
 	public E reduceRight(Function2<E, E, E> f);
 
+	public <O> O fold(O initial, Function2<O, E, O> f);
+	
+	public <O> O foldLeft(O initial, Function2<O, E, O> f);
+
+	public <O> O foldRight(O initial, Function2<O, E, O> f);
 }

@@ -80,7 +80,26 @@ public abstract class BaseFList<E> implements FList<E> {
 	}
 	
 	// --- Fold ---
-
+	public <O> O fold(O initial, Function2<O, E, O> f){
+		return foldLeft(initial, f);
+	}
+	
+	public <O> O foldLeft(O initial, Function2<O, E, O> f) {
+		return reduceInner(initial, f, listIterator());
+	}
+	
+	public <O> O foldRight(O initial, Function2<O, E, O> f) {
+		return reduceInner(initial, f, new ReverseListIterator<E>(this));
+	}
+	
+	private <O> O reduceInner(O i, Function2<O, E, O> f, ListIterator<E> listIterator) {
+		O ret = i;
+		while(listIterator.hasNext()){
+			E e = listIterator.next(); 
+			ret = f.apply(ret, e);
+		}
+		return ret;
+	}
 	
 	public FList<E> filterNot(Predicate<? super E> filter){
 		return filter(filter.negate());
