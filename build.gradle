@@ -1,40 +1,20 @@
+// http://mike-neck.github.io/blog/2013/06/21/how-to-publish-artifacts-with-gradle-maven-publish-plugin-version-1-dot-6/
+// apply plugin: 'maven-publish' // https://gradle.org/docs/current/userguide/publishing_maven.html
+
+// http://central.sonatype.org/pages/ossrh-guide.html#deployment
+// -> http://central.sonatype.org/pages/gradle.html 
+// -> http://yennicktrevels.com/blog/2013/10/11/automated-gradle-project-deployment-to-sonatype-oss-repository/
+// -> http://central.sonatype.org/pages/ossrh-guide.html#create-a-ticket-with-sonatype
 
 apply plugin: 'java' // http://gradle.org/docs/current/userguide/tutorial_java_projects.html
 apply plugin: 'eclipse'
-apply plugin: 'maven-publish' // https://gradle.org/docs/current/userguide/publishing_maven.html
 apply plugin: 'signing' // http://gradle.org/docs/current/userguide/signing_plugin.html
+apply plugin: 'maven' // https://gradle.org/docs/current/userguide/artifact_management.html
+
 // http://gradle.org/docs/current/userguide/tutorial_this_and_that.html#sec:gradle_properties_and_system_properties
 // http://central.sonatype.org/pages/working-with-pgp-signatures.html
 
-// http://mike-neck.github.io/blog/2013/06/21/how-to-publish-artifacts-with-gradle-maven-publish-plugin-version-1-dot-6/
-
 sourceCompatibility = 1.8
-version = '0.0.0'
-group = 'com.artclod'
-def artifactName = 'functional-collections'
-
-jar {
-    manifest {
-        attributes 'Implementation-Title': artifactName,
-                   'Implementation-Version': version
-    }
-}
-
-task myJar(type: Jar)
-
-// http://gradle.org/docs/current/javadoc/org/gradle/api/publish/maven/MavenPublication.html
-task sourceJar(type: Jar) {
-    from sourceSets.main.allJava
-}
-
-artifacts {
-    archives myJar
-}
-
-signing {
-	sign configurations.archives
-}
-
 // http://gradle.org/docs/current/dsl/org.gradle.plugins.ide.eclipse.model.EclipseClasspath.html
 eclipse {
 	classpath {
@@ -42,56 +22,80 @@ eclipse {
 		containers.clear()
 		containers 'org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-1.8'
 	}
-
-//	project {
-//		natures 'org.springsource.ide.eclipse.gradle.core.nature'
-//	}
-	
 }
 
+group = 'com.artclod'
+version = '0.0.0'
+archivesBaseName = "functional=collections"
+
 repositories {
-    mavenCentral()
+	mavenCentral()
 }
 
 dependencies {
-    compile group: 'com.google.guava', name: 'guava', version: '18.0'
-    testCompile group: 'junit', name: 'junit', version: '4.+'
+	compile group: 'com.google.guava', name: 'guava', version: '18.0'
+	testCompile group: 'junit', name: 'junit', version: '4.+'
 }
 
+task javadocJar(type: Jar, dependsOn: javadoc) {
+	classifier = 'javadoc'
+	from tasks.javadoc.destinationDir
+}
 
-// https://gradle.org/docs/current/userguide/publishing_maven.html
-// https://gradle.org/docs/current/userguide/publishing_maven.html
-// http://mike-neck.github.io/blog/2013/06/21/how-to-publish-artifacts-with-gradle-maven-publish-plugin-version-1-dot-6/
-publishing {
-    publications {
-        mavenJava(MavenPublication) {
-            groupId group
-            artifactId artifactName
-            version version
-            
+task sourcesJar(type: Jar) {
+	from sourceSets.main.allSource
+	classifier = 'sources'
+}
+
+artifacts {
+	archives jar
+
+	archives javadocJar
+	archives sourcesJar
+}
+
+signing {
+	sign configurations.archives
+}
+
+uploadArchives {
+	repositories {
+		mavenDeployer {
 			beforeDeployment { MavenDeployment deployment -> signing.signPom(deployment) }
 
-			from components.java
-            
-            artifact sourceJar {
-                classifier "sources"
-            }
-        }
-    }
+			repository(url: "https://oss.sonatype.org/service/local/staging/deploy/maven2/") {
+			  authentication(userName: sonatypeUsername, password: sonatypePassword)
+			}
+
+			pom.project {
+			   name 'FCollections'
+			   packaging 'jar'
+			   description 'FCollections is a series of function style Java Collections'
+			   url 'https://github.com/kristiankime/FCollections/'
+
+			   scm {
+				   url 'scm:git@github.com:kristiankime/FCollections.git'
+				   connection 'scm:git@github.com:kristiankime/FCollections.git'
+				   developerConnection 'scm:git@github.com:kristiankime/FCollections.git'
+			   }
+
+			   licenses {
+				   license {
+					   name 'The MIT License (MIT)'
+					   url 'http://opensource.org/licenses/MIT'
+					   distribution 'repo'
+				   }
+			   }
+
+			   developers {
+				   developer {
+					   id 'Kris'
+					   name 'Kristian Kime'
+				   }
+			   }
+		   }
+		}
+	}
 }
 
-publishing {
-    repositories {
-        maven {
-            // change to point to your repo, e.g. http://my.org/repo
-            url "$buildDir/repo"
-        }
-    }
-}
-
-task printProps << {
-	println signing.keyId
-	println signing.password
-	println signing.secretKeyRingFile
-}
 
