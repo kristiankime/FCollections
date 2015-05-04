@@ -8,10 +8,12 @@ import com.google.common.base.Function;
 
 public interface FList<E> extends List<E> {
 
+	public ImFList<E> toIm();
+	
 	public boolean nonEmpty();
-	
+
 	public <O> FList<O> map(Function<E, O> f);
-	
+
 	public FList<E> filter(Predicate<? super E> filter);
 
 	public FList<E> filterNot(Predicate<? super E> filter);
@@ -21,14 +23,15 @@ public interface FList<E> extends List<E> {
 	public String mkString(String start, String sep, String end);
 
 	public E reduce(Function2<E, E, E> f);
-	
+
 	public E reduceLeft(Function2<E, E, E> f);
 
 	public E reduceRight(Function2<E, E, E> f);
 
 	public <O> O fold(O initial, Function2<O, E, O> f);
-	
+
 	public <O> O foldLeft(O initial, Function2<O, E, O> f);
 
 	public <O> O foldRight(O initial, Function2<O, E, O> f);
+	
 }

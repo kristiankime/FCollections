@@ -14,10 +14,11 @@ import java.util.function.UnaryOperator;
 import java.util.stream.Stream;
 
 import com.artclod.common.base.Function2;
+import com.google.common.collect.ImmutableList;
 
 public abstract class BaseFList<E> implements FList<E> {
 	final List<E> inner;
-	
+
 	public BaseFList(List<E> inner) {
 		this.inner = checkNotNull(inner);
 	}
@@ -35,41 +36,61 @@ public abstract class BaseFList<E> implements FList<E> {
 	public String toString() {
 		return inner.toString();
 	}
-	
+
 	// ============ FLIST METHODS (or support) =========
+	public GuavaImFList<E> toIm(){
+		return new GuavaImFList<E>(ImmutableList.copyOf(this));
+	}
+	
 	public boolean nonEmpty() {
 		return !isEmpty();
 	}
 
-	public String mkString(String sep){
+	public String mkString(String sep) {
 		return mkString("", sep, "");
 	}
-	
+
+	public String mkString(String start, String sep, String end) {
+		StringBuilder ret = new StringBuilder(start);
+		ListIterator<E> listIterator = listIterator();
+		boolean first = true;
+		while (listIterator.hasNext()) {
+			E e = listIterator.next();
+			if (first) {
+				ret.append(e);
+				first = false;
+			} else {
+				ret.append(sep).append(e);
+			}
+		}
+		return ret.append(end).toString();
+	}
+
 	// --- Reduce ---
 	public E reduce(Function2<E, E, E> f) {
 		return reduceLeft(f);
 	}
-	
+
 	public E reduceLeft(Function2<E, E, E> f) {
-		if(isEmpty()){
+		if (isEmpty()) {
 			throw new UnsupportedOperationException("FList was empty");
-		}		
+		}
 		return reduceInner(f, listIterator());
 	}
 
 	public E reduceRight(Function2<E, E, E> f) {
-		if(isEmpty()){
+		if (isEmpty()) {
 			throw new UnsupportedOperationException("FList was empty");
-		}		
+		}
 		return reduceInner(f, new ReverseListIterator<E>(this));
 	}
-	
+
 	private E reduceInner(Function2<E, E, E> f, ListIterator<E> listIterator) {
 		boolean first = true;
 		E ret = null;
-		while(listIterator.hasNext()){
-			E e = listIterator.next(); 
-			if(first){
+		while (listIterator.hasNext()) {
+			E e = listIterator.next();
+			if (first) {
 				ret = e;
 				first = false;
 			} else {
@@ -78,33 +99,33 @@ public abstract class BaseFList<E> implements FList<E> {
 		}
 		return ret;
 	}
-	
+
 	// --- Fold ---
-	public <O> O fold(O initial, Function2<O, E, O> f){
+	public <O> O fold(O initial, Function2<O, E, O> f) {
 		return foldLeft(initial, f);
 	}
-	
+
 	public <O> O foldLeft(O initial, Function2<O, E, O> f) {
 		return reduceInner(initial, f, listIterator());
 	}
-	
+
 	public <O> O foldRight(O initial, Function2<O, E, O> f) {
 		return reduceInner(initial, f, new ReverseListIterator<E>(this));
 	}
-	
+
 	private <O> O reduceInner(O i, Function2<O, E, O> f, ListIterator<E> listIterator) {
 		O ret = i;
-		while(listIterator.hasNext()){
-			E e = listIterator.next(); 
+		while (listIterator.hasNext()) {
+			E e = listIterator.next();
 			ret = f.apply(ret, e);
 		}
 		return ret;
 	}
-	
-	public FList<E> filterNot(Predicate<? super E> filter){
+
+	public FList<E> filterNot(Predicate<? super E> filter) {
 		return filter(filter.negate());
 	}
-	
+
 	// ============ DELEGATE METHODS =========
 	public void forEach(Consumer<? super E> action) {
 		inner.forEach(action);
@@ -225,5 +246,5 @@ public abstract class BaseFList<E> implements FList<E> {
 	public Spliterator<E> spliterator() {
 		return inner.spliterator();
 	}
-	
+
 }

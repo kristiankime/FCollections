@@ -13,42 +13,33 @@ public class LinkedFList<E> extends BaseFList<E> implements Serializable {
 	public LinkedFList(LinkedList<E> inner) {
 		super(inner);
 	}
-	
+
 	public LinkedFList() {
 		super(Lists.newLinkedList());
 	}
-	
+
 	public LinkedFList(Iterable<? extends E> elements) {
 		super(Lists.newLinkedList(elements));
 	}
 
 	// ============ FLIST METHODS =========
-	public FList<E> filter(Predicate<? super E> filter){
+	public LinkedFList<E> filter(Predicate<? super E> filter) {
 		LinkedList<E> create = Lists.newLinkedList();
-		for(E e: this) {
-			if(filter.test(e)){
+		for (E e : this) {
+			if (filter.test(e)) {
 				create.add(e);
 			}
 		}
 		return new LinkedFList<E>(create);
 	}
-	
+
 	@Override
 	public <O> LinkedFList<O> map(Function<E, O> f) {
 		LinkedList<O> create = Lists.newLinkedList();
-		for(E e: this){
+		for (E e : this) {
 			create.add(f.apply(e));
 		}
 		return new LinkedFList<O>(create);
 	}
-	
-	public String mkString(String start, String sep, String end){
-		StringBuilder ret = new StringBuilder(start);
-		String s = "";
-		for(E e: this){
-			ret.append(s).append(e);
-			s = sep;
-		}
-		return ret.append(end).toString();
-	}
+
 }
