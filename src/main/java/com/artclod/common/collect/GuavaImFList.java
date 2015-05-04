@@ -1,8 +1,10 @@
 package com.artclod.common.collect;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Comparator;
+import java.util.Iterator;
 import java.util.function.Predicate;
 import java.util.function.UnaryOperator;
 
@@ -13,8 +15,38 @@ import com.google.common.collect.Lists;
 import com.google.common.collect.UnmodifiableIterator;
 import com.google.common.collect.UnmodifiableListIterator;
 
-public class GuavaImFList<E> extends BaseFList<E> implements ImFList<E> {
+public class GuavaImFList<E> extends BaseFList<E> implements ImFList<E>, Serializable {
+	private static final long serialVersionUID = 0L;
+
 	final ImmutableList<E> inner;
+
+	public static <E> GuavaImFList<E> of(){
+		return new GuavaImFList<E>();
+	}
+	
+	public static <E> GuavaImFList<E> of(ImmutableList<E> inner){
+		return new GuavaImFList<E>(inner);
+	}
+	
+	public static <E> GuavaImFList<E> copyOf(Iterable<? extends E> elements){
+		return new GuavaImFList<E>(ImmutableList.copyOf(elements));
+	}
+	
+	public static <E> GuavaImFList<E> copyOf(Collection<? extends E> elements){
+		return new GuavaImFList<E>(ImmutableList.copyOf(elements));
+	}
+	
+	public static <E> GuavaImFList<E> copyOf(Iterator<? extends E> elements){
+		return new GuavaImFList<E>(ImmutableList.copyOf(elements));
+	}
+	
+	public static <E> GuavaImFList<E> copyOf(E[] elements){
+		return new GuavaImFList<E>(ImmutableList.copyOf(elements));
+	}
+	
+	public GuavaImFList() {
+		this(ImmutableList.<E> of());
+	}
 
 	public GuavaImFList(ImmutableList<E> inner) {
 		super(inner);
@@ -24,20 +56,20 @@ public class GuavaImFList<E> extends BaseFList<E> implements ImFList<E> {
 	public ImmutableList<E> toGuava() {
 		return inner;
 	}
-	
+
 	public Builder<E> toBuilder() {
 		return ImmutableList.<E> builder().addAll(inner);
 	}
-	
+
 	public ArrayList<E> toArrayList() {
 		return Lists.newArrayList(this);
 	}
 
 	// ==== ImFList methods ====
-	public GuavaImFList<E> toIm(){
+	public GuavaImFList<E> toIm() {
 		return this;
 	}
-	
+
 	@Override
 	public <O> GuavaImFList<O> map(Function<E, O> f) {
 		Builder<O> builder = ImmutableList.<O> builder();
@@ -59,7 +91,7 @@ public class GuavaImFList<E> extends BaseFList<E> implements ImFList<E> {
 	}
 
 	// ==== Copy modifiers ====
-	
+
 	@Override
 	public GuavaImFList<E> addCp(E e) {
 		ArrayList<E> list = toArrayList();

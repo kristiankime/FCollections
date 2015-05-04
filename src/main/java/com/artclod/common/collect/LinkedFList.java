@@ -8,7 +8,19 @@ import com.google.common.base.Function;
 import com.google.common.collect.Lists;
 
 public class LinkedFList<E> extends BaseFList<E> implements Serializable {
-	private static final long serialVersionUID = 2789999731173364042L;
+	private static final long serialVersionUID = 0L;
+
+	public static <E> LinkedFList<E> create(LinkedList<E> inner) {
+		return new LinkedFList<E>(inner);
+	}
+
+	public static <E> LinkedFList<E> create() {
+		return new LinkedFList<E>();
+	}
+
+	public static <E> LinkedFList<E> create(Iterable<? extends E> elements) {
+		return new LinkedFList<E>(elements);
+	}
 
 	public LinkedFList(LinkedList<E> inner) {
 		super(inner);
