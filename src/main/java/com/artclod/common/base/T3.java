@@ -1,20 +1,20 @@
 package com.artclod.common.base;
 
-public class T2<E1, E2> {
-	public final E1 _1;
-	public final E2 _2;
-	
-	public T2(E1 _1, E2 _2) {
-		this._1 = _1;
-		this._2 = _2;
+public class T3<E1, E2, E3> extends T2<E1, E2> {
+	public final E3 _3;
+
+	public T3(E1 _1, E2 _2, E3 _3) {
+		super(_1, _2);
+		this._3 = _3;
 	}
 
 	@Override
 	public int hashCode() {
 		final int prime = 31;
-		int result = 1;
+		int result = super.hashCode();
 		result = prime * result + ((_1 == null) ? 0 : _1.hashCode());
 		result = prime * result + ((_2 == null) ? 0 : _2.hashCode());
+		result = prime * result + ((_3 == null) ? 0 : _3.hashCode());
 		return result;
 	}
 
@@ -23,11 +23,11 @@ public class T2<E1, E2> {
 	public boolean equals(Object obj) {
 		if (this == obj)
 			return true;
-		if (obj == null)
+		if (!super.equals(obj))
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		T2 other = (T2) obj;
+		T3 other = (T3) obj;
 		if (_1 == null) {
 			if (other._1 != null)
 				return false;
@@ -38,11 +38,16 @@ public class T2<E1, E2> {
 				return false;
 		} else if (!_2.equals(other._2))
 			return false;
+		if (_3 == null) {
+			if (other._3 != null)
+				return false;
+		} else if (!_3.equals(other._3))
+			return false;
 		return true;
 	}
 
 	@Override
 	public String toString() {
-		return "(" + _1 + ", " + _2 + ")";
+		return "(" + _1 + ", " + _2 + "," + _3 + ")";
 	}
 }
