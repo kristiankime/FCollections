@@ -7,6 +7,8 @@ import java.util.function.UnaryOperator;
 
 public interface ImFList<E> extends FList<E> {
 
+	public FList<E> toMu();
+	
 	// ==== Copy modifiers ====
 
 	ImFList<E> addCp(E e);

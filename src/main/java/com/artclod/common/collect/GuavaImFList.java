@@ -66,6 +66,10 @@ public class GuavaImFList<E> extends BaseFList<E> implements ImFList<E>, Seriali
 	}
 
 	// ==== ImFList methods ====
+	public ArrayFList<E> toMu() {
+		return new ArrayFList<E>(this);
+	}
+	
 	public GuavaImFList<E> toIm() {
 		return this;
 	}
