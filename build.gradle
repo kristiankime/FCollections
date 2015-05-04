@@ -24,9 +24,9 @@ eclipse {
 	}
 }
 
-group = 'com.artclod'
-version = '0.0.0'
-archivesBaseName = "functional=collections"
+group = 'com.github.kristiankime'
+version = '0.0.0-SNAPSHOT'
+archivesBaseName = "functional-collections"
 
 repositories {
 	mavenCentral()
@@ -64,9 +64,13 @@ uploadArchives {
 			beforeDeployment { MavenDeployment deployment -> signing.signPom(deployment) }
 
 			repository(url: "https://oss.sonatype.org/service/local/staging/deploy/maven2/") {
-			  authentication(userName: sonatypeUsername, password: sonatypePassword)
+			  authentication(userName: ossrhUsername, password: ossrhPassword)
 			}
-
+		
+			snapshotRepository(url: "https://oss.sonatype.org/content/repositories/snapshots/") {
+			  authentication(userName: ossrhUsername, password: ossrhPassword)
+			}
+			
 			pom.project {
 			   name 'FCollections'
 			   packaging 'jar'
@@ -91,6 +95,7 @@ uploadArchives {
 				   developer {
 					   id 'Kris'
 					   name 'Kristian Kime'
+					   email 'kristian.kime@gmail.com'
 				   }
 			   }
 		   }
