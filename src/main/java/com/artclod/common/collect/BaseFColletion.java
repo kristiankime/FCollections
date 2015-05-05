@@ -10,6 +10,7 @@ import java.util.function.Predicate;
 import java.util.stream.Stream;
 
 import com.artclod.common.base.Function2;
+import com.artclod.common.collect.builder.CollectionBuilder;
 
 public abstract class BaseFColletion<E, C extends FCollection<E>> implements FCollection<E> {
 	final Collection<E> inner;
@@ -18,7 +19,7 @@ public abstract class BaseFColletion<E, C extends FCollection<E>> implements FCo
 		this.inner = checkNotNull(inner);
 	}
 
-	abstract C empty();
+	abstract CollectionBuilder<E, C> empty();
 	
 	/**
 	 * Best effort to be able to iterator through this collection in reverse.
@@ -125,13 +126,13 @@ public abstract class BaseFColletion<E, C extends FCollection<E>> implements FCo
 	}
 
 	public C filter(Predicate<? super E> filter) {
-		C ret = empty();
+		CollectionBuilder<E, C> ret = empty();
 		for(E e: this){
 			if(filter.test(e)){
 				ret.add(e);
 			}
 		}
-		return ret;
+		return ret.build();
 	}
 	
 	// ============ DELEGATE METHODS =========

@@ -3,6 +3,7 @@ package com.artclod.common.collect;
 import java.util.Iterator;
 import java.util.LinkedHashSet;
 
+import com.artclod.common.collect.builder.CollectionBuilder;
 import com.google.common.base.Function;
 
 public class LinkedHashFSet<E> extends BaseFSet<E, LinkedHashFSet<E>> {
@@ -11,9 +12,21 @@ public class LinkedHashFSet<E> extends BaseFSet<E, LinkedHashFSet<E>> {
 		super(inner);
 	}
 
+	// This exist so we can create a CollectionBuilder of the right type 
+	static class LinkedHashFSetBuilder<E> extends LinkedHashFSet<E> implements CollectionBuilder<E, LinkedHashFSet<E>> {
+		public LinkedHashFSetBuilder(LinkedHashSet<E> inner) {
+			super(inner);
+		}
+		
+		@Override
+		public LinkedHashFSet<E> build() {
+			return this;
+		}
+	}
+	
 	@Override
-	LinkedHashFSet<E> empty() {
-		return new LinkedHashFSet<E>(new LinkedHashSet<E>());
+	CollectionBuilder<E, LinkedHashFSet<E>> empty() {
+		return new LinkedHashFSetBuilder<E>(new LinkedHashSet<E>());
 	}
 	
 	@Override
@@ -24,6 +37,7 @@ public class LinkedHashFSet<E> extends BaseFSet<E, LinkedHashFSet<E>> {
 		}
 		return ret;
 	}
+
 
 	@Override
 	Iterator<E> reverseIterator() {
