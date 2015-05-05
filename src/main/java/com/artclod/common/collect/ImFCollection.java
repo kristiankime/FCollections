@@ -5,15 +5,15 @@ import java.util.function.Predicate;
 
 public interface ImFCollection<E> extends FCollection<E> {
 
-	public boolean addCp(E e);
+	public ImFCollection<E> addCp(E e);
 	
-	public boolean addAllCp(Collection<? extends E> c);
+	public ImFCollection<E> addAllCp(Collection<? extends E> c);
 	
-	public boolean removeCp(Object o);
+	public ImFCollection<E> removeCp(Object o);
 	
-	public boolean removeAllCp(Collection<?> c);
+	public ImFCollection<E> removeAllCp(Collection<?> c);
 	
-	public boolean retainAllCp(Collection<?> c);
+	public ImFCollection<E> retainAllCp(Collection<?> c);
 		
 	// ==== Unsupported modifiers ====
 	

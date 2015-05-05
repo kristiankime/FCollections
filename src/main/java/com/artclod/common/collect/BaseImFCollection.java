@@ -3,7 +3,7 @@ package com.artclod.common.collect;
 import java.util.Collection;
 import java.util.function.Predicate;
 
-public interface BaseImFCollection<E, C extends FCollection<E>> extends ImFCollection<E>{
+public interface BaseImFCollection<E, C extends ImFCollection<E>> extends ImFCollection<E>{
 
 	@Deprecated
 	@Override
