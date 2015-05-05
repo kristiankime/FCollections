@@ -1,5 +1,6 @@
 package com.artclod.common.collect.contract;
 
+import static java.util.Arrays.asList;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
@@ -12,6 +13,41 @@ abstract public class FCollectionContract {
 
 	public abstract <T> FCollection<T> fCollection(@SuppressWarnings("unchecked") T... elements);
 
+	@Test
+	public void size() throws Exception {
+		assertEquals(2, fCollection(1, 2).size());
+	}
+	
+	@Test
+	public void contains_true() throws Exception {
+		assertTrue(fCollection(1, 2).contains(2));
+	}
+	
+	@Test
+	public void contains_false() throws Exception {
+		assertFalse(fCollection(1, 2).contains(3));
+	}
+	
+	@Test
+	public void containsAll_true() throws Exception {
+		assertTrue(fCollection(1, 2, 3).containsAll(asList(2, 3)));
+	}
+	
+	@Test
+	public void containsAll_false() throws Exception {
+		assertTrue(fCollection(1, 2, 3).containsAll(asList(2, 3)));
+	}
+	
+	@Test
+	public void isEmpty_for_empty() throws Exception {
+		assertTrue(this.<Integer> fCollection().isEmpty());
+	}
+	
+	@Test
+	public void isEmpty_with_values() throws Exception {
+		assertFalse(fCollection(5, 6).isEmpty());
+	}
+	
 	@Test
 	public void nonEmpty_true_with_elements() throws Exception {
 		assertTrue(fCollection(1).nonEmpty());

@@ -11,7 +11,7 @@ import com.google.common.collect.ImmutableSet;
 import com.google.common.collect.ImmutableSet.Builder;
 import com.google.common.collect.Sets;
 
-public class GauvaImFSet<E> extends BaseFSet<E, GauvaImFSet<E>> implements BaseImFCollection<E, GauvaImFSet<E>>{
+public class GauvaImFSet<E> extends BaseFSet<E, GauvaImFSet<E>> implements BaseImFCollection<E, GauvaImFSet<E>>, ImFSet<E>{
 
 	public GauvaImFSet(ImmutableSet<E> inner) {
 		super(inner);
@@ -23,42 +23,42 @@ public class GauvaImFSet<E> extends BaseFSet<E, GauvaImFSet<E>> implements BaseI
 	}
 
 	@Override
-	public ImFCollection<E> addCp(E e) {
+	public GauvaImFSet<E> addCp(E e) {
 		LinkedHashSet<E> set = Sets.newLinkedHashSet(this);
 		set.add(e);
 		return new GauvaImFSet<E>(ImmutableSet.copyOf(set));
 	}
 
 	@Override
-	public ImFCollection<E> addAllCp(Collection<? extends E> c) {
+	public GauvaImFSet<E> addAllCp(Collection<? extends E> c) {
 		LinkedHashSet<E> set = Sets.newLinkedHashSet(this);
 		set.addAll(c);
 		return new GauvaImFSet<E>(ImmutableSet.copyOf(set));
 	}
 
 	@Override
-	public ImFCollection<E> removeCp(Object o) {
+	public GauvaImFSet<E> removeCp(Object o) {
 		LinkedHashSet<E> set = Sets.newLinkedHashSet(this);
 		set.remove(o);
 		return new GauvaImFSet<E>(ImmutableSet.copyOf(set));
 	}
 
 	@Override
-	public ImFCollection<E> removeAllCp(Collection<?> c) {
+	public GauvaImFSet<E> removeAllCp(Collection<?> c) {
 		LinkedHashSet<E> set = Sets.newLinkedHashSet(this);
 		set.removeAll(c);
 		return new GauvaImFSet<E>(ImmutableSet.copyOf(set));
 	}
 
 	@Override
-	public ImFCollection<E> retainAllCp(Collection<?> c) {
+	public GauvaImFSet<E> retainAllCp(Collection<?> c) {
 		LinkedHashSet<E> set = Sets.newLinkedHashSet(this);
 		set.retainAll(c);
 		return new GauvaImFSet<E>(ImmutableSet.copyOf(set));
 	}
 
 	@Override
-	public <O> FSet<O> map(Function<E, O> f) {
+	public <O> GauvaImFSet<O> map(Function<E, O> f) {
 		Builder<O> builder = ImmutableSet.<O> builder();
 		for(E e: this){
 			builder.add(f.apply(e));
