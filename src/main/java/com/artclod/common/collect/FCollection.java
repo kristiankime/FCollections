@@ -1,22 +1,20 @@
 package com.artclod.common.collect;
 
-import java.util.List;
+import java.util.Collection;
 import java.util.function.Predicate;
 
 import com.artclod.common.base.Function2;
 import com.google.common.base.Function;
 
-public interface FList<E> extends List<E>, FCollection<E> {
+public interface FCollection<E> extends Collection<E> {
 
-	public ImFList<E> toIm();
-	
 	public boolean nonEmpty();
 
-	public <O> FList<O> map(Function<E, O> f);
+	public <O> FCollection<O> map(Function<E, O> f);
 
-	public FList<E> filter(Predicate<? super E> filter);
+	public FCollection<E> filter(Predicate<? super E> filter);
 
-	public FList<E> filterNot(Predicate<? super E> filter);
+	public FCollection<E> filterNot(Predicate<? super E> filter);
 
 	public String mkString(String sep);
 
@@ -33,5 +31,5 @@ public interface FList<E> extends List<E>, FCollection<E> {
 	public <O> O foldLeft(O initial, Function2<O, E, O> f);
 
 	public <O> O foldRight(O initial, Function2<O, E, O> f);
-	
+
 }
