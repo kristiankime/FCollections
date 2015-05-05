@@ -5,7 +5,7 @@ import java.util.Comparator;
 import java.util.function.Predicate;
 import java.util.function.UnaryOperator;
 
-public interface ImFList<E> extends FList<E> {
+public interface ImFList<E> extends ImFCollection<E>, FList<E> {
 
 	public FList<E> toMu();
 	

@@ -124,6 +124,7 @@ public abstract class BaseFColletion<E, C extends FCollection<E>> implements FCo
 		return ret;
 	}
 
+	// --- Filter ---
 	public C filterNot(Predicate<? super E> filter) {
 		return filter(filter.negate());
 	}
