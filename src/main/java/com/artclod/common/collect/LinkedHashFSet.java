@@ -13,7 +13,7 @@ public class LinkedHashFSet<E> extends BaseFSet<E, LinkedHashFSet<E>> {
 	}
 
 	// This exist so we can create a CollectionBuilder of the right type 
-	static class LinkedHashFSetBuilder<E> extends LinkedHashFSet<E> implements CollectionBuilder<E, LinkedHashFSet<E>> {
+	private static class LinkedHashFSetBuilder<E> extends LinkedHashFSet<E> implements CollectionBuilder<E, LinkedHashFSet<E>> {
 		public LinkedHashFSetBuilder(LinkedHashSet<E> inner) {
 			super(inner);
 		}
@@ -25,8 +25,13 @@ public class LinkedHashFSet<E> extends BaseFSet<E, LinkedHashFSet<E>> {
 	}
 	
 	@Override
-	CollectionBuilder<E, LinkedHashFSet<E>> empty() {
+	CollectionBuilder<E, LinkedHashFSet<E>> builder() {
 		return new LinkedHashFSetBuilder<E>(new LinkedHashSet<E>());
+	}
+	
+	@Override
+	Iterator<E> reverseIterator() {
+		return iterator(); // There is no sensible reverse of a HashSet
 	}
 	
 	@Override
@@ -36,12 +41,6 @@ public class LinkedHashFSet<E> extends BaseFSet<E, LinkedHashFSet<E>> {
 			ret.add(f.apply(e));
 		}
 		return ret;
-	}
-
-
-	@Override
-	Iterator<E> reverseIterator() {
-		return iterator(); // There is no sensible reverse of a HashSet
 	}
 
 }

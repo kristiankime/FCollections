@@ -18,10 +18,15 @@ public class GauvaImFSet<E> extends BaseFSet<E, GauvaImFSet<E>> implements BaseI
 	}
 	
 	@Override
-	CollectionBuilder<E, GauvaImFSet<E>> empty() {
+	CollectionBuilder<E, GauvaImFSet<E>> builder() {
 		return new GauvaImFSetBuilder<E>(ImmutableSet.<E> builder());
 	}
 
+	@Override
+	Iterator<E> reverseIterator() {
+		return iterator(); // No sensible reverse
+	}
+	
 	@Override
 	public GauvaImFSet<E> addCp(E e) {
 		LinkedHashSet<E> set = Sets.newLinkedHashSet(this);
@@ -64,11 +69,6 @@ public class GauvaImFSet<E> extends BaseFSet<E, GauvaImFSet<E>> implements BaseI
 			builder.add(f.apply(e));
 		}
 		return new GauvaImFSet<O>(builder.build());
-	}
-
-	@Override
-	Iterator<E> reverseIterator() {
-		return iterator(); // No sensible reverse
 	}
 
 }

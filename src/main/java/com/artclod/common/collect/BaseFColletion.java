@@ -19,14 +19,17 @@ public abstract class BaseFColletion<E, C extends FCollection<E>> implements FCo
 		this.inner = checkNotNull(inner);
 	}
 
-	abstract CollectionBuilder<E, C> empty();
+	/**
+	 * Intended for internal use. 
+	 * Creates an empty builder that can be used to create a collection of correct type.
+	 */
+	abstract CollectionBuilder<E, C> builder();
 	
 	/**
 	 * Best effort to be able to iterator through this collection in reverse.
 	 * Not that for collections that do not have a real reverse nothing is guaranteed (i.e. reverse and forward may even be the same).
 	 */
 	abstract Iterator<E> reverseIterator();
-
 	
 	// =========== Identity as inner ===========
 	public boolean equals(Object o) {
@@ -126,7 +129,7 @@ public abstract class BaseFColletion<E, C extends FCollection<E>> implements FCo
 	}
 
 	public C filter(Predicate<? super E> filter) {
-		CollectionBuilder<E, C> ret = empty();
+		CollectionBuilder<E, C> ret = builder();
 		for(E e: this){
 			if(filter.test(e)){
 				ret.add(e);

@@ -2,12 +2,12 @@ package com.artclod.common.collect;
 
 import java.io.Serializable;
 import java.util.LinkedList;
-import java.util.function.Predicate;
 
+import com.artclod.common.collect.builder.CollectionBuilder;
 import com.google.common.base.Function;
 import com.google.common.collect.Lists;
 
-public class LinkedFList<E> extends BaseFList<E> implements Serializable {
+public class LinkedFList<E> extends BaseFList<E, LinkedFList<E>> implements Serializable {
 	private static final long serialVersionUID = 0L;
 
 	public static <E> LinkedFList<E> create(LinkedList<E> inner) {
@@ -34,15 +34,23 @@ public class LinkedFList<E> extends BaseFList<E> implements Serializable {
 		super(Lists.newLinkedList(elements));
 	}
 
-	// ============ FLIST METHODS =========
-	public LinkedFList<E> filter(Predicate<? super E> filter) {
-		LinkedList<E> create = Lists.newLinkedList();
-		for (E e : this) {
-			if (filter.test(e)) {
-				create.add(e);
-			}
+	// This exist so we can create a CollectionBuilder of the right type 
+	static class LinkedFListBuilder<E> extends LinkedFList<E> implements CollectionBuilder<E, LinkedFList<E>> {
+		private static final long serialVersionUID = 1L;
+
+		public LinkedFListBuilder(LinkedList<E> inner) {
+			super(inner);
 		}
-		return new LinkedFList<E>(create);
+		
+		@Override
+		public LinkedFList<E> build() {
+			return this;
+		}
+	}
+	
+	@Override
+	CollectionBuilder<E, LinkedFList<E>> builder() {
+		return new LinkedFListBuilder<E>(new LinkedList<E>());
 	}
 
 	@Override

@@ -13,7 +13,7 @@ public class HashFSet<E> extends BaseFSet<E, HashFSet<E>> {
 	}
 
 	// This exist so we can create a CollectionBuilder of the right type 
-	static class HashFSetBuilder<E> extends HashFSet<E> implements CollectionBuilder<E, HashFSet<E>> {
+	private static class HashFSetBuilder<E> extends HashFSet<E> implements CollectionBuilder<E, HashFSet<E>> {
 		public HashFSetBuilder(HashSet<E> inner) {
 			super(inner);
 		}
@@ -25,8 +25,13 @@ public class HashFSet<E> extends BaseFSet<E, HashFSet<E>> {
 	}
 	
 	@Override
-	CollectionBuilder<E, HashFSet<E>> empty() {
+	CollectionBuilder<E, HashFSet<E>> builder() {
 		return new HashFSetBuilder<E>(new HashSet<E>());
+	}
+	
+	@Override
+	Iterator<E> reverseIterator() {
+		return iterator(); // There is no sensible reverse of a HashSet
 	}
 	
 	@Override
@@ -36,12 +41,6 @@ public class HashFSet<E> extends BaseFSet<E, HashFSet<E>> {
 			ret.add(f.apply(e));
 		}
 		return ret;
-	}
-
-
-	@Override
-	Iterator<E> reverseIterator() {
-		return iterator(); // There is no sensible reverse of a HashSet
 	}
 
 }

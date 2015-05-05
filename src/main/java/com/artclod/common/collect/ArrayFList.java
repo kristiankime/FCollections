@@ -3,12 +3,12 @@ package com.artclod.common.collect;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Iterator;
-import java.util.function.Predicate;
 
+import com.artclod.common.collect.builder.CollectionBuilder;
 import com.google.common.base.Function;
 import com.google.common.collect.Lists;
 
-public class ArrayFList<E> extends BaseFList<E> implements Serializable {
+public class ArrayFList<E> extends BaseFList<E, ArrayFList<E>> implements Serializable {
 	private static final long serialVersionUID = 0L;
 
 	public static <E> ArrayFList<E> create(ArrayList<E> inner) {
@@ -51,15 +51,23 @@ public class ArrayFList<E> extends BaseFList<E> implements Serializable {
 		super(Lists.newArrayList(elements));
 	}
 
-	// ============ FLIST METHODS =========
-	public FList<E> filter(Predicate<? super E> filter) {
-		ArrayList<E> create = Lists.newArrayList();
-		for (int i = 0; i < inner.size(); i++) {
-			if (filter.test(inner.get(i))) {
-				create.add(inner.get(i));
-			}
+	// This exist so we can create a CollectionBuilder of the right type 
+	static class ArrayFListBuilder<E> extends ArrayFList<E> implements CollectionBuilder<E, ArrayFList<E>> {
+		private static final long serialVersionUID = 1L;
+
+		public ArrayFListBuilder(ArrayList<E> inner) {
+			super(inner);
 		}
-		return new ArrayFList<E>(create);
+		
+		@Override
+		public ArrayFList<E> build() {
+			return this;
+		}
+	}
+	
+	@Override
+	CollectionBuilder<E, ArrayFList<E>> builder() {
+		return new ArrayFListBuilder<E>(new ArrayList<E>());
 	}
 
 	@Override
@@ -71,6 +79,8 @@ public class ArrayFList<E> extends BaseFList<E> implements Serializable {
 		return new ArrayFList<O>(create);
 	}
 
+	// === Looping Methods
+	// Looping without creating in iterator is faster so we reimplement some methods for speed
 	public String mkString(String start, String sep, String end) {
 		StringBuilder ret = new StringBuilder(start);
 		for (int i = 0; i < inner.size(); i++) {
@@ -81,4 +91,5 @@ public class ArrayFList<E> extends BaseFList<E> implements Serializable {
 		}
 		return ret.append(end).toString();
 	}
+
 }
