@@ -1,5 +1,6 @@
 package com.artclod.common.collect;
 
+import java.io.Serializable;
 import java.util.Collection;
 import java.util.Iterator;
 import java.util.LinkedHashSet;
@@ -11,12 +12,13 @@ import com.google.common.collect.ImmutableSet;
 import com.google.common.collect.ImmutableSet.Builder;
 import com.google.common.collect.Sets;
 
-public class GauvaImFSet<E> extends BaseFSet<E, GauvaImFSet<E>> implements BaseImFCollection<E, GauvaImFSet<E>>, ImFSet<E>{
+public class GauvaImFSet<E> extends BaseFSet<E, GauvaImFSet<E>> implements BaseImFCollection<E, GauvaImFSet<E>>, ImFSet<E>, Serializable {
+	private static final long serialVersionUID = 1L;
 
 	public GauvaImFSet(ImmutableSet<E> inner) {
 		super(inner);
 	}
-	
+
 	@Override
 	CollectionBuilder<E, GauvaImFSet<E>> builder() {
 		return new GauvaImFSetBuilder<E>(ImmutableSet.<E> builder());
@@ -26,7 +28,7 @@ public class GauvaImFSet<E> extends BaseFSet<E, GauvaImFSet<E>> implements BaseI
 	Iterator<E> reverseIterator() {
 		return iterator(); // No sensible reverse
 	}
-	
+
 	@Override
 	public GauvaImFSet<E> addCp(E e) {
 		LinkedHashSet<E> set = Sets.newLinkedHashSet(this);
@@ -65,7 +67,7 @@ public class GauvaImFSet<E> extends BaseFSet<E, GauvaImFSet<E>> implements BaseI
 	@Override
 	public <O> GauvaImFSet<O> map(Function<E, O> f) {
 		Builder<O> builder = ImmutableSet.<O> builder();
-		for(E e: this){
+		for (E e : this) {
 			builder.add(f.apply(e));
 		}
 		return new GauvaImFSet<O>(builder.build());

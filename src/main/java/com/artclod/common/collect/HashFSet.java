@@ -1,12 +1,14 @@
 package com.artclod.common.collect;
 
+import java.io.Serializable;
 import java.util.HashSet;
 import java.util.Iterator;
 
 import com.artclod.common.collect.builder.CollectionBuilder;
 import com.google.common.base.Function;
 
-public class HashFSet<E> extends BaseFSet<E, HashFSet<E>> {
+public class HashFSet<E> extends BaseFSet<E, HashFSet<E>> implements Serializable {
+	private static final long serialVersionUID = 1L;
 
 	public HashFSet(HashSet<E> inner) {
 		super(inner);
@@ -14,6 +16,8 @@ public class HashFSet<E> extends BaseFSet<E, HashFSet<E>> {
 
 	// This exist so we can create a CollectionBuilder of the right type 
 	private static class HashFSetBuilder<E> extends HashFSet<E> implements CollectionBuilder<E, HashFSet<E>> {
+		private static final long serialVersionUID = 1L;
+
 		public HashFSetBuilder(HashSet<E> inner) {
 			super(inner);
 		}

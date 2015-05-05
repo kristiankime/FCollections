@@ -18,7 +18,7 @@ import com.google.common.collect.UnmodifiableIterator;
 import com.google.common.collect.UnmodifiableListIterator;
 
 public class GuavaImFList<E> extends BaseFList<E, GuavaImFList<E>> implements ImFList<E>, Serializable {
-	private static final long serialVersionUID = 0L;
+	private static final long serialVersionUID = 1L;
 
 	final ImmutableList<E> inner;
 

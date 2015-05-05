@@ -1,12 +1,14 @@
 package com.artclod.common.collect;
 
+import java.io.Serializable;
 import java.util.Iterator;
 import java.util.LinkedHashSet;
 
 import com.artclod.common.collect.builder.CollectionBuilder;
 import com.google.common.base.Function;
 
-public class LinkedHashFSet<E> extends BaseFSet<E, LinkedHashFSet<E>> {
+public class LinkedHashFSet<E> extends BaseFSet<E, LinkedHashFSet<E>> implements Serializable {
+	private static final long serialVersionUID = 1L;
 
 	public LinkedHashFSet(LinkedHashSet<E> inner) {
 		super(inner);
@@ -14,6 +16,8 @@ public class LinkedHashFSet<E> extends BaseFSet<E, LinkedHashFSet<E>> {
 
 	// This exist so we can create a CollectionBuilder of the right type 
 	private static class LinkedHashFSetBuilder<E> extends LinkedHashFSet<E> implements CollectionBuilder<E, LinkedHashFSet<E>> {
+		private static final long serialVersionUID = 1L;
+
 		public LinkedHashFSetBuilder(LinkedHashSet<E> inner) {
 			super(inner);
 		}

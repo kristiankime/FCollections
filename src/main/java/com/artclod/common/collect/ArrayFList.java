@@ -9,7 +9,7 @@ import com.google.common.base.Function;
 import com.google.common.collect.Lists;
 
 public class ArrayFList<E> extends BaseFList<E, ArrayFList<E>> implements Serializable {
-	private static final long serialVersionUID = 0L;
+	private static final long serialVersionUID = 1L;
 
 	public static <E> ArrayFList<E> create(ArrayList<E> inner) {
 		return new ArrayFList<E>(inner);
