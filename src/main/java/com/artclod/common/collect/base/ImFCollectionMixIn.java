@@ -5,32 +5,32 @@ import java.util.function.Predicate;
 
 import com.artclod.common.collect.ImFCollection;
 
-public interface ImFCollectionMixIn<E, C extends ImFCollection<E>> extends ImFCollection<E>{
+public interface ImFCollectionMixIn<E> extends ImFCollection<E> {
 
 	@Deprecated
 	@Override
 	public default boolean add(E e) {
 		throw new UnsupportedOperationException();
 	}
-	
+
 	@Deprecated
 	@Override
 	public default boolean addAll(Collection<? extends E> c) {
 		throw new UnsupportedOperationException();
 	}
-	
+
 	@Deprecated
 	@Override
 	public default boolean remove(Object o) {
 		throw new UnsupportedOperationException();
 	}
-	
+
 	@Deprecated
 	@Override
 	public default boolean removeAll(Collection<?> c) {
 		throw new UnsupportedOperationException();
 	}
-	
+
 	@Deprecated
 	@Override
 	public default boolean removeIf(Predicate<? super E> filter) {
@@ -42,7 +42,7 @@ public interface ImFCollectionMixIn<E, C extends ImFCollection<E>> extends ImFCo
 	public default boolean retainAll(Collection<?> c) {
 		throw new UnsupportedOperationException();
 	}
-	
+
 	@Deprecated
 	@Override
 	public default void clear() {

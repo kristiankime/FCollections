@@ -14,7 +14,7 @@ import com.google.common.collect.ImmutableSet;
 import com.google.common.collect.ImmutableSet.Builder;
 import com.google.common.collect.Sets;
 
-public class GauvaImFSet<E> extends BaseFSet<E, GauvaImFSet<E>> implements ImFCollectionMixIn<E, GauvaImFSet<E>>, ImFSet<E>, Serializable {
+public class GauvaImFSet<E> extends BaseFSet<E, GauvaImFSet<E>> implements ImFCollectionMixIn<E>, ImFSet<E>, Serializable {
 	private static final long serialVersionUID = 1L;
 
 	public GauvaImFSet(ImmutableSet<E> inner) {
