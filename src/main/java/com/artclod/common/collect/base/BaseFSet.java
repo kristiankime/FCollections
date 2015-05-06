@@ -1,8 +1,10 @@
-package com.artclod.common.collect;
+package com.artclod.common.collect.base;
 
 import static com.google.common.base.Preconditions.checkNotNull;
 
 import java.util.Set;
+
+import com.artclod.common.collect.FSet;
 
 public abstract class BaseFSet<E, S extends FSet<E>> extends BaseFColletion<E, S> implements FSet<E> {
 	final Set<E> inner;

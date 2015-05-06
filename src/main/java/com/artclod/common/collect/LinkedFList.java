@@ -3,6 +3,7 @@ package com.artclod.common.collect;
 import java.io.Serializable;
 import java.util.LinkedList;
 
+import com.artclod.common.collect.base.BaseFList;
 import com.artclod.common.collect.builder.CollectionBuilder;
 import com.google.common.base.Function;
 import com.google.common.collect.Lists;
@@ -49,7 +50,7 @@ public class LinkedFList<E> extends BaseFList<E, LinkedFList<E>> implements Seri
 	}
 	
 	@Override
-	CollectionBuilder<E, LinkedFList<E>> builder() {
+	protected CollectionBuilder<E, LinkedFList<E>> builder() {
 		return new LinkedFListBuilder<E>(new LinkedList<E>());
 	}
 

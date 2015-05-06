@@ -1,9 +1,11 @@
-package com.artclod.common.collect;
+package com.artclod.common.collect.base;
 
 import java.util.Collection;
 import java.util.function.Predicate;
 
-public interface BaseImFCollection<E, C extends ImFCollection<E>> extends ImFCollection<E>{
+import com.artclod.common.collect.ImFCollection;
+
+public interface ImFCollectionMixIn<E, C extends ImFCollection<E>> extends ImFCollection<E>{
 
 	@Deprecated
 	@Override

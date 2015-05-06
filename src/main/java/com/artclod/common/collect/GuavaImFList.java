@@ -8,6 +8,7 @@ import java.util.Iterator;
 import java.util.function.Predicate;
 import java.util.function.UnaryOperator;
 
+import com.artclod.common.collect.base.BaseFList;
 import com.artclod.common.collect.builder.CollectionBuilder;
 import com.artclod.common.collect.builder.GauvaImFListBuilder;
 import com.google.common.base.Function;
@@ -20,7 +21,7 @@ import com.google.common.collect.UnmodifiableListIterator;
 public class GuavaImFList<E> extends BaseFList<E, GuavaImFList<E>> implements ImFList<E>, Serializable {
 	private static final long serialVersionUID = 1L;
 
-	final ImmutableList<E> inner;
+	protected final ImmutableList<E> inner;
 
 	public static <E> GuavaImFList<E> of(){
 		return new GuavaImFList<E>();
@@ -56,7 +57,7 @@ public class GuavaImFList<E> extends BaseFList<E, GuavaImFList<E>> implements Im
 	}
 
 	@Override
-	CollectionBuilder<E, GuavaImFList<E>> builder() {
+	protected CollectionBuilder<E, GuavaImFList<E>> builder() {
 		return new GauvaImFListBuilder<E>(ImmutableList.builder());
 	}
 	

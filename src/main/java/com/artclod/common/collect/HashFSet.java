@@ -4,6 +4,7 @@ import java.io.Serializable;
 import java.util.HashSet;
 import java.util.Iterator;
 
+import com.artclod.common.collect.base.BaseFSet;
 import com.artclod.common.collect.builder.CollectionBuilder;
 import com.google.common.base.Function;
 
@@ -29,12 +30,12 @@ public class HashFSet<E> extends BaseFSet<E, HashFSet<E>> implements Serializabl
 	}
 	
 	@Override
-	CollectionBuilder<E, HashFSet<E>> builder() {
+	protected CollectionBuilder<E, HashFSet<E>> builder() {
 		return new HashFSetBuilder<E>(new HashSet<E>());
 	}
 	
 	@Override
-	Iterator<E> reverseIterator() {
+	protected Iterator<E> reverseIterator() {
 		return iterator(); // There is no sensible reverse of a HashSet
 	}
 	

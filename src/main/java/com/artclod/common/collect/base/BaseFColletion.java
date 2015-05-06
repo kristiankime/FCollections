@@ -1,4 +1,4 @@
-package com.artclod.common.collect;
+package com.artclod.common.collect.base;
 
 import static com.google.common.base.Preconditions.checkNotNull;
 
@@ -10,6 +10,7 @@ import java.util.function.Predicate;
 import java.util.stream.Stream;
 
 import com.artclod.common.base.Function2;
+import com.artclod.common.collect.FCollection;
 import com.artclod.common.collect.builder.CollectionBuilder;
 
 public abstract class BaseFColletion<E, C extends FCollection<E>> implements FCollection<E> {
@@ -23,13 +24,13 @@ public abstract class BaseFColletion<E, C extends FCollection<E>> implements FCo
 	 * Intended for internal use. 
 	 * Creates an empty builder that can be used to create a collection of correct type.
 	 */
-	abstract CollectionBuilder<E, C> builder();
+	protected abstract CollectionBuilder<E, C> builder();
 	
 	/**
 	 * Best effort to be able to iterator through this collection in reverse.
 	 * Not that for collections that do not have a real reverse nothing is guaranteed (i.e. reverse and forward may even be the same).
 	 */
-	abstract Iterator<E> reverseIterator();
+	protected abstract Iterator<E> reverseIterator();
 	
 	// =========== Identity as inner ===========
 	public boolean equals(Object o) {

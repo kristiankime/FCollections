@@ -5,6 +5,8 @@ import java.util.Collection;
 import java.util.Iterator;
 import java.util.LinkedHashSet;
 
+import com.artclod.common.collect.base.BaseFSet;
+import com.artclod.common.collect.base.ImFCollectionMixIn;
 import com.artclod.common.collect.builder.CollectionBuilder;
 import com.artclod.common.collect.builder.GauvaImFSetBuilder;
 import com.google.common.base.Function;
@@ -12,7 +14,7 @@ import com.google.common.collect.ImmutableSet;
 import com.google.common.collect.ImmutableSet.Builder;
 import com.google.common.collect.Sets;
 
-public class GauvaImFSet<E> extends BaseFSet<E, GauvaImFSet<E>> implements BaseImFCollection<E, GauvaImFSet<E>>, ImFSet<E>, Serializable {
+public class GauvaImFSet<E> extends BaseFSet<E, GauvaImFSet<E>> implements ImFCollectionMixIn<E, GauvaImFSet<E>>, ImFSet<E>, Serializable {
 	private static final long serialVersionUID = 1L;
 
 	public GauvaImFSet(ImmutableSet<E> inner) {
@@ -20,12 +22,12 @@ public class GauvaImFSet<E> extends BaseFSet<E, GauvaImFSet<E>> implements BaseI
 	}
 
 	@Override
-	CollectionBuilder<E, GauvaImFSet<E>> builder() {
+	protected CollectionBuilder<E, GauvaImFSet<E>> builder() {
 		return new GauvaImFSetBuilder<E>(ImmutableSet.<E> builder());
 	}
 
 	@Override
-	Iterator<E> reverseIterator() {
+	protected Iterator<E> reverseIterator() {
 		return iterator(); // No sensible reverse
 	}
 

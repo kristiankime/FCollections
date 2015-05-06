@@ -4,6 +4,7 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Iterator;
 
+import com.artclod.common.collect.base.BaseFList;
 import com.artclod.common.collect.builder.CollectionBuilder;
 import com.google.common.base.Function;
 import com.google.common.collect.Lists;
@@ -66,7 +67,7 @@ public class ArrayFList<E> extends BaseFList<E, ArrayFList<E>> implements Serial
 	}
 	
 	@Override
-	CollectionBuilder<E, ArrayFList<E>> builder() {
+	protected CollectionBuilder<E, ArrayFList<E>> builder() {
 		return new ArrayFListBuilder<E>(new ArrayList<E>());
 	}
 

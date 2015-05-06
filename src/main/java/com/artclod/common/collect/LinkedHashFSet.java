@@ -4,6 +4,7 @@ import java.io.Serializable;
 import java.util.Iterator;
 import java.util.LinkedHashSet;
 
+import com.artclod.common.collect.base.BaseFSet;
 import com.artclod.common.collect.builder.CollectionBuilder;
 import com.google.common.base.Function;
 
@@ -29,12 +30,12 @@ public class LinkedHashFSet<E> extends BaseFSet<E, LinkedHashFSet<E>> implements
 	}
 	
 	@Override
-	CollectionBuilder<E, LinkedHashFSet<E>> builder() {
+	protected CollectionBuilder<E, LinkedHashFSet<E>> builder() {
 		return new LinkedHashFSetBuilder<E>(new LinkedHashSet<E>());
 	}
 	
 	@Override
-	Iterator<E> reverseIterator() {
+	protected Iterator<E> reverseIterator() {
 		return iterator(); // There is no sensible reverse of a HashSet
 	}
 	

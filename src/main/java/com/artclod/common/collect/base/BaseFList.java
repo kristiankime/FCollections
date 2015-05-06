@@ -1,4 +1,4 @@
-package com.artclod.common.collect;
+package com.artclod.common.collect.base;
 
 import static com.google.common.base.Preconditions.checkNotNull;
 
@@ -9,17 +9,20 @@ import java.util.List;
 import java.util.ListIterator;
 import java.util.stream.Stream;
 
+import com.artclod.common.collect.FList;
+import com.artclod.common.collect.GuavaImFList;
+import com.artclod.common.collect.ReverseListIterator;
 import com.google.common.collect.ImmutableList;
 
 public abstract class BaseFList<E, L extends FList<E>> extends BaseFColletion<E, L> implements FList<E> {
-	final List<E> inner;
+	protected final List<E> inner;
 
 	public BaseFList(List<E> inner) {
 		super(inner);
 		this.inner = checkNotNull(inner);
 	}
 	
-	Iterator<E> reverseIterator() {
+	protected Iterator<E> reverseIterator() {
 		return new ReverseListIterator<E>(this);
 	}
 
