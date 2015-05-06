@@ -11,28 +11,20 @@ import com.google.common.collect.Lists;
 public class LinkedFList<E> extends BaseFList<E, LinkedFList<E>> implements Serializable {
 	private static final long serialVersionUID = 1L;
 
-	public static <E> LinkedFList<E> create(LinkedList<E> inner) {
+	public static <E> LinkedFList<E> createInner(LinkedList<E> inner) {
 		return new LinkedFList<E>(inner);
 	}
 
 	public static <E> LinkedFList<E> create() {
-		return new LinkedFList<E>();
+		return new LinkedFList<E>(Lists.newLinkedList());
 	}
 
 	public static <E> LinkedFList<E> create(Iterable<? extends E> elements) {
-		return new LinkedFList<E>(elements);
+		return new LinkedFList<E>(Lists.newLinkedList(elements));
 	}
 
 	public LinkedFList(LinkedList<E> inner) {
 		super(inner);
-	}
-
-	public LinkedFList() {
-		super(Lists.newLinkedList());
-	}
-
-	public LinkedFList(Iterable<? extends E> elements) {
-		super(Lists.newLinkedList(elements));
 	}
 
 	// This exist so we can create a CollectionBuilder of the right type 

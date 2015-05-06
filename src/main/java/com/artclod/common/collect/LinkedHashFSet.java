@@ -7,10 +7,23 @@ import java.util.LinkedHashSet;
 import com.artclod.common.collect.base.BaseFSet;
 import com.artclod.common.collect.builder.CollectionBuilder;
 import com.google.common.base.Function;
+import com.google.common.collect.Sets;
 
 public class LinkedHashFSet<E> extends BaseFSet<E, LinkedHashFSet<E>> implements Serializable {
 	private static final long serialVersionUID = 1L;
 
+	public static <E> LinkedHashFSet<E> create() {
+		return new LinkedHashFSet<E>(Sets.newLinkedHashSet());
+	}
+	
+	public static <E> LinkedHashFSet<E> create(Iterable<? extends E> elements) {
+		return new LinkedHashFSet<E>(Sets.newLinkedHashSet(elements));
+	}
+
+	public static <E> LinkedHashFSet<E> createWithExpectedSize(int expectedSize) {
+		return new LinkedHashFSet<E>(Sets.newLinkedHashSetWithExpectedSize(expectedSize));
+	}
+	
 	public LinkedHashFSet(LinkedHashSet<E> inner) {
 		super(inner);
 	}

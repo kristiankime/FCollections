@@ -12,44 +12,32 @@ import com.google.common.collect.Lists;
 public class ArrayFList<E> extends BaseFList<E, ArrayFList<E>> implements Serializable {
 	private static final long serialVersionUID = 1L;
 
-	public static <E> ArrayFList<E> create(ArrayList<E> inner) {
+	public static <E> ArrayFList<E> createInner(ArrayList<E> inner) {
 		return new ArrayFList<E>(inner);
 	}
 
 	public static <E> ArrayFList<E> create() {
-		return new ArrayFList<E>();
+		return new ArrayFList<E>(Lists.newArrayList());
 	}
 
+	public static <E> ArrayFList<E> createWithCapacity(int initialCapacity) {
+		return new ArrayFList<E>(Lists.newArrayListWithCapacity(initialCapacity));
+	}
+	
 	public static <E> ArrayFList<E> create(@SuppressWarnings("unchecked") E... elements) {
-		return new ArrayFList<E>(elements);
+		return new ArrayFList<E>(Lists.newArrayList(elements));
 	}
 
 	public static <E> ArrayFList<E> create(Iterable<? extends E> elements) {
-		return new ArrayFList<E>(elements);
+		return new ArrayFList<E>(Lists.newArrayList(elements));
 	}
 
 	public static <E> ArrayFList<E> create(Iterator<? extends E> elements) {
-		return new ArrayFList<E>(elements);
+		return new ArrayFList<E>(Lists.newArrayList(elements));
 	}
 
 	public ArrayFList(ArrayList<E> inner) {
 		super(inner);
-	}
-
-	public ArrayFList() {
-		super(Lists.newArrayList());
-	}
-
-	public ArrayFList(@SuppressWarnings("unchecked") E... elements) {
-		super(Lists.newArrayList(elements));
-	}
-
-	public ArrayFList(Iterable<? extends E> elements) {
-		super(Lists.newArrayList(elements));
-	}
-
-	public ArrayFList(Iterator<? extends E> elements) {
-		super(Lists.newArrayList(elements));
 	}
 
 	// This exist so we can create a CollectionBuilder of the right type 

@@ -9,7 +9,7 @@ public class LinkedFListTest extends MutableFListContract {
 
 	@Override
 	public <T> FList<T> fList(@SuppressWarnings("unchecked") T... elements) {
-		return new LinkedFList<T>(Arrays.asList(elements));
+		return LinkedFList.create(Arrays.asList(elements));
 	}
 
 }

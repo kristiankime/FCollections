@@ -7,7 +7,7 @@ public class ArrayFListTest extends MutableFListContract {
 
 	@Override
 	public <T> FList<T> fList(@SuppressWarnings("unchecked") T... elements) {
-		return new ArrayFList<T>(elements);
+		return ArrayFList.create(elements);
 	}
 
 }

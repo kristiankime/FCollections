@@ -17,6 +17,30 @@ import com.google.common.collect.Sets;
 public class GauvaImFSet<E> extends BaseFSet<E, GauvaImFSet<E>> implements ImFCollectionMixIn<E>, ImFSet<E>, Serializable {
 	private static final long serialVersionUID = 1L;
 
+	public static <E> GauvaImFSet<E> ofInner(ImmutableSet<E> inner) {
+		return new GauvaImFSet<E>(inner);
+	}
+
+	public static <E> GauvaImFSet<E> of() {
+		return new GauvaImFSet<E>(ImmutableSet.of());
+	}
+
+	public static <E> GauvaImFSet<E> copyOf(@SuppressWarnings("unchecked") E... elements) {
+		return new GauvaImFSet<E>(ImmutableSet.copyOf(elements));
+	}
+
+	public static <E> GauvaImFSet<E> copyOf(Collection<E> c) {
+		return new GauvaImFSet<E>(ImmutableSet.copyOf(c));
+	}
+
+	public static <E> GauvaImFSet<E> copyOf(Iterable<? extends E> elements) {
+		return new GauvaImFSet<E>(ImmutableSet.copyOf(elements));
+	}
+
+	public static <E> GauvaImFSet<E> copyOf(Iterator<? extends E> elements) {
+		return new GauvaImFSet<E>(ImmutableSet.copyOf(elements));
+	}
+
 	public GauvaImFSet(ImmutableSet<E> inner) {
 		super(inner);
 	}

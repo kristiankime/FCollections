@@ -22,32 +22,28 @@ public class GuavaImFList<E> extends BaseFList<E, GuavaImFList<E>> implements Im
 
 	protected final ImmutableList<E> inner;
 
-	public static <E> GuavaImFList<E> of(){
-		return new GuavaImFList<E>();
+	public static <E> GuavaImFList<E> of() {
+		return new GuavaImFList<E>(ImmutableList.of());
 	}
-	
-	public static <E> GuavaImFList<E> of(ImmutableList<E> inner){
+
+	public static <E> GuavaImFList<E> ofInner(ImmutableList<E> inner) {
 		return new GuavaImFList<E>(inner);
 	}
-	
-	public static <E> GuavaImFList<E> copyOf(Iterable<? extends E> elements){
+
+	public static <E> GuavaImFList<E> copyOf(Iterable<? extends E> elements) {
 		return new GuavaImFList<E>(ImmutableList.copyOf(elements));
 	}
-	
-	public static <E> GuavaImFList<E> copyOf(Collection<? extends E> elements){
+
+	public static <E> GuavaImFList<E> copyOf(Collection<? extends E> elements) {
 		return new GuavaImFList<E>(ImmutableList.copyOf(elements));
 	}
-	
-	public static <E> GuavaImFList<E> copyOf(Iterator<? extends E> elements){
+
+	public static <E> GuavaImFList<E> copyOf(Iterator<? extends E> elements) {
 		return new GuavaImFList<E>(ImmutableList.copyOf(elements));
 	}
-	
-	public static <E> GuavaImFList<E> copyOf(E[] elements){
+
+	public static <E> GuavaImFList<E> copyOf(E[] elements) {
 		return new GuavaImFList<E>(ImmutableList.copyOf(elements));
-	}
-	
-	public GuavaImFList() {
-		this(ImmutableList.<E> of());
 	}
 
 	public GuavaImFList(ImmutableList<E> inner) {
@@ -59,7 +55,7 @@ public class GuavaImFList<E> extends BaseFList<E, GuavaImFList<E>> implements Im
 	protected CollectionBuilder<E, GuavaImFList<E>> builder() {
 		return new GauvaImFListBuilder<E>(ImmutableList.builder());
 	}
-	
+
 	public ImmutableList<E> toGuava() {
 		return inner;
 	}
@@ -74,9 +70,9 @@ public class GuavaImFList<E> extends BaseFList<E, GuavaImFList<E>> implements Im
 
 	// ==== ImFList methods ====
 	public ArrayFList<E> toMu() {
-		return new ArrayFList<E>(this);
+		return ArrayFList.create(this);
 	}
-	
+
 	public GuavaImFList<E> toIm() {
 		return this;
 	}
@@ -175,5 +171,5 @@ public class GuavaImFList<E> extends BaseFList<E, GuavaImFList<E>> implements Im
 		list.removeIf(filter);
 		return new GuavaImFList<E>(ImmutableList.copyOf(list));
 	}
-	
+
 }
