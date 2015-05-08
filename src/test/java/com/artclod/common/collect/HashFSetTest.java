@@ -7,7 +7,7 @@ import com.google.common.collect.Sets;
 public class HashFSetTest extends MutableFSetContract {
 
 	@Override
-	public <T> FSet<T> fSet(@SuppressWarnings("unchecked") T... elements) {
+	public <T> HashFSet<T> fSet(@SuppressWarnings("unchecked") T... elements) {
 		return new HashFSet<T>(Sets.newHashSet(elements));
 	}
 

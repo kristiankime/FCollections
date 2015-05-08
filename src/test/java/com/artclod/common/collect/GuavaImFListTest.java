@@ -1,13 +1,13 @@
 package com.artclod.common.collect;
 
-import com.artclod.common.collect.contract.FListContract;
+import com.artclod.common.collect.contract.ImmutableFListContract;
 import com.google.common.collect.ImmutableList;
 
 
-public class GuavaImFListTest extends FListContract {
+public class GuavaImFListTest extends ImmutableFListContract {
 
 	@Override
-	public <T> FList<T> fList(@SuppressWarnings("unchecked") T... elements) {
+	public <T> GuavaImFList<T> fList(@SuppressWarnings("unchecked") T... elements) {
 		return new GuavaImFList<T>(ImmutableList.copyOf(elements));
 	}
 

@@ -7,7 +7,7 @@ import com.google.common.collect.ImmutableSet;
 public class GuavaImFSetTest extends ImmutableFSetContract {
 
 	@Override
-	public <T> FSet<T> fSet(@SuppressWarnings("unchecked") T... elements) {
+	public <T> GauvaImFSet<T> fSet(@SuppressWarnings("unchecked") T... elements) {
 		return new GauvaImFSet<T>(ImmutableSet.copyOf(elements));
 	}
 
