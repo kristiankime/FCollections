@@ -4,12 +4,12 @@ import java.io.Serializable;
 import java.util.Collection;
 import java.util.Iterator;
 import java.util.LinkedHashSet;
+import java.util.function.Function;
 
 import com.artclod.common.collect.base.BaseFSet;
 import com.artclod.common.collect.base.ImFCollectionMixIn;
 import com.artclod.common.collect.builder.CollectionBuilder;
 import com.artclod.common.collect.builder.GauvaImFSetBuilder;
-import com.google.common.base.Function;
 import com.google.common.collect.ImmutableSet;
 import com.google.common.collect.ImmutableSet.Builder;
 import com.google.common.collect.Sets;
@@ -91,7 +91,7 @@ public class GauvaImFSet<E> extends BaseFSet<E, GauvaImFSet<E>> implements ImFCo
 	}
 
 	@Override
-	public <O> GauvaImFSet<O> map(Function<E, O> f) {
+	public <O> GauvaImFSet<O> map(Function<? super E, ? extends O> f) {
 		Builder<O> builder = ImmutableSet.<O> builder();
 		for (E e : this) {
 			builder.add(f.apply(e));

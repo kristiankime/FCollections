@@ -2,9 +2,9 @@ package com.artclod.common.collect;
 
 import java.util.List;
 import java.util.function.Predicate;
+import java.util.function.Function;
 
 import com.artclod.common.base.Function2;
-import com.google.common.base.Function;
 
 public interface FList<E> extends List<E>, FCollection<E> {
 
@@ -12,7 +12,7 @@ public interface FList<E> extends List<E>, FCollection<E> {
 	
 	public boolean nonEmpty();
 
-	public <O> FList<O> map(Function<E, O> f);
+	public <O> FList<O> map(Function<? super E, ? extends O> f);
 
 	public FList<E> filter(Predicate<? super E> filter);
 

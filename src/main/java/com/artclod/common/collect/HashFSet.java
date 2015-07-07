@@ -3,10 +3,10 @@ package com.artclod.common.collect;
 import java.io.Serializable;
 import java.util.HashSet;
 import java.util.Iterator;
+import java.util.function.Function;
 
 import com.artclod.common.collect.base.BaseFSet;
 import com.artclod.common.collect.builder.CollectionBuilder;
-import com.google.common.base.Function;
 import com.google.common.collect.Sets;
 
 public class HashFSet<E> extends BaseFSet<E, HashFSet<E>> implements Serializable {
@@ -61,7 +61,7 @@ public class HashFSet<E> extends BaseFSet<E, HashFSet<E>> implements Serializabl
 	}
 
 	@Override
-	public <O> FSet<O> map(Function<E, O> f) {
+	public <O> FSet<O> map(Function<? super E, ? extends O> f) {
 		HashFSet<O> ret = new HashFSet<O>(new HashSet<O>());
 		for (E e : this) {
 			ret.add(f.apply(e));

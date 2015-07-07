@@ -3,10 +3,10 @@ package com.artclod.common.collect;
 import java.io.Serializable;
 import java.util.Iterator;
 import java.util.LinkedHashSet;
+import java.util.function.Function;
 
 import com.artclod.common.collect.base.BaseFSet;
 import com.artclod.common.collect.builder.CollectionBuilder;
-import com.google.common.base.Function;
 import com.google.common.collect.Sets;
 
 public class LinkedHashFSet<E> extends BaseFSet<E, LinkedHashFSet<E>> implements Serializable {
@@ -53,7 +53,7 @@ public class LinkedHashFSet<E> extends BaseFSet<E, LinkedHashFSet<E>> implements
 	}
 	
 	@Override
-	public <O> FSet<O> map(Function<E, O> f) {
+	public <O> FSet<O> map(Function<? super E, ? extends O> f) {
 		LinkedHashFSet<O> ret = new LinkedHashFSet<O>(new LinkedHashSet<O>());
 		for(E e: this){
 			ret.add(f.apply(e));

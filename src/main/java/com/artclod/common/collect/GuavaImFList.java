@@ -7,12 +7,12 @@ import java.util.Comparator;
 import java.util.Iterator;
 import java.util.function.Predicate;
 import java.util.function.UnaryOperator;
+import java.util.function.Function;
 
 import com.artclod.common.collect.base.BaseFList;
 import com.artclod.common.collect.base.IMFListMixin;
 import com.artclod.common.collect.builder.CollectionBuilder;
 import com.artclod.common.collect.builder.GauvaImFListBuilder;
-import com.google.common.base.Function;
 import com.google.common.collect.ImmutableList;
 import com.google.common.collect.ImmutableList.Builder;
 import com.google.common.collect.Lists;
@@ -78,7 +78,7 @@ public class GuavaImFList<E> extends BaseFList<E, GuavaImFList<E>> implements Im
 	}
 
 	@Override
-	public <O> GuavaImFList<O> map(Function<E, O> f) {
+	public <O> GuavaImFList<O> map(Function<? super E, ? extends O> f) {
 		Builder<O> builder = ImmutableList.<O> builder();
 		for (E e : this) {
 			builder.add(f.apply(e));

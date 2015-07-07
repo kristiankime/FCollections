@@ -2,10 +2,10 @@ package com.artclod.common.collect;
 
 import java.io.Serializable;
 import java.util.LinkedList;
+import java.util.function.Function;
 
 import com.artclod.common.collect.base.BaseFList;
 import com.artclod.common.collect.builder.CollectionBuilder;
-import com.google.common.base.Function;
 import com.google.common.collect.Lists;
 
 public class LinkedFList<E> extends BaseFList<E, LinkedFList<E>> implements Serializable {
@@ -47,7 +47,7 @@ public class LinkedFList<E> extends BaseFList<E, LinkedFList<E>> implements Seri
 	}
 
 	@Override
-	public <O> LinkedFList<O> map(Function<E, O> f) {
+	public <O> LinkedFList<O> map(Function<? super E, ? extends O> f) {
 		LinkedList<O> create = Lists.newLinkedList();
 		for (E e : this) {
 			create.add(f.apply(e));

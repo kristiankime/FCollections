@@ -2,15 +2,15 @@ package com.artclod.common.collect;
 
 import java.util.Collection;
 import java.util.function.Predicate;
+import java.util.function.Function;
 
 import com.artclod.common.base.Function2;
-import com.google.common.base.Function;
 
 public interface FCollection<E> extends Collection<E> {
 
 	public boolean nonEmpty();
 
-	public <O> FCollection<O> map(Function<E, O> f);
+	public <O> FCollection<O> map(Function<? super E, ? extends O> f);
 
 	public FCollection<E> filter(Predicate<? super E> filter);
 

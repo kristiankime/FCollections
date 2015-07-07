@@ -3,10 +3,10 @@ package com.artclod.common.collect;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Iterator;
+import java.util.function.Function;
 
 import com.artclod.common.collect.base.BaseFList;
 import com.artclod.common.collect.builder.CollectionBuilder;
-import com.google.common.base.Function;
 import com.google.common.collect.Lists;
 
 public class ArrayFList<E> extends BaseFList<E, ArrayFList<E>> implements Serializable {
@@ -60,7 +60,7 @@ public class ArrayFList<E> extends BaseFList<E, ArrayFList<E>> implements Serial
 	}
 
 	@Override
-	public <O> ArrayFList<O> map(Function<E, O> f) {
+	public <O> ArrayFList<O> map(Function<? super E, ? extends O> f) {
 		ArrayList<O> create = Lists.newArrayListWithCapacity(inner.size());
 		for (int i = 0; i < inner.size(); i++) {
 			create.add(f.apply(inner.get(i)));
