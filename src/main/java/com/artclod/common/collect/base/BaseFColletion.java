@@ -4,7 +4,9 @@ import static com.google.common.base.Preconditions.checkNotNull;
 
 import java.util.Collection;
 import java.util.Iterator;
+import java.util.Optional;
 import java.util.Spliterator;
+import java.util.function.BinaryOperator;
 import java.util.function.Consumer;
 import java.util.function.Predicate;
 import java.util.stream.Stream;
@@ -72,34 +74,43 @@ public abstract class BaseFColletion<E, C extends FCollection<E>> implements FCo
 	}
 
 	// --- Reduce ---
-	public E reduce(Function2<E, E, E> f) {
-		return reduceLeft(f);
+	public Optional<E> reduce(BinaryOperator<E> accumulator){
+		if(isEmpty()) { return Optional.empty(); }
+		Iterator<E> iterator = iterator();
+		E first = iterator.next();
+		return Optional.of(reduceInner(first, accumulator, iterator));
 	}
-
-	public E reduceLeft(Function2<E, E, E> f) {
-		if (isEmpty()) {
-			throw new UnsupportedOperationException("FList was empty");
-		}
-		return reduceInner(f, iterator());
+	
+	public Optional<E> reduceLeft(BinaryOperator<E> accumulator){
+		if(isEmpty()) { return Optional.empty(); }
+		Iterator<E> iterator = iterator();
+		E first = iterator.next();
+		return Optional.of(reduceInner(first, accumulator, iterator));
 	}
-
-	public E reduceRight(Function2<E, E, E> f) {
-		if (isEmpty()) {
-			throw new UnsupportedOperationException("FList was empty");
-		}
-		return reduceInner(f, reverseIterator());
+	
+	public Optional<E> reduceRight(BinaryOperator<E> accumulator){
+		if(isEmpty()) { return Optional.empty(); }
+		Iterator<E> iterator = reverseIterator();
+		E first = iterator.next();
+		return Optional.of(reduceInner(first, accumulator, iterator));
 	}
-
-	private E reduceInner(Function2<E, E, E> f, Iterator<E> iterator) {
-		boolean first = true;
-		E ret = null;
-		for(E e: this) {
-			if (first) {
-				ret = e;
-				first = false;
-			} else {
-				ret = f.apply(ret, e);
-			}
+		
+	public E reduce(E identity, BinaryOperator<E> accumulator){
+		return reduceInner(identity, accumulator, iterator());
+	}
+	
+	public E reduceLeft(E identity, BinaryOperator<E> accumulator){
+		return reduceInner(identity, accumulator, iterator());
+	}
+	
+	public E reduceRight(E identity, BinaryOperator<E> accumulator){
+		return reduceInner(identity, accumulator, reverseIterator());
+	}
+	
+	private E reduceInner(E first, BinaryOperator<E> f, Iterator<E> iterator) {
+		E ret = first;
+		while(iterator.hasNext()) {
+			ret = f.apply(ret, iterator.next());
 		}
 		return ret;
 	}
@@ -119,8 +130,8 @@ public abstract class BaseFColletion<E, C extends FCollection<E>> implements FCo
 
 	private <O> O reduceInner(O i, Function2<O, E, O> f, Iterator<E> iterator) {
 		O ret = i;
-		for(E e: this) {
-			ret = f.apply(ret, e);
+		while(iterator.hasNext()) {
+			ret = f.apply(ret, iterator.next());
 		}
 		return ret;
 	}

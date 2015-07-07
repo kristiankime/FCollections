@@ -89,39 +89,29 @@ abstract public class FCollectionContract {
 	}
 
 	// ---- Reduce ----
-	@Test(expected = UnsupportedOperationException.class)
-	public void reduce_no_elements_throws() throws Exception {
-		this.<Integer> fCollection().reduce((a, b) -> a + b);
+	@Test
+	public void reduce_no_elements_returns_empty() throws Exception {
+		assertFalse(this.<Integer> fCollection().reduce((a, b) -> a + b).isPresent());
 	}
 
 	@Test
 	public void reduce_works() throws Exception {
-		int actual = fCollection(1, 2, 3).reduce((a, b) -> a + b);
+		int actual = fCollection(1, 2, 3).reduce((a, b) -> a + b).get();
 		assertEquals(6, actual);
-	}
-
-	@Test(expected = UnsupportedOperationException.class)
-	public void reduceLeft_no_elements_throws() throws Exception {
-		this.<Integer> fCollection().reduceLeft((a, b) -> a + b);
 	}
 
 	@Test
-	public void reduceLeft_works() throws Exception {
-		int actual = fCollection(1, 2, 3).reduceLeft((a, b) -> a + b);
-		assertEquals(6, actual);
-	}
-
-	@Test(expected = UnsupportedOperationException.class)
-	public void reduceRight_no_elements_throws() throws Exception {
-		this.<Integer> fCollection().reduceRight((a, b) -> a + b);
+	public void reduce_with_identity_returns_identity() throws Exception {
+		int actual = this.<Integer> fCollection().reduce(4, (a, b) -> a + b).intValue();
+		assertEquals(actual, 4);
 	}
 
 	@Test
-	public void reduceRight_works() throws Exception {
-		int actual = fCollection(1, 2, 3).reduceRight((a, b) -> a + b);
-		assertEquals(6, actual);
+	public void reduce_with_identity_includes_identity() throws Exception {
+		int actual = fCollection(1, 2, 3).reduce(4, (a, b) -> a + b);
+		assertEquals(10, actual);
 	}
-
+	
 	// ---- Fold ----
 	@Test
 	public void fold_works() throws Exception {

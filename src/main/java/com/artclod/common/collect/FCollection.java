@@ -1,6 +1,8 @@
 package com.artclod.common.collect;
 
 import java.util.Collection;
+import java.util.Optional;
+import java.util.function.BinaryOperator;
 import java.util.function.Function;
 import java.util.function.Predicate;
 
@@ -22,16 +24,16 @@ public interface FCollection<E> extends Collection<E> {
 
 	public String mkString(String start, String sep, String end);
 
-	public E reduce(Function2<E, E, E> f);
-
-	public E reduceLeft(Function2<E, E, E> f);
-
-	public E reduceRight(Function2<E, E, E> f);
-
+	public Optional<E> reduce(BinaryOperator<E> accumulator);
+	public Optional<E> reduceLeft(BinaryOperator<E> accumulator);
+	public Optional<E> reduceRight(BinaryOperator<E> accumulator);
+	
+	public E reduce(E identity, BinaryOperator<E> accumulator);
+	public E reduceLeft(E identity, BinaryOperator<E> accumulator);
+	public E reduceRight(E identity, BinaryOperator<E> accumulator);
+	
 	public <O> O fold(O initial, Function2<O, E, O> f);
-
 	public <O> O foldLeft(O initial, Function2<O, E, O> f);
-
 	public <O> O foldRight(O initial, Function2<O, E, O> f);
 
 }

@@ -23,12 +23,6 @@ public interface FSet<E> extends Set<E>, FCollection<E> {
 
 	public String mkString(String start, String sep, String end);
 
-	public E reduce(Function2<E, E, E> f);
-
-	public E reduceLeft(Function2<E, E, E> f);
-
-	public E reduceRight(Function2<E, E, E> f);
-
 	public <O> O fold(O initial, Function2<O, E, O> f);
 
 	public <O> O foldLeft(O initial, Function2<O, E, O> f);
