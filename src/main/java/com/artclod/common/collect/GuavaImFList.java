@@ -10,14 +10,14 @@ import java.util.function.UnaryOperator;
 import java.util.function.Function;
 
 import com.artclod.common.collect.base.BaseFList;
-import com.artclod.common.collect.base.IMFListMixin;
+import com.artclod.common.collect.base.ImFListMixin;
 import com.artclod.common.collect.builder.CollectionBuilder;
 import com.artclod.common.collect.builder.GauvaImFListBuilder;
 import com.google.common.collect.ImmutableList;
 import com.google.common.collect.ImmutableList.Builder;
 import com.google.common.collect.Lists;
 
-public class GuavaImFList<E> extends BaseFList<E, GuavaImFList<E>> implements ImFList<E>, IMFListMixin<E>, Serializable {
+public class GuavaImFList<E> extends BaseFList<E, GuavaImFList<E>> implements ImFList<E>, ImFListMixin<E>, Serializable {
 	private static final long serialVersionUID = 1L;
 
 	protected final ImmutableList<E> inner;

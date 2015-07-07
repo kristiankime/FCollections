@@ -6,12 +6,12 @@ import java.util.Collection;
 import java.util.Iterator;
 import java.util.Optional;
 import java.util.Spliterator;
+import java.util.function.BiFunction;
 import java.util.function.BinaryOperator;
 import java.util.function.Consumer;
 import java.util.function.Predicate;
 import java.util.stream.Stream;
 
-import com.artclod.common.base.Function2;
 import com.artclod.common.collect.FCollection;
 import com.artclod.common.collect.builder.CollectionBuilder;
 
@@ -75,10 +75,7 @@ public abstract class BaseFColletion<E, C extends FCollection<E>> implements FCo
 
 	// --- Reduce ---
 	public Optional<E> reduce(BinaryOperator<E> accumulator){
-		if(isEmpty()) { return Optional.empty(); }
-		Iterator<E> iterator = iterator();
-		E first = iterator.next();
-		return Optional.of(reduceInner(first, accumulator, iterator));
+		return reduceLeft(accumulator);
 	}
 	
 	public Optional<E> reduceLeft(BinaryOperator<E> accumulator){
@@ -96,8 +93,8 @@ public abstract class BaseFColletion<E, C extends FCollection<E>> implements FCo
 	}
 		
 	public E reduce(E identity, BinaryOperator<E> accumulator){
-		return reduceInner(identity, accumulator, iterator());
-	}
+		return reduceLeft(identity, accumulator);
+	}	
 	
 	public E reduceLeft(E identity, BinaryOperator<E> accumulator){
 		return reduceInner(identity, accumulator, iterator());
@@ -116,19 +113,19 @@ public abstract class BaseFColletion<E, C extends FCollection<E>> implements FCo
 	}
 
 	// --- Fold ---
-	public <O> O fold(O initial, Function2<O, E, O> f) {
+	public <O> O fold(O initial, BiFunction<O, E, O> f) {
 		return foldLeft(initial, f);
 	}
 
-	public <O> O foldLeft(O initial, Function2<O, E, O> f) {
-		return reduceInner(initial, f, iterator());
+	public <O> O foldLeft(O initial, BiFunction<O, E, O> f) {
+		return foldInner(initial, f, iterator());
 	}
 
-	public <O> O foldRight(O initial, Function2<O, E, O> f) {
-		return reduceInner(initial, f, reverseIterator());
+	public <O> O foldRight(O initial, BiFunction<O, E, O> f) {
+		return foldInner(initial, f, reverseIterator());
 	}
 
-	private <O> O reduceInner(O i, Function2<O, E, O> f, Iterator<E> iterator) {
+	private <O> O foldInner(O i, BiFunction<O, E, O> f, Iterator<E> iterator) {
 		O ret = i;
 		while(iterator.hasNext()) {
 			ret = f.apply(ret, iterator.next());

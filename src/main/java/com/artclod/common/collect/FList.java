@@ -2,10 +2,8 @@ package com.artclod.common.collect;
 
 import java.util.Collection;
 import java.util.List;
-import java.util.function.Predicate;
 import java.util.function.Function;
-
-import com.artclod.common.base.Function2;
+import java.util.function.Predicate;
 
 public interface FList<E> extends List<E>, FCollection<E> {
 
@@ -24,11 +22,5 @@ public interface FList<E> extends List<E>, FCollection<E> {
 	public String mkString(String sep);
 
 	public String mkString(String start, String sep, String end);
-
-	public <O> O fold(O initial, Function2<O, E, O> f);
-
-	public <O> O foldLeft(O initial, Function2<O, E, O> f);
-
-	public <O> O foldRight(O initial, Function2<O, E, O> f);
 	
 }

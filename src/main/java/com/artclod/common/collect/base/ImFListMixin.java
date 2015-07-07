@@ -7,7 +7,7 @@ import java.util.function.UnaryOperator;
 
 import com.artclod.common.collect.ImFList;
 
-public interface IMFListMixin<E> extends ImFList<E> {
+public interface ImFListMixin<E> extends ImFList<E> {
 
 	@Deprecated
 	public default boolean add(E e) {
