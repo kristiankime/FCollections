@@ -86,6 +86,15 @@ public class GuavaImFList<E> extends BaseFList<E, GuavaImFList<E>> implements Im
 		return new GuavaImFList<O>(builder.build());
 	}
 
+	@Override
+	public <O> GuavaImFList<O> flatMap(Function<? super E, ? extends Collection<? extends O>> mapper) {
+		Builder<O> builder = ImmutableList.<O> builder();
+		for (E e : this) {
+			builder.addAll(mapper.apply(e));
+		}
+		return new GuavaImFList<O>(builder.build());
+	}
+
 	// ==== Copy modifiers ====
 
 	@Override

@@ -1,6 +1,7 @@
 package com.artclod.common.collect;
 
 import java.io.Serializable;
+import java.util.Collection;
 import java.util.LinkedList;
 import java.util.function.Function;
 
@@ -51,6 +52,16 @@ public class LinkedFList<E> extends BaseFList<E, LinkedFList<E>> implements Seri
 		LinkedList<O> create = Lists.newLinkedList();
 		for (E e : this) {
 			create.add(f.apply(e));
+		}
+		return new LinkedFList<O>(create);
+	}
+	
+	
+	@Override
+	public <O> LinkedFList<O> flatMap(Function<? super E, ? extends Collection<? extends O>> mapper) {
+		LinkedList<O> create = Lists.newLinkedList();
+		for (E e : this) {
+			create.addAll(mapper.apply(e));
 		}
 		return new LinkedFList<O>(create);
 	}

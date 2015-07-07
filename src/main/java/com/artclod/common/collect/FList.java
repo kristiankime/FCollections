@@ -1,5 +1,6 @@
 package com.artclod.common.collect;
 
+import java.util.Collection;
 import java.util.List;
 import java.util.function.Predicate;
 import java.util.function.Function;
@@ -12,11 +13,13 @@ public interface FList<E> extends List<E>, FCollection<E> {
 	
 	public boolean nonEmpty();
 
-	public <O> FList<O> map(Function<? super E, ? extends O> f);
-
 	public FList<E> filter(Predicate<? super E> filter);
 
 	public FList<E> filterNot(Predicate<? super E> filter);
+
+	public <O> FList<O> map(Function<? super E, ? extends O> f);
+
+	public <O> FList<O> flatMap(Function<? super E, ? extends Collection<? extends O>> mapper);
 
 	public String mkString(String sep);
 

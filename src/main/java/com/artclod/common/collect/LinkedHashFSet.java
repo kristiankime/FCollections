@@ -1,6 +1,7 @@
 package com.artclod.common.collect;
 
 import java.io.Serializable;
+import java.util.Collection;
 import java.util.Iterator;
 import java.util.LinkedHashSet;
 import java.util.function.Function;
@@ -53,10 +54,19 @@ public class LinkedHashFSet<E> extends BaseFSet<E, LinkedHashFSet<E>> implements
 	}
 	
 	@Override
-	public <O> FSet<O> map(Function<? super E, ? extends O> f) {
+	public <O> LinkedHashFSet<O> map(Function<? super E, ? extends O> f) {
 		LinkedHashFSet<O> ret = new LinkedHashFSet<O>(new LinkedHashSet<O>());
 		for(E e: this){
 			ret.add(f.apply(e));
+		}
+		return ret;
+	}
+	
+	@Override
+	public <O> LinkedHashFSet<O> flatMap(Function<? super E, ? extends Collection<? extends O>> mapper) {
+		LinkedHashFSet<O> ret = new LinkedHashFSet<O>(new LinkedHashSet<O>());
+		for(E e: this) {
+			ret.addAll(mapper.apply(e));
 		}
 		return ret;
 	}

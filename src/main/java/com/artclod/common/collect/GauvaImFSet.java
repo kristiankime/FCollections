@@ -99,4 +99,13 @@ public class GauvaImFSet<E> extends BaseFSet<E, GauvaImFSet<E>> implements ImFCo
 		return new GauvaImFSet<O>(builder.build());
 	}
 
+	@Override
+	public <O> GauvaImFSet<O> flatMap(Function<? super E, ? extends Collection<? extends O>> mapper) {
+		Builder<O> builder = ImmutableSet.<O> builder();
+		for (E e : this) {
+			builder.addAll(mapper.apply(e));
+		}
+		return new GauvaImFSet<O>(builder.build());
+	}
+	
 }

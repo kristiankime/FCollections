@@ -1,7 +1,5 @@
 package com.artclod.common.collect.base;
 
-import static com.google.common.base.Preconditions.checkNotNull;
-
 import java.util.Collection;
 import java.util.Comparator;
 import java.util.Iterator;
@@ -19,14 +17,14 @@ public abstract class BaseFList<E, L extends FList<E>> extends BaseFColletion<E,
 
 	public BaseFList(List<E> inner) {
 		super(inner);
-		this.inner = checkNotNull(inner);
+		this.inner = inner;
 	}
 	
 	protected Iterator<E> reverseIterator() {
 		return new ReverseListIterator<E>(this);
 	}
 
-	// ============ FLIST METHODS (or support) =========
+	// ============ FLIST METHODS (or support) =========	
 	public GuavaImFList<E> toIm(){
 		return new GuavaImFList<E>(ImmutableList.copyOf(this));
 	}

@@ -40,5 +40,11 @@ abstract public class FListContract extends FCollectionContract {
 		FList<Integer> actual = fList(0, 2, 5, 3, 1, 4, 2).filterNot((a) -> a > 2);
 		assertEquals(asList(0, 2, 1, 2), actual);
 	}
-
+	
+	@Test
+	public void flatMap_transforms_all_elements() throws Exception {
+		FList<String> actual = fList(1, 2, 3).flatMap((a) -> asList(a.toString(), a.toString()));
+		assertEquals(asList("1", "1", "2", "2", "3", "3"), actual);
+	}
+	
 }

@@ -1,6 +1,7 @@
 package com.artclod.common.collect.contract;
 
 import static com.google.common.collect.Sets.newHashSet;
+import static java.util.Arrays.asList;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
@@ -39,6 +40,12 @@ abstract public class FSetContract extends FCollectionContract{
 	public void filterNot_keeps_elements_that_do_not_pass_filter() throws Exception {
 		FSet<Integer> actual = fSet(0, 2, 5, 3, 1, 4, 2).filterNot((a) -> a > 2);
 		assertEquals(newHashSet(0, 2, 1, 2), actual);
+	}
+	
+	@Test
+	public void flatMap_transforms_all_elements() throws Exception {
+		FSet<String> actual = fSet(1, 2, 3).flatMap((a) -> asList(a.toString(), a.toString()));
+		assertEquals(newHashSet("1", "1", "2", "2", "3", "3"), actual);
 	}
 	
 }

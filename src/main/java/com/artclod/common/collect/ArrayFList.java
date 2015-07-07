@@ -2,6 +2,7 @@ package com.artclod.common.collect;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Iterator;
 import java.util.function.Function;
 
@@ -64,6 +65,15 @@ public class ArrayFList<E> extends BaseFList<E, ArrayFList<E>> implements Serial
 		ArrayList<O> create = Lists.newArrayListWithCapacity(inner.size());
 		for (int i = 0; i < inner.size(); i++) {
 			create.add(f.apply(inner.get(i)));
+		}
+		return new ArrayFList<O>(create);
+	}
+	
+	@Override
+	public <O> ArrayFList<O> flatMap(Function<? super E, ? extends Collection<? extends O>> mapper) {
+		ArrayList<O> create = Lists.newArrayList();
+		for (int i = 0; i < inner.size(); i++) {
+			create.addAll(mapper.apply(inner.get(i)));
 		}
 		return new ArrayFList<O>(create);
 	}

@@ -1,6 +1,7 @@
 package com.artclod.common.collect;
 
 import java.io.Serializable;
+import java.util.Collection;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.function.Function;
@@ -69,4 +70,13 @@ public class HashFSet<E> extends BaseFSet<E, HashFSet<E>> implements Serializabl
 		return ret;
 	}
 
+	@Override
+	public <O> HashFSet<O> flatMap(Function<? super E, ? extends Collection<? extends O>> mapper) {
+		HashFSet<O> ret = new HashFSet<O>(new HashSet<O>());
+		for (E e : this) {
+			ret.addAll(mapper.apply(e));
+		}
+		return ret;
+	}
+	
 }
