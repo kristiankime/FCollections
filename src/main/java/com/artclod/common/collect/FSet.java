@@ -7,8 +7,8 @@ import java.util.function.Predicate;
 
 public interface FSet<E> extends Set<E>, FCollection<E> {
 
-	public boolean nonEmpty();
-
+	public ImFSet<E> toIm();
+	
 	public FSet<E> filter(Predicate<? super E> filter);
 
 	public FSet<E> filterNot(Predicate<? super E> filter);

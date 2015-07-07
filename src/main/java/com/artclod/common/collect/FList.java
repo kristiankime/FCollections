@@ -9,8 +9,6 @@ public interface FList<E> extends List<E>, FCollection<E> {
 
 	public ImFList<E> toIm();
 	
-	public boolean nonEmpty();
-
 	public FList<E> filter(Predicate<? super E> filter);
 
 	public FList<E> filterNot(Predicate<? super E> filter);
