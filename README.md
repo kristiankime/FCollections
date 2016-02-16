@@ -1,10 +1,11 @@
 # FCollections
-Functional/Fluent Style Collections for Java. This library is centered around a number of Interfaces, and their implementations, that are extensions to the usual Java Collections (usually by prepending an F). These collections
-interfaces essentially add a number of methods that are common to more functionally oriented language, map, filter
-and reduce for example. Typically each collection has a mutable and immutable interface as well.
+Functional/Fluent Style Collections for Java. This library is centered around a number of Interfaces (and their implementations) that are extensions to the usual Java Collections Interfaces. These
+interfaces essentially add a number of methods that are common to more functionally oriented languages (eg map, filter
+and reduce). Typically each collection has a mutable and immutable interface as well.
 
 Some naming naming/general conventions:
-* The interface for a Collection type typically has an F prepended to it (eg List -> FList).
+* Most of the new Interfaces extend or use an existing Java Interface
+* The name of the new Interface is typically the name of the old Interface with an F prepended to it (eg List -> FList).
 * Implementations are often based around pre-existing classes that add an F before the collection name (eg ArrayList -> ArrayFList).
 * Immutable is shortened to Im (eg ImFList is the immutable version of FList).
 * Immutable version of a collection deprecate the mutation methods and throw if they are called, but add Copy methods. 
