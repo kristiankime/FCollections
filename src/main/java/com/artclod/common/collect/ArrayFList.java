@@ -13,7 +13,7 @@ import com.google.common.collect.Lists;
 public class ArrayFList<E> extends BaseFList<E, ArrayFList<E>> implements Serializable {
 	private static final long serialVersionUID = 1L;
 
-	public static <E> ArrayFList<E> createInner(ArrayList<E> inner) {
+	public static <E> ArrayFList<E> wrap(ArrayList<E> inner) {
 		return new ArrayFList<E>(inner);
 	}
 

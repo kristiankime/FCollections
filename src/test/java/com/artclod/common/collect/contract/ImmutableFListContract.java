@@ -7,7 +7,9 @@ import java.util.List;
 
 import org.junit.Test;
 
+import com.artclod.common.collect.FList;
 import com.artclod.common.collect.ImFList;
+import com.google.common.collect.Ordering;
 
 public abstract class ImmutableFListContract extends FListContract {
 
@@ -91,8 +93,20 @@ public abstract class ImmutableFListContract extends FListContract {
 		List<Integer> list = fList(1, 7, 3, 6, 2);
 		list.removeIf((v) -> v > 3);
 	}
-	
-	// Copy methods
+    
+    @Test(expected=UnsupportedOperationException.class)
+    public void sortBy() throws Exception {
+        FList<Integer> sorted = fList(3, 1, 2).sortBy(Ordering.<Integer> natural());
+        assertEquals(asList(1, 2, 3), sorted);
+    }
+
+    @Test(expected=UnsupportedOperationException.class)
+    public void sort_natural() throws Exception {
+        FList<Integer> sorted = fList(3, 1, 2).sort();
+        assertEquals(asList(1, 2, 3), sorted);
+    }
+    
+    // Copy methods
 	@Test
 	public void addCp(){
 		List<Integer> list = fList(1, 2).addCp(3);

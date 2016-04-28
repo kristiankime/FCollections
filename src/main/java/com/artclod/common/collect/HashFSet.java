@@ -13,6 +13,10 @@ import com.google.common.collect.Sets;
 public class HashFSet<E> extends BaseFSet<E, HashFSet<E>> implements Serializable {
 	private static final long serialVersionUID = 1L;
 
+	public static <E> HashFSet<E> wrap(HashSet<E> inner) {
+		return new HashFSet<E>(inner);
+	}
+	
 	public static <E> HashFSet<E> create() {
 		return new HashFSet<E>(Sets.newHashSet());
 	}

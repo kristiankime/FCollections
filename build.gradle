@@ -25,7 +25,7 @@ eclipse {
 }
 
 group = 'com.github.kristiankime'
-version = '0.0.1'
+version = '0.0.2'
 archivesBaseName = "functional-collections"
 
 repositories {

@@ -12,7 +12,7 @@ import com.google.common.collect.Lists;
 public class LinkedFList<E> extends BaseFList<E, LinkedFList<E>> implements Serializable {
 	private static final long serialVersionUID = 1L;
 
-	public static <E> LinkedFList<E> createInner(LinkedList<E> inner) {
+	public static <E> LinkedFList<E> wrap(LinkedList<E> inner) {
 		return new LinkedFList<E>(inner);
 	}
 

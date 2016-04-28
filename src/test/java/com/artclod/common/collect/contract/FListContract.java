@@ -1,13 +1,13 @@
 package com.artclod.common.collect.contract;
 
 import static java.util.Arrays.asList;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.*;
 
 import org.junit.Test;
 
 import com.artclod.common.collect.FCollection;
 import com.artclod.common.collect.FList;
+import com.google.common.collect.Ordering;
 
 abstract public class FListContract extends FCollectionContract {
 
@@ -47,4 +47,15 @@ abstract public class FListContract extends FCollectionContract {
 		assertEquals(asList("1", "1", "2", "2", "3", "3"), actual);
 	}
 	
+	@Test
+    public void sortBy() throws Exception {
+	    FList<Integer> sorted = fList(3, 1, 2).sortBy(Ordering.<Integer> natural());
+	    assertEquals(asList(1, 2, 3), sorted);
+    }
+
+	@Test
+    public void sort_natural() throws Exception {
+        FList<Integer> sorted = fList(3, 1, 2).sort();
+        assertEquals(asList(1, 2, 3), sorted);
+    }
 }

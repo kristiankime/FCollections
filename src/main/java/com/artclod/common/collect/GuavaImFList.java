@@ -20,31 +20,31 @@ import com.google.common.collect.Lists;
 public class GuavaImFList<E> extends BaseFList<E, GuavaImFList<E>> implements ImFList<E>, ImFListMixin<E>, Serializable {
 	private static final long serialVersionUID = 1L;
 
-	protected final ImmutableList<E> inner;
-
-	public static <E> GuavaImFList<E> of() {
-		return new GuavaImFList<E>(ImmutableList.of());
-	}
-
-	public static <E> GuavaImFList<E> ofInner(ImmutableList<E> inner) {
+	public static <E> GuavaImFList<E> wrap(ImmutableList<E> inner) {
 		return new GuavaImFList<E>(inner);
 	}
 
-	public static <E> GuavaImFList<E> copyOf(Iterable<? extends E> elements) {
+	public static <E> GuavaImFList<E> create() {
+		return new GuavaImFList<E>(ImmutableList.of());
+	}
+
+	public static <E> GuavaImFList<E> create(Iterable<? extends E> elements) {
 		return new GuavaImFList<E>(ImmutableList.copyOf(elements));
 	}
 
-	public static <E> GuavaImFList<E> copyOf(Collection<? extends E> elements) {
+	public static <E> GuavaImFList<E> create(Collection<? extends E> elements) {
 		return new GuavaImFList<E>(ImmutableList.copyOf(elements));
 	}
 
-	public static <E> GuavaImFList<E> copyOf(Iterator<? extends E> elements) {
+	public static <E> GuavaImFList<E> create(Iterator<? extends E> elements) {
 		return new GuavaImFList<E>(ImmutableList.copyOf(elements));
 	}
 
-	public static <E> GuavaImFList<E> copyOf(E[] elements) {
+	public static <E> GuavaImFList<E> create(E[] elements) {
 		return new GuavaImFList<E>(ImmutableList.copyOf(elements));
 	}
+	
+	protected final ImmutableList<E> inner;
 
 	public GuavaImFList(ImmutableList<E> inner) {
 		super(inner);
