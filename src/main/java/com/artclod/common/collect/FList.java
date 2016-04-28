@@ -25,7 +25,7 @@ public interface FList<E> extends List<E>, FCollection<E> {
 	public String mkString(String start, String sep, String end);
 	
 	/**
-	 * This is the same as {@link #java.util.List.sort(Comparator)} but it returns the list.
+	 * This is the same as {@link java.util.List#sort(Comparator)} but it returns the list.
 	 * 
 	 * @param c the comparator that should be used
 	 * @return the current list

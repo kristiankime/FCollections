@@ -25,12 +25,16 @@ public abstract class BaseFColletion<E, C extends FCollection<E>> implements FCo
 	/**
 	 * Intended for internal use. 
 	 * Creates an empty builder that can be used to create a collection of correct type.
+	 * 
+	 * @return a builder for this collections type
 	 */
 	protected abstract CollectionBuilder<E, C> builder();
 	
 	/**
 	 * Best effort to be able to iterator through this collection in reverse.
 	 * Not that for collections that do not have a real reverse nothing is guaranteed (i.e. reverse and forward may even be the same).
+	 * 
+	 * @return an iterator the progresses in reverse order
 	 */
 	protected abstract Iterator<E> reverseIterator();
 	
