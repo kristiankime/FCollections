@@ -4,16 +4,22 @@ import static com.google.common.base.Preconditions.checkNotNull;
 
 import java.util.Collection;
 import java.util.Iterator;
+import java.util.LinkedHashMap;
+import java.util.Map;
 import java.util.Optional;
 import java.util.Spliterator;
 import java.util.function.BiFunction;
 import java.util.function.BinaryOperator;
 import java.util.function.Consumer;
+import java.util.function.Function;
 import java.util.function.Predicate;
 import java.util.stream.Stream;
 
+import com.artclod.common.collect.ArrayFList;
 import com.artclod.common.collect.FCollection;
+import com.artclod.common.collect.FList;
 import com.artclod.common.collect.builder.CollectionBuilder;
+import com.google.common.collect.Maps;
 
 public abstract class BaseFColletion<E, C extends FCollection<E>> implements FCollection<E> {
 	final Collection<E> inner;
@@ -151,6 +157,22 @@ public abstract class BaseFColletion<E, C extends FCollection<E>> implements FCo
 		}
 		return ret.build();
 	}
+	
+	// --- Group ---
+	public <K> Map<K, FList<E>> groupBy(Function<? super E, ? extends K> f) {
+		LinkedHashMap<K, FList<E>> ret = Maps.newLinkedHashMap();
+		for(E e: this) {
+			K key = f.apply(e);
+			FList<E> fList = ret.get(key);
+			if(fList == null) {
+				fList = ArrayFList.create();
+				ret.put(key, fList);
+			}
+			fList.add(e);
+		}
+		return ret;
+	}
+
 	
 	// ============ DELEGATE METHODS =========
 	public void forEach(Consumer<? super E> action) {

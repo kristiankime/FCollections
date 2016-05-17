@@ -12,7 +12,7 @@ import java.util.function.Function;
 import com.artclod.common.collect.base.BaseFList;
 import com.artclod.common.collect.base.ImFListMixin;
 import com.artclod.common.collect.builder.CollectionBuilder;
-import com.artclod.common.collect.builder.GauvaImFListBuilder;
+import com.artclod.common.collect.builder.GuavaImFListBuilder;
 import com.google.common.collect.ImmutableList;
 import com.google.common.collect.ImmutableList.Builder;
 import com.google.common.collect.Lists;
@@ -53,7 +53,7 @@ public class GuavaImFList<E> extends BaseFList<E, GuavaImFList<E>> implements Im
 
 	@Override
 	protected CollectionBuilder<E, GuavaImFList<E>> builder() {
-		return new GauvaImFListBuilder<E>(ImmutableList.builder());
+		return new GuavaImFListBuilder<E>(ImmutableList.builder());
 	}
 
 	public ImmutableList<E> toGuava() {

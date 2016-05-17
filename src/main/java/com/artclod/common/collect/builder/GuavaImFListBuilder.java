@@ -3,20 +3,20 @@ package com.artclod.common.collect.builder;
 import java.util.Collection;
 import java.util.Iterator;
 
-import com.artclod.common.collect.GauvaImFSet;
-import com.google.common.collect.ImmutableSet;
-import com.google.common.collect.ImmutableSet.Builder;
+import com.artclod.common.collect.GuavaImFList;
+import com.google.common.collect.ImmutableList;
+import com.google.common.collect.ImmutableList.Builder;
 
-public class GauvaImFSetBuilder<E> implements CollectionBuilder<E, GauvaImFSet<E>> {		
+public class GuavaImFListBuilder<E> implements CollectionBuilder<E, GuavaImFList<E>> {		
 	private Builder<E> inner;
 
-	public GauvaImFSetBuilder(ImmutableSet.Builder<E> inner) {
+	public GuavaImFListBuilder(ImmutableList.Builder<E> inner) {
 		this.inner = inner;
 	}
 	
 	@Override
-	public GauvaImFSet<E> build() {
-		return new GauvaImFSet<E>(inner.build());
+	public GuavaImFList<E> build() {
+		return new GuavaImFList<E>(inner.build());
 	}
 
 	@Override

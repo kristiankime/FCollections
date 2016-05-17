@@ -5,9 +5,14 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
+import java.util.List;
+import java.util.Map;
+
 import org.junit.Test;
 
 import com.artclod.common.collect.FCollection;
+import com.artclod.common.collect.FList;
+import com.google.common.collect.ImmutableMap;
 
 abstract public class FCollectionContract {
 
@@ -147,6 +152,18 @@ abstract public class FCollectionContract {
 	public void foldRight_empty_list_returns_initial() throws Exception {
 		int actual = this.<Integer> fCollection().foldRight(10, (a, b) -> a + b);
 		assertEquals(10, actual);
+	}
+	
+	@Test
+	public void groupBy_empty_map_for_empty_collection() throws Exception {
+		Map<Integer, FList<Integer>> actual = this.<Integer> fCollection().groupBy(i -> i);
+		assertTrue(actual.isEmpty());
+	}
+	
+	@Test
+	public void groupBy_groups_as_specified() throws Exception {
+		Map<Integer, FList<Integer>> actual = this.<Integer> fCollection(0,1,2,3).groupBy(i -> i % 2);
+		assertEquals(ImmutableMap.<Integer, List<Integer>> builder(). put(0,asList(0,2)).put(1, asList(1,3)).build(), actual);
 	}
 	
 }

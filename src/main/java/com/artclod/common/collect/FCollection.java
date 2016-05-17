@@ -1,6 +1,7 @@
 package com.artclod.common.collect;
 
 import java.util.Collection;
+import java.util.Map;
 import java.util.Optional;
 import java.util.function.BiFunction;
 import java.util.function.BinaryOperator;
@@ -32,4 +33,5 @@ public interface FCollection<E> extends Collection<E> {
 	public <O> O foldLeft(O initial, BiFunction<O, E, O> f);
 	public <O> O foldRight(O initial, BiFunction<O, E, O> f);
 
+	public <K> Map<K, FList<E>> groupBy(Function<? super E, ? extends K> f);
 }

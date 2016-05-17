@@ -5,7 +5,7 @@ import static com.google.common.base.Preconditions.checkNotNull;
 import java.util.Set;
 
 import com.artclod.common.collect.FSet;
-import com.artclod.common.collect.GauvaImFSet;
+import com.artclod.common.collect.GuavaImFSet;
 import com.google.common.collect.ImmutableSet;
 
 public abstract class BaseFSet<E, S extends FSet<E>> extends BaseFColletion<E, S> implements FSet<E> {
@@ -17,7 +17,7 @@ public abstract class BaseFSet<E, S extends FSet<E>> extends BaseFColletion<E, S
 	}
 
 	// ============ FLIST METHODS (or support) =========	
-	public GauvaImFSet<E> toIm(){
-		return new GauvaImFSet<E>(ImmutableSet.copyOf(this));
+	public GuavaImFSet<E> toIm(){
+		return new GuavaImFSet<E>(ImmutableSet.copyOf(this));
 	}
 }
