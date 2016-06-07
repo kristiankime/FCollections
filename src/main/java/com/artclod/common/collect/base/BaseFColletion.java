@@ -2,6 +2,7 @@ package com.artclod.common.collect.base;
 
 import static com.google.common.base.Preconditions.checkNotNull;
 
+import java.io.Serializable;
 import java.util.Collection;
 import java.util.Iterator;
 import java.util.LinkedHashMap;
@@ -21,7 +22,9 @@ import com.artclod.common.collect.FList;
 import com.artclod.common.collect.builder.CollectionBuilder;
 import com.google.common.collect.Maps;
 
-public abstract class BaseFColletion<E, C extends FCollection<E>> implements FCollection<E> {
+public abstract class BaseFColletion<E, C extends FCollection<E>> implements FCollection<E>, Serializable {
+	private static final long serialVersionUID = 1L;
+
 	final Collection<E> inner;
 
 	public BaseFColletion(Collection<E> inner) {

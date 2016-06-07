@@ -1,6 +1,10 @@
 package com.artclod.common.base;
 
-public class T2<E1, E2> {
+import java.io.Serializable;
+
+public class T2<E1, E2> implements Serializable {
+	private static final long serialVersionUID = 1L;
+
 	public final E1 _1;
 	public final E2 _2;
 	

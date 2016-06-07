@@ -1,6 +1,6 @@
 package com.artclod.common.collect;
 
-import java.io.Serializable;
+import java.util.Arrays;
 import java.util.Collection;
 import java.util.LinkedList;
 import java.util.function.Function;
@@ -9,7 +9,7 @@ import com.artclod.common.collect.base.BaseFList;
 import com.artclod.common.collect.builder.CollectionBuilder;
 import com.google.common.collect.Lists;
 
-public class LinkedFList<E> extends BaseFList<E, LinkedFList<E>> implements Serializable {
+public class LinkedFList<E> extends BaseFList<E, LinkedFList<E>> {
 	private static final long serialVersionUID = 1L;
 
 	public static <E> LinkedFList<E> wrap(LinkedList<E> inner) {
@@ -22,6 +22,11 @@ public class LinkedFList<E> extends BaseFList<E, LinkedFList<E>> implements Seri
 
 	public static <E> LinkedFList<E> create(Iterable<? extends E> elements) {
 		return new LinkedFList<E>(Lists.newLinkedList(elements));
+	}
+	
+	@SafeVarargs
+	public static <E> LinkedFList<E> create(E... elements) {
+		return new LinkedFList<E>(Lists.newLinkedList(Arrays.asList(elements)));
 	}
 
 	public LinkedFList(LinkedList<E> inner) {

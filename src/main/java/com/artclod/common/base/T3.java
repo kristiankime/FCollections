@@ -1,6 +1,8 @@
 package com.artclod.common.base;
 
 public class T3<E1, E2, E3> extends T2<E1, E2> {
+	private static final long serialVersionUID = 1L;
+
 	public final E3 _3;
 
 	public T3(E1 _1, E2 _2, E3 _3) {

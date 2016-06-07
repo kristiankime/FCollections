@@ -9,13 +9,15 @@ import com.artclod.common.collect.GuavaImFSet;
 import com.google.common.collect.ImmutableSet;
 
 public abstract class BaseFSet<E, S extends FSet<E>> extends BaseFColletion<E, S> implements FSet<E> {
+	private static final long serialVersionUID = 1L;
+
 	final Set<E> inner;
 
 	public BaseFSet(Set<E> inner) {
 		super(inner);
 		this.inner = checkNotNull(inner);
 	}
-
+	
 	// ============ FLIST METHODS (or support) =========	
 	public GuavaImFSet<E> toIm(){
 		return new GuavaImFSet<E>(ImmutableSet.copyOf(this));

@@ -1,6 +1,5 @@
 package com.artclod.common.collect;
 
-import java.io.Serializable;
 import java.util.Collection;
 import java.util.Iterator;
 import java.util.LinkedHashSet;
@@ -14,7 +13,7 @@ import com.google.common.collect.ImmutableSet;
 import com.google.common.collect.ImmutableSet.Builder;
 import com.google.common.collect.Sets;
 
-public class GuavaImFSet<E> extends BaseFSet<E, GuavaImFSet<E>> implements ImFCollectionMixIn<E>, ImFSet<E>, Serializable {
+public class GuavaImFSet<E> extends BaseFSet<E, GuavaImFSet<E>> implements ImFCollectionMixIn<E>, ImFSet<E> {
 	private static final long serialVersionUID = 1L;
 
 	public static <E> GuavaImFSet<E> wrap(ImmutableSet<E> inner) {
@@ -25,7 +24,8 @@ public class GuavaImFSet<E> extends BaseFSet<E, GuavaImFSet<E>> implements ImFCo
 		return new GuavaImFSet<E>(ImmutableSet.of());
 	}
 
-	public static <E> GuavaImFSet<E> create(@SuppressWarnings("unchecked") E... elements) {
+	@SafeVarargs
+	public static <E> GuavaImFSet<E> create(E... elements) {
 		return new GuavaImFSet<E>(ImmutableSet.copyOf(elements));
 	}
 

@@ -1,6 +1,5 @@
 package com.artclod.common.collect;
 
-import java.io.Serializable;
 import java.util.Collection;
 import java.util.HashSet;
 import java.util.Iterator;
@@ -10,7 +9,7 @@ import com.artclod.common.collect.base.BaseFSet;
 import com.artclod.common.collect.builder.CollectionBuilder;
 import com.google.common.collect.Sets;
 
-public class HashFSet<E> extends BaseFSet<E, HashFSet<E>> implements Serializable {
+public class HashFSet<E> extends BaseFSet<E, HashFSet<E>> {
 	private static final long serialVersionUID = 1L;
 
 	public static <E> HashFSet<E> wrap(HashSet<E> inner) {
@@ -21,7 +20,8 @@ public class HashFSet<E> extends BaseFSet<E, HashFSet<E>> implements Serializabl
 		return new HashFSet<E>(Sets.newHashSet());
 	}
 
-	public static <E> HashFSet<E> create(@SuppressWarnings("unchecked") E... elements) {
+	@SafeVarargs
+	public static <E> HashFSet<E> create(E... elements) {
 		return new HashFSet<E>(Sets.newHashSet(elements));
 	}
 

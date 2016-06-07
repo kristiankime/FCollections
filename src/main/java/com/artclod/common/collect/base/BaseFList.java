@@ -13,13 +13,15 @@ import com.artclod.common.collect.ReverseListIterator;
 import com.google.common.collect.ImmutableList;
 
 public abstract class BaseFList<E, L extends FList<E>> extends BaseFColletion<E, L> implements FList<E> {
+	private static final long serialVersionUID = 1L;
+
 	protected final List<E> inner;
 
 	public BaseFList(List<E> inner) {
 		super(inner);
 		this.inner = inner;
 	}
-	
+		
 	protected Iterator<E> reverseIterator() {
 		return new ReverseListIterator<E>(this);
 	}

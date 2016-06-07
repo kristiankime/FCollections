@@ -1,6 +1,5 @@
 package com.artclod.common.collect;
 
-import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Iterator;
@@ -10,7 +9,7 @@ import com.artclod.common.collect.base.BaseFList;
 import com.artclod.common.collect.builder.CollectionBuilder;
 import com.google.common.collect.Lists;
 
-public class ArrayFList<E> extends BaseFList<E, ArrayFList<E>> implements Serializable {
+public class ArrayFList<E> extends BaseFList<E, ArrayFList<E>> {
 	private static final long serialVersionUID = 1L;
 
 	public static <E> ArrayFList<E> wrap(ArrayList<E> inner) {
@@ -25,7 +24,8 @@ public class ArrayFList<E> extends BaseFList<E, ArrayFList<E>> implements Serial
 		return new ArrayFList<E>(Lists.newArrayListWithCapacity(initialCapacity));
 	}
 	
-	public static <E> ArrayFList<E> create(@SuppressWarnings("unchecked") E... elements) {
+	@SafeVarargs
+	public static <E> ArrayFList<E> create(E... elements) {
 		return new ArrayFList<E>(Lists.newArrayList(elements));
 	}
 
@@ -40,7 +40,7 @@ public class ArrayFList<E> extends BaseFList<E, ArrayFList<E>> implements Serial
 	public ArrayFList(ArrayList<E> inner) {
 		super(inner);
 	}
-
+	
 	// This exist so we can create a CollectionBuilder of the right type 
 	static class ArrayFListBuilder<E> extends ArrayFList<E> implements CollectionBuilder<E, ArrayFList<E>> {
 		private static final long serialVersionUID = 1L;

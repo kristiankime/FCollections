@@ -1,13 +1,12 @@
 package com.artclod.common.collect;
 
-import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Comparator;
 import java.util.Iterator;
+import java.util.function.Function;
 import java.util.function.Predicate;
 import java.util.function.UnaryOperator;
-import java.util.function.Function;
 
 import com.artclod.common.collect.base.BaseFList;
 import com.artclod.common.collect.base.ImFListMixin;
@@ -17,7 +16,7 @@ import com.google.common.collect.ImmutableList;
 import com.google.common.collect.ImmutableList.Builder;
 import com.google.common.collect.Lists;
 
-public class GuavaImFList<E> extends BaseFList<E, GuavaImFList<E>> implements ImFList<E>, ImFListMixin<E>, Serializable {
+public class GuavaImFList<E> extends BaseFList<E, GuavaImFList<E>> implements ImFList<E>, ImFListMixin<E> {
 	private static final long serialVersionUID = 1L;
 
 	public static <E> GuavaImFList<E> wrap(ImmutableList<E> inner) {
@@ -40,7 +39,8 @@ public class GuavaImFList<E> extends BaseFList<E, GuavaImFList<E>> implements Im
 		return new GuavaImFList<E>(ImmutableList.copyOf(elements));
 	}
 
-	public static <E> GuavaImFList<E> create(E[] elements) {
+	@SafeVarargs
+	public static <E> GuavaImFList<E> create(E... elements) {
 		return new GuavaImFList<E>(ImmutableList.copyOf(elements));
 	}
 	

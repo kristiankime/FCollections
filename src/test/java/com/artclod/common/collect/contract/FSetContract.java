@@ -7,14 +7,13 @@ import static org.junit.Assert.assertTrue;
 
 import org.junit.Test;
 
-import com.artclod.common.collect.FCollection;
 import com.artclod.common.collect.FSet;
 
 abstract public class FSetContract extends FCollectionContract{
 
 	public abstract <T> FSet<T> fSet(@SuppressWarnings("unchecked") T... elements);
 
-	public <T> FCollection<T> fCollection(@SuppressWarnings("unchecked") T... elements){
+	public <T> FSet<T> fCollection(@SuppressWarnings("unchecked") T... elements){
 		return fSet(elements);
 	}
 

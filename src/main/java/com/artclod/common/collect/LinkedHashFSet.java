@@ -1,6 +1,5 @@
 package com.artclod.common.collect;
 
-import java.io.Serializable;
 import java.util.Collection;
 import java.util.Iterator;
 import java.util.LinkedHashSet;
@@ -10,7 +9,7 @@ import com.artclod.common.collect.base.BaseFSet;
 import com.artclod.common.collect.builder.CollectionBuilder;
 import com.google.common.collect.Sets;
 
-public class LinkedHashFSet<E> extends BaseFSet<E, LinkedHashFSet<E>> implements Serializable {
+public class LinkedHashFSet<E> extends BaseFSet<E, LinkedHashFSet<E>> {
     private static final long serialVersionUID = 1L;
 
     public static <E> LinkedHashFSet<E> wrap(LinkedHashSet<E> inner) {
