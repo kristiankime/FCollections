@@ -18,8 +18,7 @@ public abstract class BaseFSet<E, S extends FSet<E>> extends BaseFColletion<E, S
 		this.inner = checkNotNull(inner);
 	}
 	
-	// ============ FLIST METHODS (or support) =========	
-	public GuavaImFSet<E> toIm(){
+	public GuavaImFSet<E> toIm() {
 		return new GuavaImFSet<E>(ImmutableSet.copyOf(this));
 	}
 }

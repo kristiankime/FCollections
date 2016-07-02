@@ -19,10 +19,16 @@ public interface FList<E> extends List<E>, FCollection<E> {
 	public <O> FList<O> map(Function<? super E, ? extends O> f);
 
 	public <O> FList<O> flatMap(Function<? super E, ? extends Collection<? extends O>> mapper);
-
-	public String mkString(String sep);
-
-	public String mkString(String start, String sep, String end);
+    
+	public FList<E> addCp(E e);
+	
+	public FList<E> addAllCp(Collection<? extends E> c);
+	
+	public FList<E> removeCp(Object o);
+	
+	public FList<E> removeAllCp(Collection<?> c);
+	
+	public FList<E> retainAllCp(Collection<?> c);
 	
 	/**
 	 * This is the same as {@link java.util.List#sort(Comparator)} but it returns the list.

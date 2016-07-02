@@ -61,6 +61,11 @@ public class ArrayFList<E> extends BaseFList<E, ArrayFList<E>> {
 	}
 
 	@Override
+	protected CollectionBuilder<E, ArrayFList<E>> builder(Collection<E> c) {
+		return new ArrayFListBuilder<E>(new ArrayList<E>(c));
+	}
+	
+	@Override
 	public <O> ArrayFList<O> map(Function<? super E, ? extends O> f) {
 		ArrayList<O> create = Lists.newArrayListWithCapacity(inner.size());
 		for (int i = 0; i < inner.size(); i++) {

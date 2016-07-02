@@ -9,7 +9,7 @@ import org.junit.Test;
 
 import com.artclod.common.collect.FSet;
 
-abstract public class FSetContract extends FCollectionContract{
+abstract public class FSetContract extends FCollectionContract {
 
 	public abstract <T> FSet<T> fSet(@SuppressWarnings("unchecked") T... elements);
 
@@ -47,4 +47,49 @@ abstract public class FSetContract extends FCollectionContract{
 		assertEquals(newHashSet("1", "1", "2", "2", "3", "3"), actual);
 	}
 	
+	// ---- Copy Methods ----
+	@Test
+	public void addCp_copies_and_adds_element() throws Exception {
+		FSet<Integer> before = this.<Integer> fSet(0, 1, 2);
+		FSet<Integer> after = before.addCp(3);
+
+		assertEquals(newHashSet(0, 1, 2), before);
+		assertEquals(newHashSet(0, 1, 2, 3), after);
+	}
+	
+	@Test
+	public void addAllCp_copies_and_adds_all_elements() throws Exception {
+		FSet<Integer> before = this.<Integer> fSet(0, 1, 2);
+		FSet<Integer> after = before.addAllCp(asList(3, 4, 5));
+
+		assertEquals(newHashSet(0, 1, 2), before);
+		assertEquals(newHashSet(0, 1, 2, 3, 4, 5), after);
+	}
+	
+	@Test
+	public void removeCp_copies_and_removes_element() throws Exception {
+		FSet<Integer> before = this.<Integer> fSet(0, 1, 2);
+		FSet<Integer> after = before.removeCp(1);
+
+		assertEquals(newHashSet(0, 1, 2), before);
+		assertEquals(newHashSet(0, 2), after);
+	}
+	
+	@Test
+	public void removeAllCp_copies_and_removes_elements() throws Exception {
+		FSet<Integer> before = this.<Integer> fSet(0, 1, 2, 3, 4);
+		FSet<Integer> after = before.removeAllCp(asList(1, 3));
+
+		assertEquals(newHashSet(0, 1, 2, 3, 4), before);
+		assertEquals(newHashSet(0, 2, 4), after);
+	}
+	
+	@Test
+	public void retainAllCp_copies_and_retains_elements() throws Exception {
+		FSet<Integer> before = this.<Integer> fSet(0, 1, 2, 3, 4);
+		FSet<Integer> after = before.retainAllCp(asList(1, 3, 5));
+
+		assertEquals(newHashSet(0, 1, 2, 3, 4), before);
+		assertEquals(newHashSet(1, 3), after);
+	}
 }

@@ -53,6 +53,11 @@ public class LinkedFList<E> extends BaseFList<E, LinkedFList<E>> {
 	}
 
 	@Override
+	protected CollectionBuilder<E, LinkedFList<E>> builder(Collection<E> c) {
+		return new LinkedFListBuilder<E>(new LinkedList<E>(c));
+	}
+	
+	@Override
 	public <O> LinkedFList<O> map(Function<? super E, ? extends O> f) {
 		LinkedList<O> create = Lists.newLinkedList();
 		for (E e : this) {

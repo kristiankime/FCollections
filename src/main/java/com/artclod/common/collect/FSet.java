@@ -17,8 +17,14 @@ public interface FSet<E> extends Set<E>, FCollection<E> {
 
 	public <O> FSet<O> flatMap(Function<? super E, ? extends Collection<? extends O>> mapper);
 
-	public String mkString(String sep);
-
-	public String mkString(String start, String sep, String end);
+	public FSet<E> addCp(E e);
+	
+	public FSet<E> addAllCp(Collection<? extends E> c);
+	
+	public FSet<E> removeCp(Object o);
+	
+	public FSet<E> removeAllCp(Collection<?> c);
+	
+	public FSet<E> retainAllCp(Collection<?> c);
 	
 }

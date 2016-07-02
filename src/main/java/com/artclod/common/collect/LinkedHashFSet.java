@@ -42,7 +42,7 @@ public class LinkedHashFSet<E> extends BaseFSet<E, LinkedHashFSet<E>> {
     }
 
     // This exist so we can create a CollectionBuilder of the right type 
-    private static class LinkedHashFSetBuilder<E> extends LinkedHashFSet<E> implements CollectionBuilder<E, LinkedHashFSet<E>> {
+    protected static class LinkedHashFSetBuilder<E> extends LinkedHashFSet<E> implements CollectionBuilder<E, LinkedHashFSet<E>> {
         private static final long serialVersionUID = 1L;
 
         public LinkedHashFSetBuilder(LinkedHashSet<E> inner) {
@@ -59,6 +59,11 @@ public class LinkedHashFSet<E> extends BaseFSet<E, LinkedHashFSet<E>> {
     protected CollectionBuilder<E, LinkedHashFSet<E>> builder() {
         return new LinkedHashFSetBuilder<E>(new LinkedHashSet<E>());
     }
+    
+	@Override
+	protected CollectionBuilder<E, LinkedHashFSet<E>> builder(Collection<E> c) {
+		return new LinkedHashFSetBuilder<E>(new LinkedHashSet<E>(c));
+	}
 
     @Override
     protected Iterator<E> reverseIterator() {

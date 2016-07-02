@@ -53,9 +53,14 @@ public class GuavaImFList<E> extends BaseFList<E, GuavaImFList<E>> implements Im
 
 	@Override
 	protected CollectionBuilder<E, GuavaImFList<E>> builder() {
-		return new GuavaImFListBuilder<E>(ImmutableList.builder());
+		return new GuavaImFListBuilder<E>(ImmutableList.<E> builder());
 	}
 
+	@Override
+	protected CollectionBuilder<E, GuavaImFList<E>> builder(Collection<E> c) {
+		return new GuavaImFListBuilder<E>(ImmutableList.<E> builder().addAll(c));
+	}
+	
 	public ImmutableList<E> toGuava() {
 		return inner;
 	}

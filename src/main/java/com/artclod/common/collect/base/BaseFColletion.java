@@ -4,9 +4,8 @@ import static com.google.common.base.Preconditions.checkNotNull;
 
 import java.io.Serializable;
 import java.util.Collection;
+import java.util.HashMap;
 import java.util.Iterator;
-import java.util.LinkedHashMap;
-import java.util.Map;
 import java.util.Optional;
 import java.util.Spliterator;
 import java.util.function.BiFunction;
@@ -19,8 +18,9 @@ import java.util.stream.Stream;
 import com.artclod.common.collect.ArrayFList;
 import com.artclod.common.collect.FCollection;
 import com.artclod.common.collect.FList;
+import com.artclod.common.collect.FMap;
+import com.artclod.common.collect.HashFMap;
 import com.artclod.common.collect.builder.CollectionBuilder;
-import com.google.common.collect.Maps;
 
 public abstract class BaseFColletion<E, C extends FCollection<E>> implements FCollection<E>, Serializable {
 	private static final long serialVersionUID = 1L;
@@ -38,6 +38,8 @@ public abstract class BaseFColletion<E, C extends FCollection<E>> implements FCo
 	 * @return a builder for this collections type
 	 */
 	protected abstract CollectionBuilder<E, C> builder();
+	
+	protected abstract CollectionBuilder<E, C> builder(Collection<E> c);
 	
 	/**
 	 * Best effort to be able to iterator through this collection in reverse.
@@ -162,8 +164,8 @@ public abstract class BaseFColletion<E, C extends FCollection<E>> implements FCo
 	}
 	
 	// --- Group ---
-	public <K> Map<K, FList<E>> groupBy(Function<? super E, ? extends K> f) {
-		LinkedHashMap<K, FList<E>> ret = Maps.newLinkedHashMap();
+	public <K> FMap<K, FList<E>> groupBy(Function<? super E, ? extends K> f) {
+		HashFMap<K, FList<E>> ret = new HashFMap<>(new HashMap<>());
 		for(E e: this) {
 			K key = f.apply(e);
 			FList<E> fList = ret.get(key);
@@ -176,6 +178,37 @@ public abstract class BaseFColletion<E, C extends FCollection<E>> implements FCo
 		return ret;
 	}
 
+	// ============ EDIT COPY METHODS =========
+	
+	public C addCp(E e) {
+		CollectionBuilder<E,C> builder = builder(inner);
+		builder.add(e);
+		return builder.build();
+	}
+	
+	public C addAllCp(Collection<? extends E> c) {
+		CollectionBuilder<E,C> builder = builder(inner);
+		builder.addAll(c);
+		return builder.build();
+	}
+	
+	public C removeCp(Object o) {
+		CollectionBuilder<E,C> builder = builder(inner);
+		builder.remove(o);
+		return builder.build();
+	}
+	
+	public C removeAllCp(Collection<?> c) {
+		CollectionBuilder<E,C> builder = builder(inner);
+		builder.removeAll(c);
+		return builder.build();
+	}
+	
+	public C retainAllCp(Collection<?> c) {
+		CollectionBuilder<E,C> builder = builder(inner);
+		builder.retainAll(c);
+		return builder.build();
+	}
 	
 	// ============ DELEGATE METHODS =========
 	public void forEach(Consumer<? super E> action) {

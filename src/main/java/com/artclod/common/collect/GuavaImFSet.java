@@ -49,6 +49,11 @@ public class GuavaImFSet<E> extends BaseFSet<E, GuavaImFSet<E>> implements ImFCo
 	protected CollectionBuilder<E, GuavaImFSet<E>> builder() {
 		return new GuavaImFSetBuilder<E>(ImmutableSet.<E> builder());
 	}
+	
+	@Override
+	protected CollectionBuilder<E, GuavaImFSet<E>> builder(Collection<E> c) {
+		return new GuavaImFSetBuilder<E>(ImmutableSet.<E> builder().addAll(c));
+	}
 
 	@Override
 	protected Iterator<E> reverseIterator() {

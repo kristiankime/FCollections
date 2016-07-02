@@ -59,6 +59,11 @@ public class HashFSet<E> extends BaseFSet<E, HashFSet<E>> {
 	protected CollectionBuilder<E, HashFSet<E>> builder() {
 		return new HashFSetBuilder<E>(new HashSet<E>());
 	}
+		
+	@Override
+	protected CollectionBuilder<E, HashFSet<E>> builder(Collection<E> c) {
+		return new HashFSetBuilder<E>(new HashSet<E>(c));
+	}
 
 	@Override
 	protected Iterator<E> reverseIterator() {

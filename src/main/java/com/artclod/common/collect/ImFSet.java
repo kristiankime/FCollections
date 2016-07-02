@@ -2,7 +2,7 @@ package com.artclod.common.collect;
 
 import java.util.Collection;
 
-public interface ImFSet<E> extends FSet<E>, ImFCollection<E> {
+public interface ImFSet<E> extends ViewFSet<E>, ImFCollection<E> {
 
 	public ImFSet<E> addCp(E e);
 	

@@ -40,16 +40,16 @@ abstract public class FCollectionContract {
 	
 	@Test
 	public void containsAll_false() throws Exception {
-		assertTrue(fCollection(1, 2, 3).containsAll(asList(2, 3)));
+		assertFalse(fCollection(1, 2, 3).containsAll(asList(3, 4)));
 	}
 	
 	@Test
-	public void isEmpty_for_empty() throws Exception {
+	public void isEmpty_true_for_empty() throws Exception {
 		assertTrue(this.<Integer> fCollection().isEmpty());
 	}
 	
 	@Test
-	public void isEmpty_with_values() throws Exception {
+	public void isEmpty_false_with_values() throws Exception {
 		assertFalse(fCollection(5, 6).isEmpty());
 	}
 	
@@ -162,8 +162,8 @@ abstract public class FCollectionContract {
 	
 	@Test
 	public void groupBy_groups_as_specified() throws Exception {
-		Map<Integer, FList<Integer>> actual = this.<Integer> fCollection(0,1,2,3).groupBy(i -> i % 2);
-		assertEquals(ImmutableMap.<Integer, List<Integer>> builder(). put(0,asList(0,2)).put(1, asList(1,3)).build(), actual);
+		Map<Integer, FList<Integer>> actual = this.<Integer> fCollection(0, 1, 2, 3).groupBy(i -> i % 2);
+		assertEquals(ImmutableMap.<Integer, List<Integer>> builder(). put(0, asList(0, 2)).put(1, asList(1, 3)).build(), actual);
 	}
 	
 }

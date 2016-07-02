@@ -58,4 +58,51 @@ abstract public class FListContract extends FCollectionContract {
         FList<Integer> sorted = fList(3, 1, 2).sort();
         assertEquals(asList(1, 2, 3), sorted);
     }
+	
+	// ---- Copy Methods ----
+	@Test
+	public void addCp_copies_and_adds_element() throws Exception {
+		FList<Integer> before = this.<Integer> fList(0, 1, 2);
+		FList<Integer> after = before.addCp(3);
+
+		assertEquals(asList(0, 1, 2), before);
+		assertEquals(asList(0, 1, 2, 3), after);
+	}
+	
+	@Test
+	public void addAllCp_copies_and_adds_all_elements() throws Exception {
+		FList<Integer> before = this.<Integer> fList(0, 1, 2);
+		FList<Integer> after = before.addAllCp(asList(3, 4, 5));
+
+		assertEquals(asList(0, 1, 2), before);
+		assertEquals(asList(0, 1, 2, 3, 4, 5), after);
+	}
+	
+	@Test
+	public void removeCp_copies_and_removes_element() throws Exception {
+		FList<Integer> before = this.<Integer> fList(0, 1, 2);
+		FList<Integer> after = before.removeCp(1);
+
+		assertEquals(asList(0, 1, 2), before);
+		assertEquals(asList(0, 2), after);
+	}
+	
+	@Test
+	public void removeAllCp_copies_and_removes_elements() throws Exception {
+		FList<Integer> before = this.<Integer> fList(0, 1, 2, 3, 4);
+		FList<Integer> after = before.removeAllCp(asList(1, 3));
+
+		assertEquals(asList(0, 1, 2, 3, 4), before);
+		assertEquals(asList(0, 2, 4), after);
+	}
+	
+	@Test
+	public void retainAllCp_copies_and_retains_elements() throws Exception {
+		FList<Integer> before = this.<Integer> fList(0, 1, 2, 3, 4);
+		FList<Integer> after = before.retainAllCp(asList(1, 3, 5));
+
+		assertEquals(asList(0, 1, 2, 3, 4), before);
+		assertEquals(asList(1, 3), after);
+	}
+	
 }
