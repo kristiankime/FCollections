@@ -9,14 +9,14 @@ import java.util.function.Predicate;
 import java.util.function.UnaryOperator;
 
 import com.artclod.common.collect.base.BaseFList;
-import com.artclod.common.collect.base.ImFListMixin;
+import com.artclod.common.collect.base.UnsupportMutationListMixIn;
 import com.artclod.common.collect.builder.CollectionBuilder;
 import com.artclod.common.collect.builder.GuavaImFListBuilder;
 import com.google.common.collect.ImmutableList;
 import com.google.common.collect.ImmutableList.Builder;
 import com.google.common.collect.Lists;
 
-public class GuavaImFList<E> extends BaseFList<E, GuavaImFList<E>> implements ImFList<E>, ImFListMixin<E> {
+public class GuavaImFList<E> extends BaseFList<E, GuavaImFList<E>> implements UnsupportMutationListMixIn<E>, ImFList<E> {
 	private static final long serialVersionUID = 1L;
 
 	public static <E> GuavaImFList<E> wrap(ImmutableList<E> inner) {
@@ -186,4 +186,10 @@ public class GuavaImFList<E> extends BaseFList<E, GuavaImFList<E>> implements Im
 		return new GuavaImFList<E>(ImmutableList.copyOf(list));
 	}
 
+	// ==== Unsupported
+	// TODO for some reason this is required on certain compilers
+	@Deprecated
+	public void replaceAll(UnaryOperator<E> operator) {
+		throw new UnsupportedOperationException();
+	}
 }

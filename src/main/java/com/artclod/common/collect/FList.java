@@ -10,26 +10,20 @@ import com.google.common.collect.Ordering;
 
 public interface FList<E> extends List<E>, FCollection<E> {
 
-	public ImFList<E> toIm();
-	
 	public FList<E> filter(Predicate<? super E> filter);
-
 	public FList<E> filterNot(Predicate<? super E> filter);
 
 	public <O> FList<O> map(Function<? super E, ? extends O> f);
-
 	public <O> FList<O> flatMap(Function<? super E, ? extends Collection<? extends O>> mapper);
     
 	public FList<E> addCp(E e);
-	
 	public FList<E> addAllCp(Collection<? extends E> c);
-	
 	public FList<E> removeCp(Object o);
-	
 	public FList<E> removeAllCp(Collection<?> c);
-	
 	public FList<E> retainAllCp(Collection<?> c);
 	
+	public ImFList<E> toIm();
+
 	/**
 	 * This is the same as {@link java.util.List#sort(Comparator)} but it returns the list.
 	 * 
@@ -52,4 +46,5 @@ public interface FList<E> extends List<E>, FCollection<E> {
         Ordering natural = Ordering.natural();
         return sortBy(natural);
     }
+    
 }

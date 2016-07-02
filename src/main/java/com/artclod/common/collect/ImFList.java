@@ -5,75 +5,21 @@ import java.util.Comparator;
 import java.util.function.Predicate;
 import java.util.function.UnaryOperator;
 
-public interface ImFList<E> extends ImFCollection<E>, FList<E> {
+public interface ImFList<E> extends ViewFList<E>, ImFCollection<E> {	
+
+	public ImFList<E> addCp(E e);
+	public ImFList<E> removeCp(Object o);
+	public ImFList<E> addAllCp(Collection<? extends E> c);
+	public ImFList<E> addAllCp(int index, Collection<? extends E> c);
+	public ImFList<E> removeAllCp(Collection<?> c);
+	public ImFList<E> retainAllCp(Collection<?> c);
+	public ImFList<E> replaceAllCp(UnaryOperator<E> operator);
+	public ImFList<E> sortCp(Comparator<? super E> c);
+	public ImFList<E> setCp(int index, E element);
+	public ImFList<E> addCp(int index, E element);
+	public ImFList<E> removeCp(int index);
+	public ImFList<E> removeIfCp(Predicate<? super E> filter);	
 
 	public FList<E> toMu();
-	
-	// ==== Copy modifiers ====
-
-	ImFList<E> addCp(E e);
-
-	ImFList<E> removeCp(Object o);
-
-	ImFList<E> addAllCp(Collection<? extends E> c);
-
-	ImFList<E> addAllCp(int index, Collection<? extends E> c);
-
-	ImFList<E> removeAllCp(Collection<?> c);
-
-	ImFList<E> retainAllCp(Collection<?> c);
-
-	ImFList<E> replaceAllCp(UnaryOperator<E> operator);
-
-	ImFList<E> sortCp(Comparator<? super E> c);
-
-	ImFList<E> setCp(int index, E element);
-
-	ImFList<E> addCp(int index, E element);
-
-	ImFList<E> removeCp(int index);
-
-	ImFList<E> removeIfCp(Predicate<? super E> filter);
-	
-	// ==== Unsupported modifiers ====
-	
-	@Deprecated
-	boolean add(E e);
-
-	@Deprecated
-	boolean remove(Object o);
-
-	@Deprecated
-	boolean addAll(Collection<? extends E> c);
-
-	@Deprecated
-	boolean addAll(int index, Collection<? extends E> c);
-
-	@Deprecated
-	boolean removeAll(Collection<?> c);
-
-	@Deprecated
-	boolean retainAll(Collection<?> c);
-
-	@Deprecated
-	void replaceAll(UnaryOperator<E> operator);
-
-	@Deprecated
-	void sort(Comparator<? super E> c);
-
-	@Deprecated
-	void clear();
-
-	@Deprecated
-	E set(int index, E element);
-
-	@Deprecated
-	void add(int index, E element);
-
-	@Deprecated
-	E remove(int index);
-
-	@Deprecated
-	boolean removeIf(Predicate<? super E> filter);
 
 }

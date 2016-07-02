@@ -6,14 +6,14 @@ import java.util.LinkedHashSet;
 import java.util.function.Function;
 
 import com.artclod.common.collect.base.BaseFSet;
-import com.artclod.common.collect.base.ImFCollectionMixIn;
+import com.artclod.common.collect.base.UnsupportMutationSetMixIn;
 import com.artclod.common.collect.builder.CollectionBuilder;
 import com.artclod.common.collect.builder.GuavaImFSetBuilder;
 import com.google.common.collect.ImmutableSet;
 import com.google.common.collect.ImmutableSet.Builder;
 import com.google.common.collect.Sets;
 
-public class GuavaImFSet<E> extends BaseFSet<E, GuavaImFSet<E>> implements ImFCollectionMixIn<E>, ImFSet<E> {
+public class GuavaImFSet<E> extends BaseFSet<E, GuavaImFSet<E>> implements ImFSet<E>, UnsupportMutationSetMixIn<E> {
 	private static final long serialVersionUID = 1L;
 
 	public static <E> GuavaImFSet<E> wrap(ImmutableSet<E> inner) {

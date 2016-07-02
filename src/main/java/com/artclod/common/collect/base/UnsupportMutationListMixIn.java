@@ -2,12 +2,11 @@ package com.artclod.common.collect.base;
 
 import java.util.Collection;
 import java.util.Comparator;
+import java.util.List;
 import java.util.function.Predicate;
 import java.util.function.UnaryOperator;
 
-import com.artclod.common.collect.ImFList;
-
-public interface ImFListMixin<E> extends ImFList<E> {
+public interface UnsupportMutationListMixIn<E> extends List<E> {
 
 	@Deprecated
 	public default boolean add(E e) {
@@ -73,4 +72,5 @@ public interface ImFListMixin<E> extends ImFList<E> {
 	public default boolean removeIf(Predicate<? super E> filter) {
 		throw new UnsupportedOperationException();
 	}
+	
 }

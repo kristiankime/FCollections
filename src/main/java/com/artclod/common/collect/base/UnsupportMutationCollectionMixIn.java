@@ -3,9 +3,7 @@ package com.artclod.common.collect.base;
 import java.util.Collection;
 import java.util.function.Predicate;
 
-import com.artclod.common.collect.ViewFCollection;
-
-public interface ViewFCollectionMixIn<E> extends ViewFCollection<E> {
+public interface UnsupportMutationCollectionMixIn<E> extends Collection<E> {
 
 	@Deprecated
 	@Override

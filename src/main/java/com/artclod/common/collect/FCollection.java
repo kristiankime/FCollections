@@ -9,13 +9,19 @@ import java.util.function.Predicate;
 
 public interface FCollection<E> extends Collection<E> {
 
-	public boolean nonEmpty();
-
 	public FCollection<E> filter(Predicate<? super E> filter);
 	public FCollection<E> filterNot(Predicate<? super E> filter);
 
 	public <O> FCollection<O> map(Function<? super E, ? extends O> f);
 	public <O> FCollection<O> flatMap(Function<? super E, ? extends Collection<? extends O>> mapper);
+
+	public FCollection<E> addCp(E e);
+	public FCollection<E> addAllCp(Collection<? extends E> c);
+	public FCollection<E> removeCp(Object o);
+	public FCollection<E> removeAllCp(Collection<?> c);
+	public FCollection<E> retainAllCp(Collection<?> c);
+	
+	public boolean nonEmpty();
 
 	public String mkString(String sep);
 	public String mkString(String start, String sep, String end);
@@ -34,10 +40,4 @@ public interface FCollection<E> extends Collection<E> {
 
 	public <K> FMap<K, FList<E>> groupBy(Function<? super E, ? extends K> f);
 
-	public FCollection<E> addCp(E e);
-	public FCollection<E> addAllCp(Collection<? extends E> c);
-	public FCollection<E> removeCp(Object o);
-	public FCollection<E> removeAllCp(Collection<?> c);
-	public FCollection<E> retainAllCp(Collection<?> c);
-	
 }

@@ -8,10 +8,10 @@ import java.util.function.Function;
 
 import com.artclod.common.collect.LinkedHashFSet.LinkedHashFSetBuilder;
 import com.artclod.common.collect.base.BaseFSet;
-import com.artclod.common.collect.base.ViewFCollectionMixIn;
+import com.artclod.common.collect.base.UnsupportMutationSetMixIn;
 import com.artclod.common.collect.builder.CollectionBuilder;
 
-public class LinkedHashViewFSet<E> extends BaseFSet<E, LinkedHashFSet<E>> implements ViewFCollectionMixIn<E>, ViewFSet<E> {
+public class LinkedHashViewFSet<E> extends BaseFSet<E, LinkedHashFSet<E>> implements ViewFSet<E>, UnsupportMutationSetMixIn<E> {
 	private static final long serialVersionUID = 1L;
 
 	public static <E> LinkedHashViewFSet<E> wrap(Set<E> inner) {
