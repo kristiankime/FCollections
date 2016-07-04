@@ -9,6 +9,7 @@ import com.artclod.common.collect.base.BaseFSet;
 import com.artclod.common.collect.base.UnsupportMutationSetMixIn;
 import com.artclod.common.collect.builder.CollectionBuilder;
 import com.artclod.common.collect.builder.GuavaImFSetBuilder;
+import com.google.common.collect.ImmutableMap;
 import com.google.common.collect.ImmutableSet;
 import com.google.common.collect.ImmutableSet.Builder;
 import com.google.common.collect.Sets;
@@ -60,6 +61,31 @@ public class GuavaImFSet<E> extends BaseFSet<E, GuavaImFSet<E>> implements ImFSe
 		return iterator(); // No sensible reverse
 	}
 
+	// ==== Group ====
+	@SuppressWarnings({ "unchecked", "rawtypes" })
+	public <K> GuavaImFMap<K, FCollection<E>> groupBy(Function<? super E, ? extends K> f) {
+		  return (GuavaImFMap<K, FCollection<E>>) (GuavaImFMap) groupByInternal(f);
+	}
+	
+	@SuppressWarnings({ "unchecked", "rawtypes" })
+	public <K> GuavaImFMap<K, FSet<E>> groupByS(Function<? super E, ? extends K> f) {
+		  return (GuavaImFMap<K, FSet<E>>) (GuavaImFMap) groupByInternal(f);
+	}
+	
+	@SuppressWarnings({ "unchecked", "rawtypes" })
+	public <K> GuavaImFMap<K, ImFSet<E>> groupByIS(Function<? super E, ? extends K> f) {
+		  return (GuavaImFMap<K, ImFSet<E>>) (GuavaImFMap) groupByInternal(f);
+	}
+	
+	public <K> GuavaImFMap<K, GuavaImFSet<E>> groupByT(Function<? super E, ? extends K> f) {
+		  return groupByInternal(f);
+	}
+	
+	protected <K> GuavaImFMap<K, GuavaImFSet<E>> groupByInternal(Function<? super E, ? extends K> f) {
+		return new GuavaImFMap<>(ImmutableMap.copyOf(super.groupByInternal(f)));
+	}
+	
+	// ==== Copy modifiers ====
 	@Override
 	public GuavaImFSet<E> addCp(E e) {
 		LinkedHashSet<E> set = Sets.newLinkedHashSet(this);

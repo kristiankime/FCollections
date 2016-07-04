@@ -1,18 +1,17 @@
 package com.artclod.common.collect.contract;
 
 import static java.util.Arrays.asList;
+import static org.hamcrest.Matchers.containsInAnyOrder;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertThat;
 import static org.junit.Assert.assertTrue;
 
-import java.util.List;
 import java.util.Map;
 
 import org.junit.Test;
 
 import com.artclod.common.collect.FCollection;
-import com.artclod.common.collect.FList;
-import com.google.common.collect.ImmutableMap;
 
 abstract public class FCollectionContract {
 
@@ -156,14 +155,16 @@ abstract public class FCollectionContract {
 	
 	@Test
 	public void groupBy_empty_map_for_empty_collection() throws Exception {
-		Map<Integer, FList<Integer>> actual = this.<Integer> fCollection().groupBy(i -> i);
+		Map<Integer, FCollection<Integer>> actual = this.<Integer> fCollection().groupBy(i -> i);
 		assertTrue(actual.isEmpty());
 	}
 	
 	@Test
 	public void groupBy_groups_as_specified() throws Exception {
-		Map<Integer, FList<Integer>> actual = this.<Integer> fCollection(0, 1, 2, 3).groupBy(i -> i % 2);
-		assertEquals(ImmutableMap.<Integer, List<Integer>> builder(). put(0, asList(0, 2)).put(1, asList(1, 3)).build(), actual);
+		Map<Integer, FCollection<Integer>> actual = this.<Integer> fCollection(0, 1, 2, 3).groupBy(i -> i % 2);
+		assertEquals(2, actual.size());
+		assertThat(actual.get(0), containsInAnyOrder(0, 2));
+		assertThat(actual.get(1), containsInAnyOrder(1, 3));
 	}
 	
 }

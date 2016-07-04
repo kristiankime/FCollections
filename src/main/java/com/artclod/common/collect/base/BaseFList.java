@@ -5,9 +5,11 @@ import java.util.Comparator;
 import java.util.Iterator;
 import java.util.List;
 import java.util.ListIterator;
+import java.util.function.Function;
 import java.util.stream.Stream;
 
 import com.artclod.common.collect.FList;
+import com.artclod.common.collect.FMap;
 import com.artclod.common.collect.GuavaImFList;
 import com.artclod.common.collect.ReverseListIterator;
 import com.google.common.collect.ImmutableList;
@@ -27,6 +29,11 @@ public abstract class BaseFList<E, L extends FList<E>> extends BaseFColletion<E,
 	}
 
 	// ============ FLIST METHODS (or support) =========	
+	@SuppressWarnings("unchecked")
+	public <K> FMap<K, FList<E>> groupByL(Function<? super E, ? extends K> f) {
+		return (FMap<K, FList<E>>) groupByInternal(f);
+	}
+	
 	public GuavaImFList<E> toIm(){
 		return new GuavaImFList<E>(ImmutableList.copyOf(this));
 	}

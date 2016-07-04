@@ -1,5 +1,6 @@
 package com.artclod.common.collect.base;
 
+import java.io.Serializable;
 import java.util.Collection;
 import java.util.Map;
 import java.util.function.BiConsumer;
@@ -13,7 +14,8 @@ import com.artclod.common.collect.LinkedHashViewFSet;
 import com.artclod.common.collect.ViewFSet;
 import com.artclod.common.collect.builder.MapBuilder;
 
-public abstract class BaseFMap<K, V, M extends FMap<K, V>> implements FMap<K, V> {
+public abstract class BaseFMap<K, V, M extends FMap<K, V>> implements FMap<K, V>, Serializable {
+	private static final long serialVersionUID = 1L;
 
 	protected final Map<K, V> inner;
 	private transient LinkedHashViewFSet<K> keyView;

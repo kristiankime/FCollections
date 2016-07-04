@@ -1,6 +1,5 @@
 package com.artclod.common.collect;
 
-import java.io.Serializable;
 import java.util.LinkedHashMap;
 import java.util.function.BiFunction;
 import java.util.function.Function;
@@ -9,7 +8,7 @@ import com.artclod.common.base.T2;
 import com.artclod.common.collect.base.BaseFMap;
 import com.artclod.common.collect.builder.MapBuilder;
 
-public class LinkedHashFMap<K, V> extends BaseFMap<K, V, LinkedHashFMap<K,V>> implements FMap<K, V>, Serializable {
+public class LinkedHashFMap<K, V> extends BaseFMap<K, V, LinkedHashFMap<K,V>> implements FMap<K, V> {
 	private static final long serialVersionUID = 1L;
 
 	public LinkedHashFMap(LinkedHashMap<K, V> inner) {

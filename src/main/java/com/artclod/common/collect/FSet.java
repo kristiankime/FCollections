@@ -19,6 +19,8 @@ public interface FSet<E> extends Set<E>, FCollection<E> {
 	public FSet<E> removeAllCp(Collection<?> c);
 	public FSet<E> retainAllCp(Collection<?> c);
 	
+	public <K> FMap<K, FSet<E>> groupByS(Function<? super E, ? extends K> f);
+
 	public ImFSet<E> toIm();
 	
 

@@ -1,8 +1,8 @@
 package com.artclod.common.collect.builder;
 
-import com.artclod.common.collect.FMap;
+import java.util.Map;
 
-public interface MapBuilder<K, V, M extends FMap<K, V>> {
+public interface MapBuilder<K, V, M extends Map<K, V>> {
 
 	public V put(K key, V value);
 	

@@ -2,8 +2,12 @@ package com.artclod.common.collect.contract;
 
 import static com.google.common.collect.Sets.newHashSet;
 import static java.util.Arrays.asList;
+import static org.hamcrest.Matchers.containsInAnyOrder;
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertThat;
 import static org.junit.Assert.assertTrue;
+
+import java.util.Map;
 
 import org.junit.Test;
 
@@ -91,5 +95,19 @@ abstract public class FSetContract extends FCollectionContract {
 
 		assertEquals(newHashSet(0, 1, 2, 3, 4), before);
 		assertEquals(newHashSet(1, 3), after);
+	}
+	
+	@Test
+	public void groupByS_empty_map_for_empty_collection() throws Exception {
+		Map<Integer, FSet<Integer>> actual = this.<Integer> fCollection().groupByS(i -> i);
+		assertTrue(actual.isEmpty());
+	}
+	
+	@Test
+	public void groupByS_groups_as_specified() throws Exception {
+		Map<Integer, FSet<Integer>> actual = this.<Integer> fCollection(0, 1, 2, 3).groupByS(i -> i % 2);
+		assertEquals(2, actual.size());
+		assertThat(actual.get(0), containsInAnyOrder(0, 2));
+		assertThat(actual.get(1), containsInAnyOrder(1, 3));
 	}
 }

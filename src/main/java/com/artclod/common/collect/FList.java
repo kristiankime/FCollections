@@ -22,6 +22,8 @@ public interface FList<E> extends List<E>, FCollection<E> {
 	public FList<E> removeAllCp(Collection<?> c);
 	public FList<E> retainAllCp(Collection<?> c);
 	
+	public <K> FMap<K, FList<E>> groupByL(Function<? super E, ? extends K> f);
+
 	public ImFList<E> toIm();
 
 	/**

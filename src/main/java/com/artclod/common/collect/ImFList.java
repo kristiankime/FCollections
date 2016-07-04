@@ -2,10 +2,15 @@ package com.artclod.common.collect;
 
 import java.util.Collection;
 import java.util.Comparator;
+import java.util.function.Function;
 import java.util.function.Predicate;
 import java.util.function.UnaryOperator;
 
 public interface ImFList<E> extends ViewFList<E>, ImFCollection<E> {	
+
+	public <K> ImFMap<K, FCollection<E>> groupBy(Function<? super E, ? extends K> f);
+	public <K> ImFMap<K, FList<E>> groupByL(Function<? super E, ? extends K> f);
+	public <K> ImFMap<K, ImFList<E>> groupByIL(Function<? super E, ? extends K> f);
 
 	public ImFList<E> addCp(E e);
 	public ImFList<E> removeCp(Object o);

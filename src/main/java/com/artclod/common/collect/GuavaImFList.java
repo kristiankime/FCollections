@@ -14,6 +14,7 @@ import com.artclod.common.collect.builder.CollectionBuilder;
 import com.artclod.common.collect.builder.GuavaImFListBuilder;
 import com.google.common.collect.ImmutableList;
 import com.google.common.collect.ImmutableList.Builder;
+import com.google.common.collect.ImmutableMap;
 import com.google.common.collect.Lists;
 
 public class GuavaImFList<E> extends BaseFList<E, GuavaImFList<E>> implements UnsupportMutationListMixIn<E>, ImFList<E> {
@@ -100,8 +101,31 @@ public class GuavaImFList<E> extends BaseFList<E, GuavaImFList<E>> implements Un
 		return new GuavaImFList<O>(builder.build());
 	}
 
+	// ==== Group ====
+	@SuppressWarnings({ "unchecked", "rawtypes" })
+	public <K> GuavaImFMap<K, FCollection<E>> groupBy(Function<? super E, ? extends K> f) {
+		  return (GuavaImFMap<K, FCollection<E>>) (GuavaImFMap) groupByInternal(f);
+	}
+	
+	@SuppressWarnings({ "unchecked", "rawtypes" })
+	public <K> GuavaImFMap<K, FList<E>> groupByL(Function<? super E, ? extends K> f) {
+		  return (GuavaImFMap<K, FList<E>>) (GuavaImFMap) groupByInternal(f);
+	}
+	
+	@SuppressWarnings({ "unchecked", "rawtypes" })
+	public <K> GuavaImFMap<K, ImFList<E>> groupByIL(Function<? super E, ? extends K> f) {
+		  return (GuavaImFMap<K, ImFList<E>>) (GuavaImFMap) groupByInternal(f);
+	}
+	
+	public <K> GuavaImFMap<K, GuavaImFList<E>> groupByT(Function<? super E, ? extends K> f) {
+		  return groupByInternal(f);
+	}
+	
+	protected <K> GuavaImFMap<K, GuavaImFList<E>> groupByInternal(Function<? super E, ? extends K> f) {
+		return new GuavaImFMap<>(ImmutableMap.copyOf(super.groupByInternal(f)));
+	}
+	
 	// ==== Copy modifiers ====
-
 	@Override
 	public GuavaImFList<E> addCp(E e) {
 		ArrayList<E> list = toArrayList();

@@ -1,6 +1,5 @@
 package com.artclod.common.collect;
 
-import java.io.Serializable;
 import java.util.HashMap;
 import java.util.function.BiFunction;
 import java.util.function.Function;
@@ -9,7 +8,7 @@ import com.artclod.common.base.T2;
 import com.artclod.common.collect.base.BaseFMap;
 import com.artclod.common.collect.builder.MapBuilder;
 
-public class HashFMap<K, V> extends BaseFMap<K, V, HashFMap<K,V>> implements FMap<K, V>, Serializable{
+public class HashFMap<K, V> extends BaseFMap<K, V, HashFMap<K,V>> implements FMap<K, V> {
 	private static final long serialVersionUID = 1L;
 
 	public HashFMap(HashMap<K, V> inner) {

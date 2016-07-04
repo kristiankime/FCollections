@@ -38,6 +38,6 @@ public interface FCollection<E> extends Collection<E> {
 	public <O> O foldLeft(O initial, BiFunction<O, E, O> f);
 	public <O> O foldRight(O initial, BiFunction<O, E, O> f);
 
-	public <K> FMap<K, FList<E>> groupBy(Function<? super E, ? extends K> f);
+	public <K> FMap<K, FCollection<E>> groupBy(Function<? super E, ? extends K> f);
 
 }

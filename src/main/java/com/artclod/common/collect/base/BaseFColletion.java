@@ -4,8 +4,9 @@ import static com.google.common.base.Preconditions.checkNotNull;
 
 import java.io.Serializable;
 import java.util.Collection;
-import java.util.HashMap;
 import java.util.Iterator;
+import java.util.LinkedHashMap;
+import java.util.Map.Entry;
 import java.util.Optional;
 import java.util.Spliterator;
 import java.util.function.BiFunction;
@@ -15,11 +16,9 @@ import java.util.function.Function;
 import java.util.function.Predicate;
 import java.util.stream.Stream;
 
-import com.artclod.common.collect.ArrayFList;
 import com.artclod.common.collect.FCollection;
-import com.artclod.common.collect.FList;
 import com.artclod.common.collect.FMap;
-import com.artclod.common.collect.HashFMap;
+import com.artclod.common.collect.LinkedHashFMap;
 import com.artclod.common.collect.builder.CollectionBuilder;
 
 public abstract class BaseFColletion<E, C extends FCollection<E>> implements FCollection<E>, Serializable {
@@ -163,17 +162,21 @@ public abstract class BaseFColletion<E, C extends FCollection<E>> implements FCo
 		return ret.build();
 	}
 	
+	@SuppressWarnings("unchecked")
+	public <K> FMap<K, FCollection<E>> groupBy(Function<? super E, ? extends K> f) {
+		return (FMap<K, FCollection<E>>) groupByInternal(f);
+	}
+
 	// --- Group ---
-	public <K> FMap<K, FList<E>> groupBy(Function<? super E, ? extends K> f) {
-		HashFMap<K, FList<E>> ret = new HashFMap<>(new HashMap<>());
+	protected <K> FMap<K, C> groupByInternal(Function<? super E, ? extends K> f) {
+		LinkedHashFMap<K, CollectionBuilder<E,C>> build = new LinkedHashFMap<>(new LinkedHashMap<>());
 		for(E e: this) {
-			K key = f.apply(e);
-			FList<E> fList = ret.get(key);
-			if(fList == null) {
-				fList = ArrayFList.create();
-				ret.put(key, fList);
-			}
-			fList.add(e);
+			build.computeIfAbsent(f.apply(e), k -> builder()).add(e);
+		}
+		
+		LinkedHashFMap<K, C> ret = new LinkedHashFMap<>(new LinkedHashMap<>());
+		for (Entry<K, CollectionBuilder<E, C>> entry : build.entrySet()) {
+			ret.put(entry.getKey(), entry.getValue().build());
 		}
 		return ret;
 	}
