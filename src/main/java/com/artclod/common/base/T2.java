@@ -1,8 +1,9 @@
 package com.artclod.common.base;
 
 import java.io.Serializable;
+import java.util.Map;
 
-public class T2<E1, E2> implements Serializable {
+public class T2<E1, E2> implements Map.Entry<E1, E2>, Serializable {
 	private static final long serialVersionUID = 1L;
 
 	public final E1 _1;
@@ -11,6 +12,21 @@ public class T2<E1, E2> implements Serializable {
 	public T2(E1 _1, E2 _2) {
 		this._1 = _1;
 		this._2 = _2;
+	}
+	
+	@Override
+	public E1 getKey() {
+		return _1;
+	}
+
+	@Override
+	public E2 getValue() {
+		return _2;
+	}
+
+	@Override
+	public E2 setValue(E2 value) {
+		throw new UnsupportedOperationException();
 	}
 
 	@Override
