@@ -23,7 +23,7 @@ public class GuavaImFList<E> extends BaseFList<E, GuavaImFList<E>> implements Un
 	public static <E> GuavaImFList<E> wrap(ImmutableList<E> inner) {
 		return new GuavaImFList<E>(inner);
 	}
-
+	
 	public static <E> GuavaImFList<E> create() {
 		return new GuavaImFList<E>(ImmutableList.of());
 	}
@@ -43,6 +43,10 @@ public class GuavaImFList<E> extends BaseFList<E, GuavaImFList<E>> implements Un
 	@SafeVarargs
 	public static <E> GuavaImFList<E> create(E... elements) {
 		return new GuavaImFList<E>(ImmutableList.copyOf(elements));
+	}
+	
+	public static <E> GuavaImFList<E> create(ImmutableList.Builder<E> builder) {
+		return new GuavaImFList<E>(builder.build());
 	}
 	
 	protected final ImmutableList<E> inner;

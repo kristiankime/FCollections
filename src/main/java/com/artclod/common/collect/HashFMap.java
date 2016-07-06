@@ -1,6 +1,9 @@
 package com.artclod.common.collect;
 
+import java.util.Arrays;
+import java.util.Collection;
 import java.util.HashMap;
+import java.util.Map;
 import java.util.function.BiFunction;
 import java.util.function.Function;
 
@@ -11,6 +14,71 @@ import com.artclod.common.collect.builder.MapBuilder;
 public class HashFMap<K, V> extends BaseFMap<K, V, HashFMap<K,V>> implements FMap<K, V> {
 	private static final long serialVersionUID = 1L;
 
+	public static <K, V> HashFMap<K, V> wrap(HashMap<K, V> inner) {
+		return new HashFMap<>(inner);
+	}
+	
+	public static <K, V> HashFMap<K, V> create() {
+		return new HashFMap<>(new HashMap<>());
+	}
+	
+	public static <K, V> HashFMap<K, V> create(K k1, V v1) {
+		HashMap<K, V> inner = new HashMap<>();
+		inner.put(k1, v1);
+		return new HashFMap<>(inner);
+	}
+
+	public static <K, V> HashFMap<K, V> create(K k1, V v1, K k2, V v2) {
+		HashMap<K, V> inner = new HashMap<>();
+		inner.put(k1, v1);
+		inner.put(k2, v2);
+		return new HashFMap<>(inner);
+	}
+
+	public static <K, V> HashFMap<K, V> create(K k1, V v1, K k2, V v2, K k3, V v3) {
+		HashMap<K, V> inner = new HashMap<>();
+		inner.put(k1, v1);
+		inner.put(k2, v2);
+		inner.put(k3, v3);
+		return new HashFMap<>(inner);
+	}
+	
+	public static <K, V> HashFMap<K, V> create(K k1, V v1, K k2, V v2, K k3, V v3, K k4, V v4) {
+		HashMap<K, V> inner = new HashMap<>();
+		inner.put(k1, v1);
+		inner.put(k2, v2);
+		inner.put(k3, v3);
+		inner.put(k4, v4);
+		return new HashFMap<>(inner);
+	}
+
+	public static <K, V> HashFMap<K, V> create(K k1, V v1, K k2, V v2, K k3, V v3, K k4, V v4, K k5, V v5) {
+		HashMap<K, V> inner = new HashMap<>();
+		inner.put(k1, v1);
+		inner.put(k2, v2);
+		inner.put(k3, v3);
+		inner.put(k4, v4);
+		inner.put(k5, v5);
+		return new HashFMap<>(inner);
+	}
+	
+	@SafeVarargs
+	public static <K, V> HashFMap<K, V> create(Map.Entry<K, V>... c) {
+		return create(Arrays.asList(c));
+	}
+	
+	public static <K, V> HashFMap<K, V> create(Collection<? extends Map.Entry<K, V>> c) {
+		HashMap<K, V> inner = new HashMap<>();
+		for (java.util.Map.Entry<K, V> entry : c) {
+			inner.put(entry.getKey(), entry.getValue());
+		}
+		return new HashFMap<>(inner);
+	}
+	
+	public static <K, V> HashFMap<K, V> create(Map<K, V> map) {
+		return new HashFMap<>(new HashMap<>(map));
+	}
+	
 	public HashFMap(HashMap<K, V> inner) {
 		super(inner);
 	}

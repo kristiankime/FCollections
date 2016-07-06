@@ -1,5 +1,7 @@
 package com.artclod.common.collect;
 
+import java.util.Arrays;
+import java.util.Collection;
 import java.util.Map;
 import java.util.function.BiFunction;
 import java.util.function.Function;
@@ -13,6 +15,55 @@ import com.google.common.collect.ImmutableMap;
 public class GuavaImFMap<K, V> extends BaseFMap<K, V, GuavaImFMap<K,V>> implements ImFMap<K, V>, UnsupportMutationMapMixIn<K, V> {
 	private static final long serialVersionUID = 1L;
 
+	public static <K, V> GuavaImFMap<K, V> wrap(ImmutableMap<K, V> inner) {
+		return new GuavaImFMap<>(inner);
+	}
+	
+	public static <K, V> GuavaImFMap<K, V> create() {
+		return new GuavaImFMap<>(ImmutableMap.of());
+	}
+
+	public static <K, V> GuavaImFMap<K, V> create(K k1, V v1) {
+		return new GuavaImFMap<>(ImmutableMap.of(k1, v1));
+	}
+
+	public static <K, V> GuavaImFMap<K, V> create(K k1, V v1, K k2, V v2) {
+		return new GuavaImFMap<>(ImmutableMap.of(k1, v1, k2, v2));
+	}
+
+	public static <K, V> GuavaImFMap<K, V> create(K k1, V v1, K k2, V v2, K k3, V v3) {
+		return new GuavaImFMap<>(ImmutableMap.of(k1, v1, k2, v2, k3, v3));
+	}
+	
+	public static <K, V> GuavaImFMap<K, V> create(K k1, V v1, K k2, V v2, K k3, V v3, K k4, V v4) {
+		return new GuavaImFMap<>(ImmutableMap.of(k1, v1, k2, v2, k3, v3, k4, v4));
+	}
+
+	public static <K, V> GuavaImFMap<K, V> create(K k1, V v1, K k2, V v2, K k3, V v3, K k4, V v4, K k5, V v5) {
+		return new GuavaImFMap<>(ImmutableMap.of(k1, v1, k2, v2, k3, v3, k4, v4, k5, v5));
+	}
+
+	@SafeVarargs
+	public static <K, V> GuavaImFMap<K, V> create(Map.Entry<K, V>... c) {
+		return create(Arrays.asList(c));
+	}
+	
+	public static <K, V> GuavaImFMap<K, V> create(Collection<? extends Map.Entry<K, V>> c) {
+		ImmutableMap.Builder<K, V> inner = ImmutableMap.builder();
+		for (java.util.Map.Entry<K, V> entry : c) {
+			inner.put(entry.getKey(), entry.getValue());
+		}
+		return new GuavaImFMap<>(inner.build());
+	}
+	
+	public static <K, V> GuavaImFMap<K, V> create(Map<K, V> map) {
+		return new GuavaImFMap<>(ImmutableMap.copyOf(map));
+	}
+	
+	public static <K, V> GuavaImFMap<K, V> create(ImmutableMap.Builder<K, V> builder) {
+		return new GuavaImFMap<>(builder.build());
+	}
+	
 	public GuavaImFMap(ImmutableMap<K, V> inner) {
 		super(inner);
 	}

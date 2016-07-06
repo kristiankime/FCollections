@@ -26,4 +26,8 @@ public interface FMap<K, V> extends Map<K, V> {
 
 	public FMap<K, V> filterKeys(Predicate<? super K> filter);
 
+	public default V put(Map.Entry<K, V> entry) {
+		return this.put(entry.getKey(), entry.getValue());
+	}
+	
 }
