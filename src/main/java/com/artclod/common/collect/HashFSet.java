@@ -17,26 +17,43 @@ public class HashFSet<E> extends BaseFSet<E, HashFSet<E>> {
 	}
 	
 	public static <E> HashFSet<E> create() {
-		return new HashFSet<E>(Sets.newHashSet());
+		return new HashFSet<E>();
 	}
 
 	@SafeVarargs
 	public static <E> HashFSet<E> create(E... elements) {
-		return new HashFSet<E>(Sets.newHashSet(elements));
+		return new HashFSet<E>(elements);
 	}
 
 	public static <E> HashFSet<E> create(Iterable<? extends E> elements) {
-		return new HashFSet<E>(Sets.newHashSet(elements));
+		return new HashFSet<E>(elements);
 	}
 
 	public static <E> HashFSet<E> create(Iterator<? extends E> elements) {
-		return new HashFSet<E>(Sets.newHashSet(elements));
+		return new HashFSet<E>(elements);
 	}
 
 	public static <E> HashFSet<E> createWithExpectedSize(int expectedSize) {
 		return new HashFSet<E>(Sets.newHashSetWithExpectedSize(expectedSize));
 	}
 
+	public HashFSet() {
+		this(Sets.newHashSet());
+	}
+	
+	@SafeVarargs
+	public HashFSet(E... elements) {
+		this(Sets.newHashSet(elements));
+	}
+	
+	public HashFSet(Iterable<? extends E> elements) {
+		this(Sets.newHashSet(elements));
+	}
+	
+	public HashFSet(Iterator<? extends E> elements) {
+		this(Sets.newHashSet(elements));
+	}
+	
 	public HashFSet(HashSet<E> inner) {
 		super(inner);
 	}

@@ -17,7 +17,7 @@ public class ArrayFList<E> extends BaseFList<E, ArrayFList<E>> {
 	}
 
 	public static <E> ArrayFList<E> create() {
-		return new ArrayFList<E>(Lists.newArrayList());
+		return new ArrayFList<E>();
 	}
 
 	public static <E> ArrayFList<E> createWithCapacity(int initialCapacity) {
@@ -26,18 +26,35 @@ public class ArrayFList<E> extends BaseFList<E, ArrayFList<E>> {
 	
 	@SafeVarargs
 	public static <E> ArrayFList<E> create(E... elements) {
-		return new ArrayFList<E>(Lists.newArrayList(elements));
+		return new ArrayFList<E>(elements);
 	}
 
 	public static <E> ArrayFList<E> create(Iterable<? extends E> elements) {
-		return new ArrayFList<E>(Lists.newArrayList(elements));
+		return new ArrayFList<E>(elements);
 	}
 
 	public static <E> ArrayFList<E> create(Iterator<? extends E> elements) {
-		return new ArrayFList<E>(Lists.newArrayList(elements));
+		return new ArrayFList<E>(elements);
+	}
+	
+	public ArrayFList() {
+		this(Lists.newArrayList());
 	}
 
-	public ArrayFList(ArrayList<E> inner) {
+	@SafeVarargs
+	public ArrayFList(E... elements) {
+		this(Lists.newArrayList(elements));
+	}
+	
+	public ArrayFList(Iterable<? extends E> elements) {
+		this(Lists.newArrayList(elements));
+	}
+	
+	public ArrayFList(Iterator<? extends E> elements) {
+		this(Lists.newArrayList(elements));
+	}
+	
+	protected ArrayFList(ArrayList<E> inner) {
 		super(inner);
 	}
 	

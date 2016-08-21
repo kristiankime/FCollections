@@ -17,19 +17,32 @@ public class LinkedFList<E> extends BaseFList<E, LinkedFList<E>> {
 	}
 
 	public static <E> LinkedFList<E> create() {
-		return new LinkedFList<E>(Lists.newLinkedList());
+		return new LinkedFList<E>();
 	}
 
 	public static <E> LinkedFList<E> create(Iterable<? extends E> elements) {
-		return new LinkedFList<E>(Lists.newLinkedList(elements));
+		return new LinkedFList<E>(elements);
 	}
 	
 	@SafeVarargs
 	public static <E> LinkedFList<E> create(E... elements) {
-		return new LinkedFList<E>(Lists.newLinkedList(Arrays.asList(elements)));
+		return new LinkedFList<E>(elements);
 	}
 
-	public LinkedFList(LinkedList<E> inner) {
+	public LinkedFList() {
+		this(new LinkedList<>());
+	}
+	
+	public LinkedFList(Iterable<? extends E> elements) {
+		this(Lists.newLinkedList(elements));
+	}
+	
+	@SafeVarargs
+	public LinkedFList(E... elements) {
+		this(Lists.newLinkedList(Arrays.asList(elements)));
+	}
+	
+	protected LinkedFList(LinkedList<E> inner) {
 		super(inner);
 	}
 

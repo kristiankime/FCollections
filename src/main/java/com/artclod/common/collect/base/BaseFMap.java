@@ -30,7 +30,7 @@ public abstract class BaseFMap<K, V, M extends FMap<K, V>> implements FMap<K, V>
     
 	// ========== NEW F METHODS =========
 	@Override
-	public FMap<K, V> filter(BiPredicate<? super K, ? super V> filter) {
+	public M filter(BiPredicate<? super K, ? super V> filter) {
 		MapBuilder<K, V, M> builder = builder();
 		for (java.util.Map.Entry<K, V> entry : entrySet()) {
 			if(filter.test(entry.getKey(), entry.getValue())) {
@@ -41,7 +41,7 @@ public abstract class BaseFMap<K, V, M extends FMap<K, V>> implements FMap<K, V>
 	}
 	
 	@Override
-	public FMap<K, V> filterKeys(Predicate<? super K> filter) {
+	public M filterKeys(Predicate<? super K> filter) {
 		MapBuilder<K, V, M> builder = builder();
 		for (java.util.Map.Entry<K, V> entry : entrySet()) {
 			if(filter.test(entry.getKey())) {

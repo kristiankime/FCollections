@@ -3,11 +3,11 @@ package com.artclod.common.collect;
 import org.junit.Test;
 
 import com.artclod.common.SerializeDeserialize;
-import com.artclod.common.collect.contract.ImmutableFListContract;
+import com.artclod.common.collect.contract.ImFListContract;
 import com.google.common.collect.ImmutableList;
 
 
-public class GuavaImFListTest extends ImmutableFListContract {
+public class GuavaImFListTest extends ImFListContract {
 
 	@Override
 	public <T> GuavaImFList<T> fList(@SuppressWarnings("unchecked") T... elements) {

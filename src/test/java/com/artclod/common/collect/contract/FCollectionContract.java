@@ -18,6 +18,51 @@ abstract public class FCollectionContract {
 	public abstract <T> FCollection<T> fCollection(@SuppressWarnings("unchecked") T... elements);
 
 	@Test
+	public void allMatch_everything_matches_returns_true() throws Exception {
+		assertTrue(fCollection(1, 2).allMatch(n -> n > 0));
+	}
+	
+	@Test
+	public void allMatch_empty_returns_true() throws Exception {
+		assertTrue(this.<Integer> fCollection().allMatch(n -> n > 0));
+	}
+
+	@Test
+	public void allMatch_not_everything_matches_returns_false() throws Exception {
+		assertFalse(fCollection(1, 2, -1).allMatch(n -> n > 0));
+	}
+	
+	@Test
+	public void anyMatch_some_things_match_returns_true() throws Exception {
+		assertTrue(fCollection(1, 2, -1).anyMatch(n -> n > 0));
+	}
+	
+	@Test
+	public void anyMatch_empty_returns_false() throws Exception {
+		assertFalse(this.<Integer> fCollection().anyMatch(n -> n > 0));
+	}
+
+	@Test
+	public void anyMatch_nothing_matches_returns_false() throws Exception {
+		assertFalse(fCollection(-1, -2, -1).anyMatch(n -> n > 0));
+	}
+	
+	@Test
+	public void noneMatch_some_things_match_returns_false() throws Exception {
+		assertFalse(fCollection(1, 2, -1).noneMatch(n -> n > 0));
+	}
+	
+	@Test
+	public void noneMatch_empty_returns_true() throws Exception {
+		assertTrue(this.<Integer> fCollection().noneMatch(n -> n > 0));
+	}
+
+	@Test
+	public void noneMatch_nothing_matches_returns_true() throws Exception {
+		assertTrue(fCollection(-1, -2, -1).noneMatch(n -> n > 0));
+	}
+	
+	@Test
 	public void size() throws Exception {
 		assertEquals(2, fCollection(1, 2).size());
 	}
@@ -69,6 +114,12 @@ abstract public class FCollectionContract {
 	}
 
 	@Test
+	public void mkString_no_sep() throws Exception {
+		String actual = fCollection(1, 2, 3).mkString();
+		assertEquals("123", actual);
+	}
+	
+	@Test
 	public void mkString_with_sep() throws Exception {
 		String actual = fCollection(1, 2, 3).mkString(", ");
 		assertEquals("1, 2, 3", actual);
@@ -92,7 +143,11 @@ abstract public class FCollectionContract {
 		assertEquals("[]", actual);
 	}
 
-	// ---- Reduce ----
+	
+	
+	
+	
+	
 	@Test
 	public void reduce_no_elements_returns_empty() throws Exception {
 		assertFalse(this.<Integer> fCollection().reduce((a, b) -> a + b).isPresent());
@@ -105,66 +160,75 @@ abstract public class FCollectionContract {
 	}
 
 	@Test
-	public void reduce_with_identity_returns_identity() throws Exception {
-		int actual = this.<Integer> fCollection().reduce(4, (a, b) -> a + b).intValue();
-		assertEquals(actual, 4);
-	}
-
-	@Test
-	public void reduce_with_identity_includes_identity() throws Exception {
-		int actual = fCollection(1, 2, 3).reduce(4, (a, b) -> a + b);
-		assertEquals(10, actual);
-	}
-	
-	// ---- Fold ----
-	@Test
-	public void fold_works() throws Exception {
-		int actual = fCollection(1, 2, 3).fold(10, (a, b) -> a + b);
-		assertEquals(16, actual);
-	}
-
-	@Test
-	public void fold_empty_list_returns_initial() throws Exception {
-		int actual = this.<Integer> fCollection().fold(10, (a, b) -> a + b);
-		assertEquals(10, actual);
-	}
-
-	@Test
-	public void foldLeft_works() throws Exception {
-		int actual = fCollection(1, 2, 3).foldLeft(10, (a, b) -> a + b);
-		assertEquals(16, actual);
-	}
-
-	@Test
-	public void foldLeft_empty_list_returns_initial() throws Exception {
-		int actual = this.<Integer> fCollection().foldRight(10, (a, b) -> a + b);
-		assertEquals(10, actual);
-	}
-
-	@Test
-	public void foldRight_works() throws Exception {
-		int actual = fCollection(1, 2, 3).foldRight(10, (a, b) -> a + b);
-		assertEquals(16, actual);
-	}
-
-	@Test
-	public void foldRight_empty_list_returns_initial() throws Exception {
-		int actual = this.<Integer> fCollection().foldRight(10, (a, b) -> a + b);
-		assertEquals(10, actual);
+	public void reduce_with_only_identity_returns_identity() throws Exception {
+		int actual = this.<Integer> fCollection().reduce(0, (a, b) -> a + b);
+		assertEquals(actual, 0);
 	}
 	
 	@Test
-	public void groupBy_empty_map_for_empty_collection() throws Exception {
-		Map<Integer, FCollection<Integer>> actual = this.<Integer> fCollection().groupBy(i -> i);
-		assertTrue(actual.isEmpty());
+	public void reduce_with_identity_works() throws Exception {
+		int actual = fCollection(1, 2, 3).reduce(0, (a, b) -> a + b);
+		assertEquals(actual, 6);
 	}
 	
+	@Test
+	public void reduceRight_no_elements_returns_empty() throws Exception {
+		assertFalse(this.<Integer> fCollection().reduceRight((a, b) -> a + b).isPresent());
+	}
+
+	@Test
+	public void reduceRight_works() throws Exception {
+		int actual = fCollection(1, 2, 3).reduceRight((a, b) -> a + b).get();
+		assertEquals(6, actual);
+	}
+
+	@Test
+	public void reduceRight_with_only_identity_returns_identity() throws Exception {
+		int actual = this.<Integer> fCollection().reduceRight(0, (a, b) -> a + b);
+		assertEquals(actual, 0);
+	}
+	
+	@Test
+	public void reduceRight_with_identity_works() throws Exception {
+		int actual = fCollection(1, 2, 3).reduceRight(0, (a, b) -> a + b);
+		assertEquals(actual, 6);
+	}
+	
+	@Test
+	public void reduceLeft_no_elements_returns_empty() throws Exception {
+		assertFalse(this.<Integer> fCollection().reduceLeft((a, b) -> a + b).isPresent());
+	}
+
+	@Test
+	public void reduceLeft_works() throws Exception {
+		int actual = fCollection(1, 2, 3).reduceLeft((a, b) -> a + b).get();
+		assertEquals(6, actual);
+	}
+
+	@Test
+	public void reduceLeft_with_only_identity_returns_identity() throws Exception {
+		int actual = this.<Integer> fCollection().reduceLeft(0, (a, b) -> a + b);
+		assertEquals(actual, 0);
+	}
+	
+	@Test
+	public void reduceLeft_with_identity_works() throws Exception {
+		int actual = fCollection(1, 2, 3).reduceLeft(0, (a, b) -> a + b);
+		assertEquals(actual, 6);
+	}
+
 	@Test
 	public void groupBy_groups_as_specified() throws Exception {
 		Map<Integer, FCollection<Integer>> actual = this.<Integer> fCollection(0, 1, 2, 3).groupBy(i -> i % 2);
 		assertEquals(2, actual.size());
 		assertThat(actual.get(0), containsInAnyOrder(0, 2));
 		assertThat(actual.get(1), containsInAnyOrder(1, 3));
+	}
+	
+	@Test
+	public void groupBy_empty_returns_empy() throws Exception {
+		Map<Integer, FCollection<Integer>> actual = this.<Integer> fCollection().groupBy(i -> i % 2);
+		assertTrue(actual.isEmpty());
 	}
 	
 }

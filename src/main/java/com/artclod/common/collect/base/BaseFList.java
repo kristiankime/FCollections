@@ -1,18 +1,23 @@
 package com.artclod.common.collect.base;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Comparator;
 import java.util.Iterator;
 import java.util.List;
 import java.util.ListIterator;
+import java.util.Objects;
 import java.util.function.Function;
+import java.util.function.UnaryOperator;
 import java.util.stream.Stream;
 
 import com.artclod.common.collect.FList;
 import com.artclod.common.collect.FMap;
 import com.artclod.common.collect.GuavaImFList;
 import com.artclod.common.collect.ReverseListIterator;
+import com.artclod.common.collect.builder.CollectionBuilder;
 import com.google.common.collect.ImmutableList;
+import com.google.common.collect.Lists;
 
 public abstract class BaseFList<E, L extends FList<E>> extends BaseFColletion<E, L> implements FList<E> {
 	private static final long serialVersionUID = 1L;
@@ -27,7 +32,7 @@ public abstract class BaseFList<E, L extends FList<E>> extends BaseFColletion<E,
 	protected Iterator<E> reverseIterator() {
 		return new ReverseListIterator<E>(this);
 	}
-
+	
 	// ============ FLIST METHODS (or support) =========	
 	@SuppressWarnings("unchecked")
 	public <K> FMap<K, FList<E>> groupByL(Function<? super E, ? extends K> f) {
@@ -38,6 +43,48 @@ public abstract class BaseFList<E, L extends FList<E>> extends BaseFColletion<E,
 		return new GuavaImFList<E>(ImmutableList.copyOf(this));
 	}
 	
+	@SuppressWarnings("unchecked")
+	public L sortWith(Comparator<? super E> c) {
+	    sort(c);
+	    return (L) this;
+	}
+	
+    @SuppressWarnings({ "rawtypes", "unchecked" })
+    public L sorted() {
+    	Comparator natural = Comparator.naturalOrder();
+        return sortWith(natural);
+    }
+    
+	public L sortWithCp(Comparator<? super E> c) {
+		ArrayList<E> data = Lists.newArrayList(inner);
+		data.sort(c);
+		CollectionBuilder<E,L> builder = builder(data);
+		return builder.build();
+	}
+	
+    @SuppressWarnings({ "rawtypes", "unchecked" })
+    public L sortedCp() {
+    	Comparator natural = Comparator.naturalOrder();
+    	ArrayList data = Lists.newArrayList(inner);
+		data.sort(natural);
+		CollectionBuilder<E,L> builder = builder(data);
+		return builder.build();
+    }
+    
+	public L addAllCp(int index, Collection<? extends E> c) {
+		ArrayList<E> data = Lists.newArrayList(inner);
+		data.addAll(index, c);
+		return builder(inner).build();
+	}
+		
+	public L replaceAllCp(UnaryOperator<E> operator) {
+		Objects.requireNonNull(operator);
+		CollectionBuilder<E,L> builder = builder();
+		inner.forEach(e -> builder.add(operator.apply(e)));
+		return builder.build();
+	}
+	
+	// ============ DELEGATE METHODS (or support) =========
 	public boolean addAll(int index, Collection<? extends E> c) {
 		return inner.addAll(index, c);
 	}

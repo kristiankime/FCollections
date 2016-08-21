@@ -1,5 +1,6 @@
 package com.artclod.common.collect;
 
+import java.util.Arrays;
 import java.util.Collection;
 import java.util.Iterator;
 import java.util.LinkedHashSet;
@@ -17,26 +18,35 @@ public class LinkedHashFSet<E> extends BaseFSet<E, LinkedHashFSet<E>> {
     }
 
     public static <E> LinkedHashFSet<E> create() {
-        return new LinkedHashFSet<E>(Sets.newLinkedHashSet());
+        return new LinkedHashFSet<E>();
     }
 
     @SafeVarargs
     public static <E> LinkedHashFSet<E> create(E... elements) {
-        LinkedHashFSet<E> linkedHashFSet = new LinkedHashFSet<E>(Sets.newLinkedHashSetWithExpectedSize(elements.length));
-        for(int i = 0; i < elements.length; i++) {
-            linkedHashFSet.add(elements[i]);
-        }
-        return linkedHashFSet;
+        return new LinkedHashFSet<>(elements);
     }
 
     public static <E> LinkedHashFSet<E> create(Iterable<? extends E> elements) {
-        return new LinkedHashFSet<E>(Sets.newLinkedHashSet(elements));
+        return new LinkedHashFSet<E>(elements);
     }
 
     public static <E> LinkedHashFSet<E> createWithExpectedSize(int expectedSize) {
         return new LinkedHashFSet<E>(Sets.newLinkedHashSetWithExpectedSize(expectedSize));
     }
-
+    
+    public LinkedHashFSet() {
+        this(Sets.newLinkedHashSet());
+    }
+    
+    @SafeVarargs
+	public LinkedHashFSet(E... elements) {
+        this(Sets.newLinkedHashSet(Arrays.asList(elements)));
+    }
+    
+	public LinkedHashFSet(Iterable<? extends E> elements) {
+        this(Sets.newLinkedHashSet(elements));
+    }
+    
     public LinkedHashFSet(LinkedHashSet<E> inner) {
         super(inner);
     }

@@ -51,19 +51,16 @@ abstract public class FListContract extends FCollectionContract {
 		assertEquals(asList("1", "1", "2", "2", "3", "3"), actual);
 	}
 	
-	@Test
-    public void sortBy() throws Exception {
-	    FList<Integer> sorted = fList(3, 1, 2).sortBy(Ordering.<Integer> natural());
-	    assertEquals(asList(1, 2, 3), sorted);
-    }
-
-	@Test
-    public void sort_natural() throws Exception {
-        FList<Integer> sorted = fList(3, 1, 2).sort();
-        assertEquals(asList(1, 2, 3), sorted);
-    }
-	
 	// ---- Copy Methods ----
+	@Test
+	public void cp_copies() throws Exception {
+		FList<Integer> before = this.<Integer> fList(0, 1, 2);
+		FList<Integer> after = before.cp();
+
+		assertEquals(asList(0, 1, 2), before);
+		assertEquals(asList(0, 1, 2), after);
+	}
+	
 	@Test
 	public void addCp_copies_and_adds_element() throws Exception {
 		FList<Integer> before = this.<Integer> fList(0, 1, 2);
@@ -109,6 +106,7 @@ abstract public class FListContract extends FCollectionContract {
 		assertEquals(asList(1, 3), after);
 	}
 	
+	// --- group
 	@Test
 	public void groupByL_empty_map_for_empty_collection() throws Exception {
 		Map<Integer, FList<Integer>> actual = this.<Integer> fCollection().groupByL(i -> i);
@@ -122,5 +120,36 @@ abstract public class FListContract extends FCollectionContract {
 		assertThat(actual.get(0), contains(0, 2));
 		assertThat(actual.get(1), contains(1, 3));
 	}
+	
+	// --- sort
+	@Test
+    public void sortWith() throws Exception {
+	    FList<Integer> sorted = fList(3, 1, 2).sortWith(Ordering.<Integer> natural());
+	    assertEquals(asList(1, 2, 3), sorted);
+    }
+
+	@Test
+    public void sorted() throws Exception {
+        FList<Integer> sorted = fList(3, 1, 2).sorted();
+        assertEquals(asList(1, 2, 3), sorted);
+    }
+	
+	@Test
+    public void sortWithCp() throws Exception {
+	    FList<Integer> original = fList(3, 1, 2);
+		FList<Integer> sorted = original.sortWithCp(Ordering.<Integer> natural());
+		
+	    assertEquals(asList(3, 1, 2), original);
+	    assertEquals(asList(1, 2, 3), sorted);
+    }
+
+	@Test
+    public void sortedCp() throws Exception {
+        FList<Integer> original = fList(3, 1, 2);
+		FList<Integer> sorted = original.sortedCp();
+		
+		assertEquals(asList(3, 1, 2), original);
+        assertEquals(asList(1, 2, 3), sorted);
+    }
 	
 }

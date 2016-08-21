@@ -17,35 +17,59 @@ import com.google.common.collect.Sets;
 public class GuavaImFSet<E> extends BaseFSet<E, GuavaImFSet<E>> implements ImFSet<E>, UnsupportMutationSetMixIn<E> {
 	private static final long serialVersionUID = 1L;
 
+	private static final GuavaImFSet<Object> EMPTY = new GuavaImFSet<>();
+	
 	public static <E> GuavaImFSet<E> wrap(ImmutableSet<E> inner) {
 		return new GuavaImFSet<E>(inner);
 	}
 
+	@SuppressWarnings("unchecked")
 	public static <E> GuavaImFSet<E> create() {
-		return new GuavaImFSet<E>(ImmutableSet.of());
+		return (GuavaImFSet<E>) EMPTY;
 	}
 
 	@SafeVarargs
 	public static <E> GuavaImFSet<E> create(E... elements) {
-		return new GuavaImFSet<E>(ImmutableSet.copyOf(elements));
+		return new GuavaImFSet<E>(elements);
 	}
 
 	public static <E> GuavaImFSet<E> create(Collection<E> c) {
-		return new GuavaImFSet<E>(ImmutableSet.copyOf(c));
+		return new GuavaImFSet<E>(c);
 	}
 
 	public static <E> GuavaImFSet<E> create(Iterable<? extends E> elements) {
-		return new GuavaImFSet<E>(ImmutableSet.copyOf(elements));
+		return new GuavaImFSet<E>(elements);
 	}
 
 	public static <E> GuavaImFSet<E> create(Iterator<? extends E> elements) {
-		return new GuavaImFSet<E>(ImmutableSet.copyOf(elements));
+		return new GuavaImFSet<E>(elements);
 	}
-
+	
+	public GuavaImFSet() {
+		this(ImmutableSet.of());
+	}	
+	
+	@SafeVarargs
+	public GuavaImFSet(E... elements) {
+		this(ImmutableSet.copyOf(elements));
+	}	
+	
+	public GuavaImFSet(Collection<? extends E> elements) {
+		this(ImmutableSet.copyOf(elements));
+	}
+	
+	public GuavaImFSet(Iterable<? extends E> elements) {
+		this(ImmutableSet.copyOf(elements));
+	}
+	
+	public GuavaImFSet(Iterator<? extends E> elements) {
+		this(ImmutableSet.copyOf(elements));
+	}
+	
 	public GuavaImFSet(ImmutableSet<E> inner) {
 		super(inner);
 	}
-
+	
 	@Override
 	protected CollectionBuilder<E, GuavaImFSet<E>> builder() {
 		return new GuavaImFSetBuilder<E>(ImmutableSet.<E> builder());
@@ -86,6 +110,11 @@ public class GuavaImFSet<E> extends BaseFSet<E, GuavaImFSet<E>> implements ImFSe
 	}
 	
 	// ==== Copy modifiers ====
+	@Override
+	public GuavaImFSet<E> cp() {
+		return this;
+	}
+	
 	@Override
 	public GuavaImFSet<E> addCp(E e) {
 		LinkedHashSet<E> set = Sets.newLinkedHashSet(this);

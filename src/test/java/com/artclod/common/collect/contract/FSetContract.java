@@ -53,6 +53,15 @@ abstract public class FSetContract extends FCollectionContract {
 	
 	// ---- Copy Methods ----
 	@Test
+	public void cp_copies() throws Exception {
+		FSet<Integer> before = this.<Integer> fSet(0, 1, 2);
+		FSet<Integer> after = before.cp();
+
+		assertEquals(newHashSet(0, 1, 2), before);
+		assertEquals(newHashSet(0, 1, 2), after);
+	}
+	
+	@Test
 	public void addCp_copies_and_adds_element() throws Exception {
 		FSet<Integer> before = this.<Integer> fSet(0, 1, 2);
 		FSet<Integer> after = before.addCp(3);
@@ -110,4 +119,5 @@ abstract public class FSetContract extends FCollectionContract {
 		assertThat(actual.get(0), containsInAnyOrder(0, 2));
 		assertThat(actual.get(1), containsInAnyOrder(1, 3));
 	}
+	
 }

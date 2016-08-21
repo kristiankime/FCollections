@@ -26,5 +26,10 @@ public interface ViewFList<E> extends FList<E>, ViewFCollection<E> {
 
 	@Deprecated
 	public E remove(int index);
+
+	@Deprecated
+	public FList<E> sortWith(Comparator<? super E> c);
 	
+	@Deprecated
+	public FList<E> sorted();
 }

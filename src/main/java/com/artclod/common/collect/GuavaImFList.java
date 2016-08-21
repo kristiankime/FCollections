@@ -2,7 +2,6 @@ package com.artclod.common.collect;
 
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.Comparator;
 import java.util.Iterator;
 import java.util.function.Function;
 import java.util.function.Predicate;
@@ -130,34 +129,34 @@ public class GuavaImFList<E> extends BaseFList<E, GuavaImFList<E>> implements Un
 	}
 	
 	// ==== Copy modifiers ====
-	@Override
-	public GuavaImFList<E> addCp(E e) {
-		ArrayList<E> list = toArrayList();
-		list.add(e);
-		return new GuavaImFList<E>(ImmutableList.copyOf(list));
-	}
-
+//	@Override
+//	public GuavaImFList<E> addCp(E e) {
+//		ArrayList<E> list = toArrayList();
+//		list.add(e);
+//		return new GuavaImFList<E>(ImmutableList.copyOf(list));
+//	}
+//
 	@Override
 	public GuavaImFList<E> removeCp(Object o) {
 		ArrayList<E> list = toArrayList();
 		list.remove(o);
 		return new GuavaImFList<E>(ImmutableList.copyOf(list));
 	}
-
-	@Override
-	public GuavaImFList<E> addAllCp(Collection<? extends E> c) {
-		ArrayList<E> list = toArrayList();
-		list.addAll(c);
-		return new GuavaImFList<E>(ImmutableList.copyOf(list));
-	}
-
-	@Override
-	public GuavaImFList<E> addAllCp(int index, Collection<? extends E> c) {
-		ArrayList<E> list = toArrayList();
-		list.addAll(index, c);
-		return new GuavaImFList<E>(ImmutableList.copyOf(list));
-	}
-
+//
+//	@Override
+//	public GuavaImFList<E> addAllCp(Collection<? extends E> c) {
+//		ArrayList<E> list = toArrayList();
+//		list.addAll(c);
+//		return new GuavaImFList<E>(ImmutableList.copyOf(list));
+//	}
+//
+//	@Override
+//	public GuavaImFList<E> addAllCp(int index, Collection<? extends E> c) {
+//		ArrayList<E> list = toArrayList();
+//		list.addAll(index, c);
+//		return new GuavaImFList<E>(ImmutableList.copyOf(list));
+//	}
+//
 	@Override
 	public GuavaImFList<E> removeAllCp(Collection<?> c) {
 		ArrayList<E> list = toArrayList();
@@ -171,20 +170,19 @@ public class GuavaImFList<E> extends BaseFList<E, GuavaImFList<E>> implements Un
 		list.retainAll(c);
 		return new GuavaImFList<E>(ImmutableList.copyOf(list));
 	}
-
+//
+//	@Override
+//	public GuavaImFList<E> replaceAllCp(UnaryOperator<E> operator) {
+//		ArrayList<E> list = toArrayList();
+//		list.replaceAll(operator);
+//		return new GuavaImFList<E>(ImmutableList.copyOf(list));
+//	}
+	
 	@Override
-	public GuavaImFList<E> replaceAllCp(UnaryOperator<E> operator) {
-		ArrayList<E> list = toArrayList();
-		list.replaceAll(operator);
-		return new GuavaImFList<E>(ImmutableList.copyOf(list));
+	public GuavaImFList<E> cp() {
+		return this;
 	}
 
-	@Override
-	public GuavaImFList<E> sortCp(Comparator<? super E> c) {
-		ArrayList<E> list = toArrayList();
-		list.sort(c);
-		return new GuavaImFList<E>(ImmutableList.copyOf(list));
-	}
 
 	@Override
 	public GuavaImFList<E> setCp(int index, E element) {

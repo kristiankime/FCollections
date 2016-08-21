@@ -1,14 +1,18 @@
 package com.artclod.common.collect.contract;
 
 import static com.google.common.collect.Sets.newHashSet;
+import static org.hamcrest.Matchers.containsInAnyOrder;
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertThat;
+import static org.junit.Assert.assertTrue;
 
 import org.junit.Test;
 
 import com.artclod.common.collect.FSet;
+import com.artclod.common.collect.ImFMap;
 import com.artclod.common.collect.ImFSet;
 
-public abstract class ImmutableFSetContract extends FSetContract {
+public abstract class ImFSetContract extends FSetContract {
 
 	public abstract <T> ImFSet<T> fSet(@SuppressWarnings("unchecked") T... elements);
 	
@@ -78,6 +82,21 @@ public abstract class ImmutableFSetContract extends FSetContract {
 	public void retainAllCp(){
 		FSet<String> set = fSet("a", "b", "c", "d").retainAllCp(newHashSet("a", "d", "f"));
 		assertEquals(newHashSet("a", "d"), set);
+	}
+	
+	// group
+	@Test
+	public void groupByIS_empty_map_for_empty_collection() throws Exception {
+		ImFMap<Integer, ImFSet<Integer>> actual = this.<Integer> fSet().groupByIS(i -> i);
+		assertTrue(actual.isEmpty());
+	}
+	
+	@Test
+	public void groupByIS_groups_as_specified() throws Exception {
+		ImFMap<Integer, ImFSet<Integer>> actual = this.<Integer> fSet(0, 1, 2, 3).groupByIS(i -> i % 2);
+		assertEquals(2, actual.size());
+		assertThat(actual.get(0), containsInAnyOrder(0, 2));
+		assertThat(actual.get(1), containsInAnyOrder(1, 3));
 	}
 	
 }

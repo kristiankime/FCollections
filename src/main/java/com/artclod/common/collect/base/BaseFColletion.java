@@ -9,7 +9,6 @@ import java.util.LinkedHashMap;
 import java.util.Map.Entry;
 import java.util.Optional;
 import java.util.Spliterator;
-import java.util.function.BiFunction;
 import java.util.function.BinaryOperator;
 import java.util.function.Consumer;
 import java.util.function.Function;
@@ -63,29 +62,6 @@ public abstract class BaseFColletion<E, C extends FCollection<E>> implements FCo
 	}
 
 	// ============ FCollection Methods (or support) =========	
-	public boolean nonEmpty() {
-		return !isEmpty();
-	}
-	
-	public String mkString(String sep) {
-		return mkString("", sep, "");
-	}
-
-	public String mkString(String start, String sep, String end) {
-		StringBuilder ret = new StringBuilder(start);
-		Iterator<E> iterator = iterator();
-		boolean first = true;
-		while (iterator.hasNext()) {
-			E e = iterator.next();
-			if (first) {
-				ret.append(e);
-				first = false;
-			} else {
-				ret.append(sep).append(e);
-			}
-		}
-		return ret.append(end).toString();
-	}
 
 	// --- Reduce ---
 	public Optional<E> reduce(BinaryOperator<E> accumulator){
@@ -126,27 +102,6 @@ public abstract class BaseFColletion<E, C extends FCollection<E>> implements FCo
 		return ret;
 	}
 
-	// --- Fold ---
-	public <O> O fold(O initial, BiFunction<O, E, O> f) {
-		return foldLeft(initial, f);
-	}
-
-	public <O> O foldLeft(O initial, BiFunction<O, E, O> f) {
-		return foldInner(initial, f, iterator());
-	}
-
-	public <O> O foldRight(O initial, BiFunction<O, E, O> f) {
-		return foldInner(initial, f, reverseIterator());
-	}
-
-	private <O> O foldInner(O i, BiFunction<O, E, O> f, Iterator<E> iterator) {
-		O ret = i;
-		while(iterator.hasNext()) {
-			ret = f.apply(ret, iterator.next());
-		}
-		return ret;
-	}
-
 	// --- Filter ---
 	public C filterNot(Predicate<? super E> filter) {
 		return filter(filter.negate());
@@ -181,7 +136,11 @@ public abstract class BaseFColletion<E, C extends FCollection<E>> implements FCo
 		return ret;
 	}
 
-	// ============ EDIT COPY METHODS =========
+	// ============ COPY + EDIT METHODS =========
+	public C cp() {
+		CollectionBuilder<E,C> builder = builder(inner);
+		return builder.build();
+	}
 	
 	public C addCp(E e) {
 		CollectionBuilder<E,C> builder = builder(inner);
