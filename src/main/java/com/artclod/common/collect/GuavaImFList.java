@@ -75,7 +75,7 @@ public class GuavaImFList<E> extends BaseFList<E, GuavaImFList<E>> implements Un
 	
 	protected final ImmutableList<E> inner;
 	
-	public GuavaImFList(ImmutableList<E> inner) {
+	protected GuavaImFList(ImmutableList<E> inner) {
 		super(inner);
 		this.inner = inner;
 	}

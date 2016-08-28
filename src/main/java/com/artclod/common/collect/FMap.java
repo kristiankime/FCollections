@@ -14,7 +14,7 @@ public interface FMap<K, V> extends Map<K, V> {
 	
 	public ViewFSet<K> keySet();
 	
-//	public ViewFCollection<V> values();
+	public ViewFCollection<V> values();
 	
 	public ViewFSet<Map.Entry<K, V>> entrySet();
 

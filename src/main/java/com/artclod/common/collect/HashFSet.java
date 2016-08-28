@@ -54,7 +54,7 @@ public class HashFSet<E> extends BaseFSet<E, HashFSet<E>> {
 		this(Sets.newHashSet(elements));
 	}
 	
-	public HashFSet(HashSet<E> inner) {
+	protected HashFSet(HashSet<E> inner) {
 		super(inner);
 	}
 

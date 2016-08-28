@@ -68,7 +68,7 @@ public class GuavaImFSet<E> extends BaseFSet<E, GuavaImFSet<E>> implements ImFSe
 		this(ImmutableSet.copyOf(elements));
 	}
 	
-	public GuavaImFSet(ImmutableSet<E> inner) {
+	protected GuavaImFSet(ImmutableSet<E> inner) {
 		super(inner);
 		this.inner = inner;
 	}

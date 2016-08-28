@@ -47,7 +47,7 @@ public class LinkedHashFSet<E> extends BaseFSet<E, LinkedHashFSet<E>> {
         this(Sets.newLinkedHashSet(elements));
     }
     
-    public LinkedHashFSet(LinkedHashSet<E> inner) {
+    protected LinkedHashFSet(LinkedHashSet<E> inner) {
         super(inner);
     }
 
