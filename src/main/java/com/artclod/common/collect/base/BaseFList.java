@@ -8,9 +8,11 @@ import java.util.List;
 import java.util.ListIterator;
 import java.util.Objects;
 import java.util.function.Function;
+import java.util.function.Predicate;
 import java.util.function.UnaryOperator;
 import java.util.stream.Stream;
 
+import com.artclod.common.collect.ArrayFList;
 import com.artclod.common.collect.FList;
 import com.artclod.common.collect.FMap;
 import com.artclod.common.collect.GuavaImFList;
@@ -41,6 +43,10 @@ public abstract class BaseFList<E, L extends FList<E>> extends BaseFColletion<E,
 	
 	public GuavaImFList<E> toIm(){
 		return new GuavaImFList<E>(ImmutableList.copyOf(this));
+	}
+	
+	public ArrayFList<E> toMu(){
+		return new ArrayFList<E>(this);
 	}
 	
 	@SuppressWarnings("unchecked")
@@ -82,6 +88,20 @@ public abstract class BaseFList<E, L extends FList<E>> extends BaseFColletion<E,
 		CollectionBuilder<E,L> builder = builder();
 		inner.forEach(e -> builder.add(operator.apply(e)));
 		return builder.build();
+	}
+	
+	@Override
+	public FList<E> setCp(int index, E e) {
+		ArrayList<E> data = Lists.newArrayList(inner);
+		data.set(index, e);
+		return builder(data).build();
+	}
+
+	@Override
+	public FList<E> removeIfCp(Predicate<? super E> filter) {
+		ArrayList<E> data = Lists.newArrayList(inner);
+		data.removeIf(filter);
+		return builder(data).build();
 	}
 	
 	// ============ DELEGATE METHODS (or support) =========

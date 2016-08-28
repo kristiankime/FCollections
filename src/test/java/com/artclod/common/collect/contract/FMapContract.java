@@ -36,6 +36,18 @@ abstract public class FMapContract {
 		FMap<Integer, String> fMap = fMap( t(1, "a"), t(2, "b") );
 		assertFalse(fMap.isEmpty());
 	}
+	
+	@Test
+	public void nonEmpty_false() throws Exception {
+		FMap<Integer, String> fMap = this.<Integer, String>fMap();
+		assertFalse(fMap.nonEmpty());
+	}
+
+	@Test
+	public void nonEmpty_true() throws Exception {
+		FMap<Integer, String> fMap = fMap( t(1, "a"), t(2, "b") );
+		assertTrue(fMap.nonEmpty());
+	}
 
 	@Test
 	public void constainsKey_true() throws Exception {

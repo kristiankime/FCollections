@@ -142,11 +142,6 @@ abstract public class FCollectionContract {
 		String actual = fCollection().mkString("[", ", ", "]");
 		assertEquals("[]", actual);
 	}
-
-	
-	
-	
-	
 	
 	@Test
 	public void reduce_no_elements_returns_empty() throws Exception {

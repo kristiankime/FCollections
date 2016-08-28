@@ -49,13 +49,13 @@ public class GuavaImFSetTest extends ImFSetContract {
 	
 	// group
 	@Test
-	public void groupBT_empty_map_for_empty_collection() throws Exception {
+	public void groupByT_empty_map_for_empty_collection() throws Exception {
 		GuavaImFMap<Object, GuavaImFSet<Integer>> actual = this.<Integer> fSet().groupByT(i -> i);
 		assertTrue(actual.isEmpty());
 	}
 	
 	@Test
-	public void groupBT_groups_as_specified() throws Exception {
+	public void groupByT_groups_as_specified() throws Exception {
 		GuavaImFMap<Object, GuavaImFSet<Integer>> actual = this.<Integer> fSet(0, 1, 2, 3).groupByT(i -> i % 2);
 		assertEquals(2, actual.size());
 		assertThat(actual.get(0), containsInAnyOrder(0, 2));

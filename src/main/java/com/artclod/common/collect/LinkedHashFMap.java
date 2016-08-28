@@ -64,22 +64,43 @@ public class LinkedHashFMap<K, V> extends BaseFMap<K, V, LinkedHashFMap<K,V>> im
 	
 	@SafeVarargs
 	public static <K, V> LinkedHashFMap<K, V> create(Map.Entry<K, V>... c) {
-		return create(Arrays.asList(c));
+		return new LinkedHashFMap<>(c);
 	}
 	
 	public static <K, V> LinkedHashFMap<K, V> create(Collection<? extends Map.Entry<K, V>> c) {
+		return new LinkedHashFMap<>(c);
+	}
+
+	private static <V, K> LinkedHashMap<K, V> toMap(Collection<? extends Map.Entry<K, V>> c) {
 		LinkedHashMap<K, V> inner = new LinkedHashMap<>();
 		for (java.util.Map.Entry<K, V> entry : c) {
 			inner.put(entry.getKey(), entry.getValue());
 		}
-		return new LinkedHashFMap<>(inner);
+		return inner;
 	}
 	
 	public static <K, V> LinkedHashFMap<K, V> create(Map<K, V> map) {
 		return new LinkedHashFMap<>(new LinkedHashMap<>(map));
 	}
+
+	public LinkedHashFMap() {
+		this(new LinkedHashMap<>());
+	}
+		
+	@SafeVarargs
+	public LinkedHashFMap(Map.Entry<K, V>... c) {
+		this(Arrays.asList(c));
+	}
 	
-	public LinkedHashFMap(LinkedHashMap<K, V> inner) {
+	public LinkedHashFMap(Collection<? extends Map.Entry<K, V>> c) {
+		this(new LinkedHashMap<>(toMap(c)));
+	}
+	
+	public LinkedHashFMap(Map<K, V> map) {
+		this(new LinkedHashMap<>(map));
+	}
+	
+	protected LinkedHashFMap(LinkedHashMap<K, V> inner) {
 		super(inner);
 	}
 

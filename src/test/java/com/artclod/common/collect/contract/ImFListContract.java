@@ -1,8 +1,13 @@
 package com.artclod.common.collect.contract;
 
 import static java.util.Arrays.asList;
+import static org.hamcrest.Matchers.contains;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertThat;
+import static org.junit.Assert.assertTrue;
 
 import java.util.List;
+import java.util.Map;
 
 import org.junit.Test;
 
@@ -168,5 +173,20 @@ public abstract class ImFListContract extends FListContract {
     public void sorted() throws Exception {
         fList(3, 1, 2).sorted();
     }
+	
+	// --- group
+	@Test
+	public void groupByIL_empty_map_for_empty_collection() throws Exception {
+		Map<Integer, ImFList<Integer>> actual = this.<Integer> fList().groupByIL(i -> i);
+		assertTrue(actual.isEmpty());
+	}
+	
+	@Test
+	public void groupByIL_groups_as_specified() throws Exception {
+		Map<Integer, ImFList<Integer>> actual = this.<Integer> fList(0, 1, 2, 3).groupByIL(i -> i % 2);
+		assertEquals(2, actual.size());
+		assertThat(actual.get(0), contains(0, 2));
+		assertThat(actual.get(1), contains(1, 3));
+	}
 	
 }

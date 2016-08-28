@@ -3,6 +3,7 @@ package com.artclod.common.collect.base;
 import java.io.Serializable;
 import java.util.Collection;
 import java.util.Map;
+import java.util.Objects;
 import java.util.function.BiConsumer;
 import java.util.function.BiFunction;
 import java.util.function.BiPredicate;
@@ -23,7 +24,7 @@ public abstract class BaseFMap<K, V, M extends FMap<K, V>> implements FMap<K, V>
 	private transient LinkedHashViewFSet<java.util.Map.Entry<K, V>> entryView;
 	
 	public BaseFMap(Map<K, V> inner) {
-		this.inner = inner;
+		this.inner = Objects.requireNonNull(inner);
 	}
 	
     protected abstract MapBuilder<K, V, M> builder();

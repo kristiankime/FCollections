@@ -7,7 +7,7 @@ import com.google.common.collect.ImmutableMap;
 import com.google.common.collect.ImmutableMap.Builder;
 
 public class GuavaImFMapTest extends ImmutableFMapContract {
-
+	
 	@Override
 	public <K, V> ImFMap<K, V> fMap(@SuppressWarnings("unchecked") Entry<K, V>... elements) {
 		Builder<K, V> builder = ImmutableMap.<K, V> builder();

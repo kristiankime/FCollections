@@ -11,6 +11,7 @@ import java.util.Map;
 import org.junit.Test;
 
 import com.artclod.common.collect.FList;
+import com.artclod.common.collect.ImFList;
 import com.google.common.collect.Ordering;
 
 abstract public class FListContract extends FCollectionContract {
@@ -106,6 +107,33 @@ abstract public class FListContract extends FCollectionContract {
 		assertEquals(asList(1, 3), after);
 	}
 	
+	@Test
+	public void replaceAllCp_copies_and_replaces_elements() {
+		FList<Integer> before = fList(1, 7, 6);
+		FList<Integer> after = before.replaceAllCp((v) -> v + 1);
+		
+		assertEquals(asList(1, 7, 6), before);
+		assertEquals(asList(2, 8, 7), after);
+	}
+	
+	@Test
+	public void setCp_copies_and_sets_element(){
+		FList<Integer> before = fList(1, 2, 6, 7);
+		FList<Integer> after = before.setCp(2, 3);
+		
+		assertEquals(asList(1, 2, 6, 7), before);
+		assertEquals(asList(1, 2, 3, 7), after);
+	}
+	
+	@Test
+	public void removeIfCp_copies_and_removes(){
+		FList<Integer> before = fList(1, 7, 3, 6, 2);
+		FList<Integer> after = before.removeIfCp((v) -> v > 3);
+		
+		assertEquals(asList(1, 7, 3, 6, 2), before);
+		assertEquals(asList(1, 3, 2), after);
+	}
+	
 	// --- group
 	@Test
 	public void groupByL_empty_map_for_empty_collection() throws Exception {
@@ -151,5 +179,23 @@ abstract public class FListContract extends FCollectionContract {
 		assertEquals(asList(3, 1, 2), original);
         assertEquals(asList(1, 2, 3), sorted);
     }
+	
+	@Test
+    public void toIm_lists_have_same_contents() throws Exception {
+		FList<Integer> original = fList(3, 1, 2);
+		ImFList<Integer> im = original.toIm();
+		assertEquals(original, im);
+	}
+		
+	@Test
+    public void toMu_lists_have_same_contents_new_list_is_mutable() throws Exception {
+		FList<Integer> original = fList(3, 1, 2);
+		FList<Integer> mu = original.toMu();
+		assertEquals(original, mu);
+		
+		mu.add(4);
+		assertEquals(asList(3, 1, 2), original);
+		assertEquals(asList(3, 1, 2, 4), mu);
+	}
 	
 }

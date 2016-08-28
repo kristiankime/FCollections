@@ -19,7 +19,7 @@ public class HashFMap<K, V> extends BaseFMap<K, V, HashFMap<K,V>> implements FMa
 	}
 	
 	public static <K, V> HashFMap<K, V> create() {
-		return new HashFMap<>(new HashMap<>());
+		return new HashFMap<>();
 	}
 	
 	public static <K, V> HashFMap<K, V> create(K k1, V v1) {
@@ -68,21 +68,37 @@ public class HashFMap<K, V> extends BaseFMap<K, V, HashFMap<K,V>> implements FMa
 	}
 	
 	public static <K, V> HashFMap<K, V> create(Collection<? extends Map.Entry<K, V>> c) {
+		return new HashFMap<>(c);
+	}
+
+	private static <V, K> HashMap<K, V> toMap(Collection<? extends Map.Entry<K, V>> c) {
 		HashMap<K, V> inner = new HashMap<>();
 		for (java.util.Map.Entry<K, V> entry : c) {
 			inner.put(entry.getKey(), entry.getValue());
 		}
-		return new HashFMap<>(inner);
+		return inner;
 	}
 	
 	public static <K, V> HashFMap<K, V> create(Map<K, V> map) {
-		return new HashFMap<>(new HashMap<>(map));
+		return new HashFMap<>(map);
 	}
 	
-	public HashFMap(HashMap<K, V> inner) {
+	public HashFMap() {
+		this(new HashMap<>());
+	}
+	
+	public HashFMap(Collection<? extends Map.Entry<K, V>> c) {
+		this(toMap(c));
+	}
+		
+	public HashFMap(Map<K, V> map) {
+		this(new HashMap<>(map));
+	}
+	
+	protected HashFMap(HashMap<K, V> inner) {
 		super(inner);
 	}
-
+	
 	// ========== Builder =========
 	private static class HashFMapBuilder<K, V> extends HashFMap<K, V> implements MapBuilder<K, V, HashFMap<K, V>> {
 		private static final long serialVersionUID = 1L;

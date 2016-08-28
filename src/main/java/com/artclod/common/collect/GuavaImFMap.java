@@ -49,25 +49,52 @@ public class GuavaImFMap<K, V> extends BaseFMap<K, V, GuavaImFMap<K,V>> implemen
 	}
 	
 	public static <K, V> GuavaImFMap<K, V> create(Collection<? extends Map.Entry<K, V>> c) {
+		ImmutableMap<K, V> build = toMap(c);
+		return new GuavaImFMap<>(build);
+	}
+
+	private static <V, K> ImmutableMap<K, V> toMap(Collection<? extends Map.Entry<K, V>> c) {
 		ImmutableMap.Builder<K, V> inner = ImmutableMap.builder();
 		for (java.util.Map.Entry<K, V> entry : c) {
 			inner.put(entry.getKey(), entry.getValue());
 		}
-		return new GuavaImFMap<>(inner.build());
+		ImmutableMap<K, V> build = inner.build();
+		return build;
 	}
-	
+
 	public static <K, V> GuavaImFMap<K, V> create(Map<K, V> map) {
-		return new GuavaImFMap<>(ImmutableMap.copyOf(map));
+		return new GuavaImFMap<>(map);
 	}
 	
 	public static <K, V> GuavaImFMap<K, V> create(ImmutableMap.Builder<K, V> builder) {
-		return new GuavaImFMap<>(builder.build());
+		return new GuavaImFMap<>(builder);
 	}
 	
-	public GuavaImFMap(ImmutableMap<K, V> inner) {
+	public GuavaImFMap() {
+		this(ImmutableMap.of());
+	}
+	
+	@SafeVarargs
+	public GuavaImFMap(Map.Entry<K, V>... c) {
+		this(Arrays.asList(c));
+	}
+	
+	public GuavaImFMap(Collection<? extends Map.Entry<K, V>> c) {
+		this(toMap(c));
+	}
+	
+	public GuavaImFMap(Map<K, V> map) {
+		this(ImmutableMap.copyOf(map));
+	}
+	
+	public GuavaImFMap(ImmutableMap.Builder<K, V> builder) {
+		this(builder.build());
+	}
+	
+	protected GuavaImFMap(ImmutableMap<K, V> inner) {
 		super(inner);
 	}
-
+	
 	@Override
 	public <NK, NV> GuavaImFMap<NK, NV> map(BiFunction<? super K, ? super V, T2<? extends NK, ? extends NV>> f) {
 		ImmutableMap.Builder<NK, NV> builder = ImmutableMap.<NK, NV> builder();

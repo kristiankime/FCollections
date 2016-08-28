@@ -24,32 +24,57 @@ public class GuavaImFList<E> extends BaseFList<E, GuavaImFList<E>> implements Un
 	}
 	
 	public static <E> GuavaImFList<E> create() {
-		return new GuavaImFList<E>(ImmutableList.of());
+		return new GuavaImFList<E>();
 	}
 
 	public static <E> GuavaImFList<E> create(Iterable<? extends E> elements) {
-		return new GuavaImFList<E>(ImmutableList.copyOf(elements));
+		return new GuavaImFList<E>(elements);
 	}
 
 	public static <E> GuavaImFList<E> create(Collection<? extends E> elements) {
-		return new GuavaImFList<E>(ImmutableList.copyOf(elements));
+		return new GuavaImFList<E>(elements);
 	}
 
 	public static <E> GuavaImFList<E> create(Iterator<? extends E> elements) {
-		return new GuavaImFList<E>(ImmutableList.copyOf(elements));
+		return new GuavaImFList<E>(elements);
 	}
 
 	@SafeVarargs
 	public static <E> GuavaImFList<E> create(E... elements) {
-		return new GuavaImFList<E>(ImmutableList.copyOf(elements));
+		return new GuavaImFList<E>(elements);
 	}
 	
 	public static <E> GuavaImFList<E> create(ImmutableList.Builder<E> builder) {
-		return new GuavaImFList<E>(builder.build());
+		return new GuavaImFList<E>(builder);
+	}
+	
+	public GuavaImFList() {
+		this(ImmutableList.of());
+	}
+	
+	public GuavaImFList(Iterable<? extends E> elements) {
+		this(ImmutableList.copyOf(elements));
+	}
+	
+	public GuavaImFList(Collection<? extends E> elements) {
+		this(ImmutableList.copyOf(elements));
+	}
+	
+	public GuavaImFList(Iterator<? extends E> elements) {
+		this(ImmutableList.copyOf(elements));
+	}
+	
+	@SafeVarargs
+	public GuavaImFList(E... elements) {
+		this(ImmutableList.copyOf(elements));
+	}
+	
+	public GuavaImFList(ImmutableList.Builder<E> builder) {
+		this(builder.build());
 	}
 	
 	protected final ImmutableList<E> inner;
-
+	
 	public GuavaImFList(ImmutableList<E> inner) {
 		super(inner);
 		this.inner = inner;
@@ -69,7 +94,7 @@ public class GuavaImFList<E> extends BaseFList<E, GuavaImFList<E>> implements Un
 		return inner;
 	}
 
-	public Builder<E> toBuilder() {
+	public Builder<E> toGuavaBuilder() {
 		return ImmutableList.<E> builder().addAll(inner);
 	}
 

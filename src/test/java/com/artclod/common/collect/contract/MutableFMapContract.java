@@ -31,7 +31,7 @@ public abstract class MutableFMapContract extends FMapContract {
 		FMap<Integer, String> fMap = fMap( t(1, "a"), t(2, "b") );
 		assertThat(fMap.entrySet(), containsInAnyOrder(t(1, "a"), t(2, "b")));
 		fMap.put(3,  "c");
-		assertThat(fMap.keySet(), containsInAnyOrder(t(1, "a"), t(2, "b"), t(3, "c")));		
+		assertThat(fMap.entrySet(), containsInAnyOrder(t(1, "a"), t(2, "b"), t(3, "c")));		
 	}
 	
 	@Test

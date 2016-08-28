@@ -17,9 +17,11 @@ public interface FList<E> extends List<E>, FCollection<E> {
     
 	public FList<E> cp();
 	public FList<E> addCp(E e);
+	public FList<E> setCp(int index, E e);
 	public FList<E> addAllCp(Collection<? extends E> c);
 	public FList<E> addAllCp(int index, Collection<? extends E> c);
 	public FList<E> removeCp(Object o);
+	public FList<E> removeIfCp(Predicate<? super E> filter);
 	public FList<E> removeAllCp(Collection<?> c);
 	public FList<E> retainAllCp(Collection<?> c);
 	public FList<E> replaceAllCp(UnaryOperator<E> operator);
@@ -27,6 +29,7 @@ public interface FList<E> extends List<E>, FCollection<E> {
 	public <K> FMap<K, FList<E>> groupByL(Function<? super E, ? extends K> f);
 
 	public ImFList<E> toIm();
+	public FList<E> toMu();
 
 	/**
 	 * This is the same as {@link java.util.List#sort(Comparator)} but it returns the list.

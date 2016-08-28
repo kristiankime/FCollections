@@ -45,6 +45,8 @@ public class GuavaImFSet<E> extends BaseFSet<E, GuavaImFSet<E>> implements ImFSe
 		return new GuavaImFSet<E>(elements);
 	}
 	
+	protected final ImmutableSet<E> inner;
+	
 	public GuavaImFSet() {
 		this(ImmutableSet.of());
 	}	
@@ -68,6 +70,7 @@ public class GuavaImFSet<E> extends BaseFSet<E, GuavaImFSet<E>> implements ImFSe
 	
 	public GuavaImFSet(ImmutableSet<E> inner) {
 		super(inner);
+		this.inner = inner;
 	}
 	
 	@Override
@@ -78,6 +81,10 @@ public class GuavaImFSet<E> extends BaseFSet<E, GuavaImFSet<E>> implements ImFSe
 	@Override
 	protected CollectionBuilder<E, GuavaImFSet<E>> builder(Collection<E> c) {
 		return new GuavaImFSetBuilder<E>(ImmutableSet.<E> builder().addAll(c));
+	}
+	
+	public ImmutableSet<E> toGuava() {
+		return inner;
 	}
 
 	@Override
