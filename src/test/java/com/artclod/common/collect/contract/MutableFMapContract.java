@@ -20,11 +20,13 @@ public abstract class MutableFMapContract extends FMapContract {
 		assertThat(fMap.keySet(), containsInAnyOrder(1, 2, 3));		
 	}
 	
-//	@Test
-//	public void values_is_a_view_of_the_set_of_values() throws Exception {
-//		FMap<Integer, String> fMap = fMap( t(1, "a"), t(2, "b") );
-//		assertThat(fMap.values(), containsInAnyOrder("a", "b"));
-//	}
+	@Test
+	public void values_is_a_view_of_the_set_of_values() throws Exception {
+		FMap<Integer, String> fMap = fMap( t(1, "a"), t(2, "b") );
+		assertThat(fMap.values(), containsInAnyOrder("a", "b"));
+		fMap.put(3,  "c");
+		assertThat(fMap.values(), containsInAnyOrder("a", "b", "c"));	
+	}
 	
 	@Test
 	public void entrySet_is_a_view_of_the_set_of_keys_and_values() throws Exception {
