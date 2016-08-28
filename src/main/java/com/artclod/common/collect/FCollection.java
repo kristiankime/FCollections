@@ -339,7 +339,8 @@ public interface FCollection<E> extends Collection<E> {
 	 * Partitions the elements in this collection into a map of collections according to some discriminator function.
 	 * In other words all of the elements of the current will be grouped together based on the keys provided by the function.
 	 * 
-	 * Note because of the limitations of generics in Java sub classes of this 
+	 * Note because of the limitations of generics in Java sub types will often have methods like  {@link com.artclod.common.collect.FList#groupByL(Function)} 
+	 * which type the values in the returned map to more specific types.
 	 * 
 	 * @param f the discriminator function. Its result will be used to determine which elements go into each group.
 	 * @return the partion map
