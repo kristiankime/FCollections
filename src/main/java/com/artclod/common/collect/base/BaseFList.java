@@ -52,13 +52,13 @@ public abstract class BaseFList<E, L extends FList<E>> extends BaseFColletion<E,
 	@SuppressWarnings("unchecked")
 	public L sortWith(Comparator<? super E> c) {
 	    sort(c);
-	    return (L) this;
+	    return (L) (Object) this;
 	}
 	
     @SuppressWarnings({ "rawtypes", "unchecked" })
     public L sorted() {
     	Comparator natural = Comparator.naturalOrder();
-        return sortWith(natural);
+		return (L) (Object) sortWith(natural);
     }
     
 	public L sortWithCp(Comparator<? super E> c) {
