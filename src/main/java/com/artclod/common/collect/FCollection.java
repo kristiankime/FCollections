@@ -10,7 +10,7 @@ import java.util.function.Predicate;
 
 /**
  * This interface is an extension of the {@link Collection} interface that adds many functional style methods.
- * Most of these methods are based on the {@link Stream} interface and have similar if not identical signatures.
+ * Most of these methods are based on the {@link java.util.stream.Stream} interface and have similar if not identical signatures.
  * There are additional methods and these are often based on scala methods with similar intents.
  *
  * @param <E> the type of the collection elements
@@ -86,7 +86,7 @@ public interface FCollection<E> extends Collection<E> {
      * @param predicate a <a href="package-summary.html#NonInterference">non-interfering</a>, <a href="package-summary.html#Statelessness">stateless</a> predicate to apply to each element to determine if it should be included
      * @return the new collection
      */
-	public FCollection<E> filter(Predicate<? super E> filter);
+	public FCollection<E> filter(Predicate<? super E> predicate);
 	
 	/**
 	 * See {@link #filter(Predicate)} except the predicate is negated.
@@ -94,7 +94,7 @@ public interface FCollection<E> extends Collection<E> {
      * @param predicate a <a href="package-summary.html#NonInterference">non-interfering</a>, <a href="package-summary.html#Statelessness">stateless</a> predicate to apply to each element to determine if it should be included
      * @return the new collection
 	 */
-	public FCollection<E> filterNot(Predicate<? super E> filter);
+	public FCollection<E> filterNot(Predicate<? super E> predicate);
 
     /**
      * Returns a new collection consisting of the results of applying the given
@@ -105,7 +105,7 @@ public interface FCollection<E> extends Collection<E> {
      * @param mapper a <a href="package-summary.html#NonInterference">non-interfering</a>, <a href="package-summary.html#Statelessness">stateless</a> function to apply to each element
      * @return the new collection
      */
-	public <O> FCollection<O> map(Function<? super E, ? extends O> f);
+	public <O> FCollection<O> map(Function<? super E, ? extends O> mapper);
 	
     /**
      * Returns a collection consisting of the results of replacing each element of
@@ -293,7 +293,7 @@ public interface FCollection<E> extends Collection<E> {
      * The {@code accumulator} function must be an
      * <a href="package-summary.html#Associativity">associative</a> function.
      *
-     * @apiNote Sum, min, max, average, and string concatenation are all special
+     * Sum, min, max, average, and string concatenation are all special
      * cases of reduction. Summing a collection of numbers can be expressed as:
      *
      * <pre>{@code
@@ -318,7 +318,7 @@ public interface FCollection<E> extends Collection<E> {
 	public E reduce(E identity, BinaryOperator<E> accumulator);
 	
 	/**
-	 * See {@link #reduce(Object, BinaryOperator) except when possible the operations will be done left to right.
+	 * See {@link #reduce(Object, BinaryOperator)} except when possible the operations will be done left to right.
 	 * 
      * @param identity the identity value for the accumulating function
      * @param accumulator an <a href="package-summary.html#Associativity">associative</a>, <a href="package-summary.html#NonInterference">non-interfering</a>, <a href="package-summary.html#Statelessness">stateless</a> function for combining two values
@@ -327,7 +327,7 @@ public interface FCollection<E> extends Collection<E> {
 	public E reduceLeft(E identity, BinaryOperator<E> accumulator);
 
 	/**
-	 * See {@link #reduce(Object, BinaryOperator) except when possible the operations will be done right to left.
+	 * See {@link #reduce(Object, BinaryOperator)} except when possible the operations will be done right to left.
 	 * 
      * @param identity the identity value for the accumulating function
      * @param accumulator an <a href="package-summary.html#Associativity">associative</a>, <a href="package-summary.html#NonInterference">non-interfering</a>, <a href="package-summary.html#Statelessness">stateless</a> function for combining two values
@@ -343,8 +343,37 @@ public interface FCollection<E> extends Collection<E> {
 	 * which type the values in the returned map to more specific types.
 	 * 
 	 * @param f the discriminator function. Its result will be used to determine which elements go into each group.
+	 * @param <K> The type of the key in the group map, ie the type of the objects that be used to group elements
 	 * @return the partion map
 	 */
 	public <K> FMap<K, FCollection<E>> groupBy(Function<? super E, ? extends K> f);
+	
+    /**
+     * Returns the minimum element of this collection according to the provided
+     * {@code Comparator}.  This is a special case of a
+     * <a href="package-summary.html#Reduction">reduction</a>.
+     *
+     * @param comparator a <a href="package-summary.html#NonInterference">non-interfering</a>,  <a href="package-summary.html#Statelessness">stateless</a> {@code Comparator} to compare elements of this collection
+     * @return an {@code Optional} describing the minimum element of this collection,
+     * or an empty {@code Optional} if the collection is empty
+     * @throws NullPointerException if the minimum element is null
+     */
+	default Optional<E> min(Comparator<? super E> comparator) {
+        return reduce(BinaryOperator.minBy(comparator));
+    }
 
+    /**
+     * Returns the maximum element of this collection according to the provided
+     * {@code Comparator}.  This is a special case of a
+     * <a href="package-summary.html#Reduction">reduction</a>.
+     *
+     * @param comparator a <a href="package-summary.html#NonInterference">non-interfering</a>, <a href="package-summary.html#Statelessness">stateless</a> {@code Comparator} to compare elements of this collection
+     * @return an {@code Optional} describing the maximum element of this collection,
+     * or an empty {@code Optional} if the collection is empty
+     * @throws NullPointerException if the maximum element is null
+     */
+    default Optional<E> max(Comparator<? super E> comparator) {
+        return reduce(BinaryOperator.maxBy(comparator));
+    }
+    
 }
