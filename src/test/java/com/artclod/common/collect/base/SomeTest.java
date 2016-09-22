@@ -1,8 +1,9 @@
 package com.artclod.common.collect.base;
 
-import static org.junit.Assert.*;
-
-import java.util.Collections;
+import static org.junit.Assert.assertArrayEquals;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
 
 import org.junit.Test;
 
@@ -17,11 +18,6 @@ public class SomeTest {
 	}
 	
 	@Test
-	public void orNull_returns_value() throws Exception {
-		assertEquals("value", Option.some("value").orNull());
-	}
-	
-	@Test
 	public void or_returns_value() throws Exception {
 		assertEquals("value", Option.some("value").or("or"));
 	}
@@ -30,7 +26,6 @@ public class SomeTest {
 	public void getOrElse_returns_value() throws Exception {
 		assertEquals("value", Option.some("value").getOrElse("or"));
 	}
-	
 	
 	@Test
 	public void getOrElse_option_returns_value() throws Exception {
@@ -41,23 +36,8 @@ public class SomeTest {
 	public void getOrElse_supplier_returns_value() throws Exception {
 		assertEquals("value", Option.some("value").getOrElse(() -> "or"));
 	}
-	
-	@Test
-	public void or_optional_returns_value() throws Exception {
-		assertEquals(Option.some("value"), Option.some("value").or(Option.some("or")));
-	}
-		
-	@Test
-	public void or_supplier_returns_value() throws Exception {
-		assertEquals("value", Option.some("value").or(() -> "or"));
-	}
 
 	// Has Values
-	@Test
-	public void isPresent_returns_true() throws Exception {
-		assertTrue(Option.some("value").isPresent());
-	}
-
 	@Test
 	public void nonEmpty_returns_true() throws Exception {
 		assertTrue(Option.some("value").nonEmpty());
@@ -133,11 +113,6 @@ public class SomeTest {
 	}
 	
 	@Test
-	public void transform_returns_changed_value() throws Exception {
-		assertEquals(Option.some("value+"), Option.some("value").transform(a -> a + "+"));
-	}
-	
-	@Test
 	public void flatMap_returns_changed_value() throws Exception {
 		assertEquals(Option.some("value+"), Option.some("value").flatMap(a -> Option.some(a + "+")));
 	}
@@ -155,12 +130,6 @@ public class SomeTest {
 	@Test
 	public void fold_returns_fold_value() throws Exception {
 		assertEquals(Option.some("value+"), Option.some("value").fold("ifempty", a -> a + "+"));
-	}
-		
-	// Guava Methods
-	@Test
-	public void asSet_returns_singleton_set() throws Exception {
-		assertEquals(Collections.singleton("value"), Option.some("value").asSet());
 	}
 	
 	// Serialize

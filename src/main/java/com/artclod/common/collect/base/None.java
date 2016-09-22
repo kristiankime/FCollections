@@ -18,22 +18,19 @@ package com.artclod.common.collect.base;
 
 import static com.google.common.base.Preconditions.checkNotNull;
 
+import java.io.Serializable;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.Iterator;
 import java.util.Objects;
-import java.util.Set;
 import java.util.function.Function;
 import java.util.function.Predicate;
 import java.util.function.Supplier;
 
-import com.google.common.base.GuavaOption;
-import com.google.common.base.Optional;
-
 /**
  * Implementation of an empty {@link Option}.
  */
-final class None<T> extends GuavaOption<T> {
+final class None<T> implements Option<T>, Serializable {
 	private static final long serialVersionUID = 0;
 
 	static final None<Object> INSTANCE = new None<Object>();
@@ -46,11 +43,6 @@ final class None<T> extends GuavaOption<T> {
 	private None() {}
 		
 	// === Basic Functionality ===
-	@Override
-	public boolean isPresent() {
-	  return false;
-	}
-		
 	@Override
 	public T get() {
 	  throw new IllegalStateException("Optional.get() cannot be called on an absent value");
@@ -68,35 +60,6 @@ final class None<T> extends GuavaOption<T> {
 	
 	public T getOrElse(Supplier<? extends T> supplier) {
 		return supplier.get();
-	}
-		
-	// === Guava Methods ===
-	@SuppressWarnings("unchecked") // safe covariant cast
-	@Override
-	public Optional<T> or(Optional<? extends T> secondChoice) {
-	  return (Optional<T>) checkNotNull(secondChoice);
-	}
-		
-	@Override
-	public T or(com.google.common.base.Supplier<? extends T> supplier) {
-	  return checkNotNull(supplier.get(),
-	      "use Optional.orNull() instead of a Supplier that returns null");
-	}
-		
-	@Override
-	public T orNull() {
-	  return null;
-	}
-		
-	@Override
-	public Set<T> asSet() {
-	  return Collections.emptySet();
-	}
-		
-	@Override
-	public <V> Optional<V> transform(com.google.common.base.Function<? super T, V> function) {
-	  checkNotNull(function);
-	  return withType();
 	}
 
 	// === Functional Methods ===

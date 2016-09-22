@@ -16,11 +16,6 @@ public class NoneTest {
 	}
 	
 	@Test
-	public void orNull_return_null() throws Exception {
-		assertNull(Option.none().orNull());
-	}
-	
-	@Test
 	public void or_returns_or_value() throws Exception {
 		assertEquals(Option.<String> none().or("or"), "or");
 	}
@@ -40,23 +35,8 @@ public class NoneTest {
 	public void getOrElse_supplier_returns_or_value() throws Exception {
 		assertEquals(Option.<String> none().getOrElse(() -> "or"), "or");
 	}
-	
-	@Test
-	public void or_optional_returns_or_value() throws Exception {
-		assertEquals(Option.<String> none().or(Option.some("or")), Option.some("or"));
-	}
-	
-	@Test
-	public void or_supplier_returns_or_value() throws Exception {
-		assertEquals(Option.<String> none().or(() -> "or"), "or");
-	}
 
 	// Has Values
-	@Test
-	public void isPresent_returns_false() throws Exception {
-		assertFalse(Option.none().isPresent());
-	}
-
 	@Test
 	public void nonEmpty_returns_false() throws Exception {
 		assertFalse(Option.none().nonEmpty());
@@ -114,11 +94,6 @@ public class NoneTest {
 	}
 	
 	@Test
-	public void transform_returns_None() throws Exception {
-		assertEquals(Option.none(), Option.<String> none().transform(a -> a + "+"));
-	}
-	
-	@Test
 	public void flatMap_returns_None() throws Exception {
 		assertEquals(Option.none(), Option.<String> none().flatMap(a -> Option.some(a + "+")));
 	}
@@ -131,12 +106,6 @@ public class NoneTest {
 	@Test
 	public void fold_returns_ifEmpty_value() throws Exception {
 		assertEquals(Option.some("ifempty"), Option.<String> none().fold("ifempty", a -> a + "+"));
-	}
-	
-	// Guava Methods
-	@Test
-	public void asSet_returns_empty_set() throws Exception {
-		assertTrue(Option.<String> none().asSet().isEmpty());
 	}
 	
 	// Serialize
