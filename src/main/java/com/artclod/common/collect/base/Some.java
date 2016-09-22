@@ -34,15 +34,15 @@ import com.google.common.collect.Iterators;
 final class Some<T> implements Option<T>, Serializable {
 	private static final long serialVersionUID = 0;
 
-	private final T reference;
+	private final T value;
 	
 	Some(T reference) {
-		this.reference = reference;
+		this.value = reference;
 	}
 		
 	@Override 
 	public T get() {
-		return reference;
+		return value;
 	}
 	
 	public Option<T> getOrElse(Option<? extends T> secondChoice) {
@@ -56,42 +56,42 @@ final class Some<T> implements Option<T>, Serializable {
 	@Override 
 	public T or(T defaultValue) {
 		checkNotNull(defaultValue, "use Optional.orNull() instead of Optional.or(null)");
-		return reference;
+		return value;
 	}
 	
 	@Override 
 	public boolean equals(Object object) {
 		if (object instanceof Some) {
 			Some<?> other = (Some<?>) object;
-			return reference.equals(other.reference);
+			return value.equals(other.value);
 		}
 		return false;
 	}
 	
 	@Override 
 	public int hashCode() {
-	  return 0x598df91c + reference.hashCode();
+	  return 0x598df91c + value.hashCode();
 	}
 	
 	@Override 
 	public String toString() {
-	  return "Some(" + reference + ")";
+	  return "Some(" + value + ")";
 	}
 
 	@Override
 	public <O> Some<O> map(Function<? super T, ? extends O> mapper) {
-		return new Some<O>(mapper.apply(reference));
+		return new Some<O>(mapper.apply(value));
 	}
 
 	@SuppressWarnings("unchecked")
 	@Override
 	public <O> Option<O> flatMap(Function<? super T, ? extends Option<? extends O>> mapper) {
-		return (Option<O>) mapper.apply(reference);
+		return (Option<O>) mapper.apply(value);
 	}
 
 	@Override
 	public Option<T> filter(Predicate<? super T> predicate) {
-		if(predicate.test(reference)) {
+		if(predicate.test(value)) {
 			return this;
 		}
 		return None.withType();
@@ -99,7 +99,7 @@ final class Some<T> implements Option<T>, Serializable {
 
 	@Override
 	public <O> Option<O> fold(O ifEmpty, Function<? super T, ? extends O> mapper) {
-		return Option.of(mapper.apply(reference));
+		return Option.of(mapper.apply(value));
 	}
 
 	@Override
@@ -114,17 +114,17 @@ final class Some<T> implements Option<T>, Serializable {
 
 	@Override
 	public boolean contains(Object o) {
-		return reference.equals(o);
+		return value.equals(o);
 	}
 
 	@Override
 	public Iterator<T> iterator() {
-		return Iterators.singletonIterator(reference);
+		return Iterators.singletonIterator(value);
 	}
 
 	@Override
 	public Object[] toArray() {
-		return new Object[]{reference};
+		return new Object[]{value};
 	}
 
 	@SuppressWarnings("unchecked")
@@ -132,9 +132,9 @@ final class Some<T> implements Option<T>, Serializable {
 	public <O> O[] toArray(O[] a) {
 		Objects.requireNonNull(a);
 		if(a.length < 1) {
-			return (O[]) new Object[]{reference}; 
+			return (O[]) new Object[]{value}; 
 		}
-		a[0] = (O) reference;
+		a[0] = (O) value;
 		
 		if(a.length >= 1) {
 			a[1] = null;
