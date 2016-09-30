@@ -13,7 +13,7 @@ import com.google.common.collect.ImmutableSet;
 public abstract class BaseFSet<E, S extends FSet<E>> extends BaseFColletion<E, S> implements FSet<E> {
 	private static final long serialVersionUID = 1L;
 
-	final Set<E> inner;
+	protected final Set<E> inner;
 
 	public BaseFSet(Set<E> inner) {
 		super(inner);

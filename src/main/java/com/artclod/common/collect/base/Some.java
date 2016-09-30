@@ -36,8 +36,8 @@ final class Some<T> implements Option<T>, Serializable {
 
 	private final T value;
 	
-	Some(T reference) {
-		this.value = reference;
+	Some(T value) {
+		this.value = value;
 	}
 		
 	@Override 
