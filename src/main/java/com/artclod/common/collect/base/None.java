@@ -30,7 +30,7 @@ import java.util.function.Supplier;
 /**
  * Implementation of an empty {@link Option}.
  */
-final class None<T> implements Option<T>, Serializable {
+public final class None<T> implements Option<T>, Serializable {
 	private static final long serialVersionUID = 0;
 
 	static final None<Object> INSTANCE = new None<Object>();

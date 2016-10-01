@@ -31,7 +31,7 @@ import com.google.common.collect.Iterators;
 /**
  * Implementation of an {@link Option} containing a value.
  */
-final class Some<T> implements Option<T>, Serializable {
+public final class Some<T> implements Option<T>, Serializable {
 	private static final long serialVersionUID = 0;
 
 	private final T value;
