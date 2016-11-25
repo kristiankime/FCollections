@@ -120,4 +120,21 @@ abstract public class FSetContract extends FCollectionContract {
 		assertThat(actual.get(1), containsInAnyOrder(1, 3));
 	}
 	
+	@Test
+	public void intersection_keeps_only_elements_in_common() throws Exception {
+		FSet<Integer> set1 = this.<Integer> fSet(0, 1, 2, 3);
+		FSet<Integer> set2 = this.<Integer> fSet(1, 2, 3, 4);
+
+		assertThat(set1.intersection(set2), containsInAnyOrder(1, 2, 3));
+		assertThat(set2.intersection(set1), containsInAnyOrder(1, 2, 3));
+	}
+	
+	@Test
+	public void union_keeps_all_elements() throws Exception {
+		FSet<Integer> set1 = this.<Integer> fSet(0, 1, 2, 3);
+		FSet<Integer> set2 = this.<Integer> fSet(1, 2, 3, 4);
+
+		assertThat(set1.union(set2), containsInAnyOrder(0, 1, 2, 3, 4));
+		assertThat(set2.union(set1), containsInAnyOrder(0, 1, 2, 3, 4));
+	}
 }

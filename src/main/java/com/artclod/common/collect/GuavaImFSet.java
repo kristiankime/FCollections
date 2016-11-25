@@ -33,6 +33,10 @@ public class GuavaImFSet<E> extends BaseFSet<E, GuavaImFSet<E>> implements ImFSe
 		return new GuavaImFSet<E>(elements);
 	}
 
+	public static <E> GuavaImFSet<E> create(ImmutableSet.Builder<E> elements) {
+		return new GuavaImFSet<E>(elements.build());
+	}
+	
 	public static <E> GuavaImFSet<E> create(Collection<E> c) {
 		return new GuavaImFSet<E>(c);
 	}

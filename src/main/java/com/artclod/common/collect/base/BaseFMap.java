@@ -11,6 +11,8 @@ import java.util.function.Predicate;
 
 import com.artclod.common.collect.ArrayListViewFCollection;
 import com.artclod.common.collect.FMap;
+import com.artclod.common.collect.GuavaImFMap;
+import com.artclod.common.collect.ImFMap;
 import com.artclod.common.collect.LinkedHashViewFSet;
 import com.artclod.common.collect.ViewFCollection;
 import com.artclod.common.collect.ViewFSet;
@@ -29,6 +31,8 @@ public abstract class BaseFMap<K, V, M extends FMap<K, V>> implements FMap<K, V>
 	}
 	
     protected abstract MapBuilder<K, V, M> builder();
+    
+    protected abstract MapBuilder<K, V, M> builder(Map<K, V> m);
     
 	// ========== NEW F METHODS =========
 	@Override
@@ -56,6 +60,28 @@ public abstract class BaseFMap<K, V, M extends FMap<K, V>> implements FMap<K, V>
 	@Override
 	public boolean nonEmpty() {
 		return !isEmpty();
+	}
+	
+	public ImFMap<K, V> toIm() {
+		return new GuavaImFMap<>(this);
+	}
+	
+	public M putCp(Map.Entry<K, V> entry) {
+		return putCp(entry.getKey(), entry.getValue());
+	}
+
+	public M putCp(K key, V value) {
+		MapBuilder<K, V, M> builder = builder(inner);
+		builder.put(key, value);
+		return builder.build();
+	}
+	
+	public M putAllCp(Map<? extends K, ? extends V> m){
+		MapBuilder<K, V, M> builder = builder(inner);
+		for (Map.Entry<? extends K, ? extends V> entry : m.entrySet()) {
+			builder.put(entry.getKey(), entry.getValue());
+		};
+		return builder.build();
 	}
 
 	// =========== Identity as inner ===========

@@ -130,4 +130,20 @@ abstract public class FMapContract {
 		FMap<Integer, String> filtered = fMap.filterKeys((k) -> k > 1);
 		assertEquals(ImmutableMap.<Integer, String> builder().put(2, "b").put(3, "c").build(), filtered);		
 	}
+	
+	@Test
+	public void putCp_creates_copy_with_new_value() throws Exception {
+		FMap<Integer, String> fMap = fMap( t(1, "a") );
+		FMap<Integer,String> putCp = fMap.putCp(2, "b");
+		assertEquals(ImmutableMap.<Integer, String> builder().put(1, "a").build(), fMap);
+		assertEquals(ImmutableMap.<Integer, String> builder().put(1, "a").put(2, "b").build(), putCp);
+	}
+	
+	@Test
+	public void putAllCp_creates_copy_with_new_values() throws Exception {
+		FMap<Integer, String> fMap = fMap( t(1, "a") );
+		FMap<Integer,String> putAllCp = fMap.putAllCp(ImmutableMap.of(2, "b", 3, "c") );
+		assertEquals(ImmutableMap.of(1, "a"), fMap);
+		assertEquals(ImmutableMap.of(1, "a", 2, "b", 3, "c"), putAllCp);
+	}
 }

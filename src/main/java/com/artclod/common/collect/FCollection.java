@@ -358,7 +358,7 @@ public interface FCollection<E> extends Collection<E> {
      * or an empty {@code Optional} if the collection is empty
      * @throws NullPointerException if the minimum element is null
      */
-	default Optional<E> min(Comparator<? super E> comparator) {
+	public default Optional<E> min(Comparator<? super E> comparator) {
         return reduce(BinaryOperator.minBy(comparator));
     }
 
@@ -372,8 +372,16 @@ public interface FCollection<E> extends Collection<E> {
      * or an empty {@code Optional} if the collection is empty
      * @throws NullPointerException if the maximum element is null
      */
-    default Optional<E> max(Comparator<? super E> comparator) {
+	public default Optional<E> max(Comparator<? super E> comparator) {
         return reduce(BinaryOperator.maxBy(comparator));
+    }
+    
+	public default FList<E> toList() {
+    	return ArrayFList.create(this);
+    }
+    
+	public default FSet<E> toSet() {
+    	return LinkedHashFSet.create(this);
     }
     
 }

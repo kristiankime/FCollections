@@ -49,6 +49,10 @@ public abstract class BaseFList<E, L extends FList<E>> extends BaseFColletion<E,
 		return new ArrayFList<E>(this);
 	}
 	
+    public L toList() {
+    	return builder(this).build();
+    }
+	
 	@SuppressWarnings("unchecked")
 	public L sortWith(Comparator<? super E> c) {
 	    sort(c);

@@ -121,6 +121,10 @@ public class LinkedHashFMap<K, V> extends BaseFMap<K, V, LinkedHashFMap<K,V>> im
     protected LinkedHashFMapBuilder<K, V> builder() {
         return new LinkedHashFMapBuilder<K, V>(new LinkedHashMap<K, V>());
     }
+    
+    protected LinkedHashFMapBuilder<K, V> builder(Map<K, V> m) {
+        return new LinkedHashFMapBuilder<K, V>(new LinkedHashMap<K, V>(m));
+    }
 	
 	// ========== NEW F METHODS =========
 	@Override

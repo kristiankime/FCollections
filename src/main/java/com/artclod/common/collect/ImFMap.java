@@ -1,5 +1,6 @@
 package com.artclod.common.collect;
 
+import java.util.Map;
 import java.util.function.BiFunction;
 import java.util.function.BiPredicate;
 import java.util.function.Function;
@@ -17,4 +18,9 @@ public interface ImFMap<K,V> extends ViewFMap<K, V> {
 
 	public ImFMap<K, V> filterKeys(Predicate<? super K> filter);
 	
+	public ImFMap<K, V> putCp(Map.Entry<K, V> entry);
+
+	public ImFMap<K, V> putCp(K key, V value);
+	
+	public ImFMap<K, V> putAllCp(Map<? extends K, ? extends V> m);
 }

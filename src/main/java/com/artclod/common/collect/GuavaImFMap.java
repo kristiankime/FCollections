@@ -119,4 +119,8 @@ public class GuavaImFMap<K, V> extends BaseFMap<K, V, GuavaImFMap<K,V>> implemen
 		return new GuavaImFMapBuilder<K, V> (ImmutableMap.<K, V> builder());
 	}
 
+	@Override
+	protected GuavaImFMapBuilder<K, V> builder(Map<K, V> m) {
+		return new GuavaImFMapBuilder<K, V> (ImmutableMap.<K, V> builder().putAll(m));
+	}
 }

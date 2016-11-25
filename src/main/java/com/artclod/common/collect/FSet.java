@@ -23,6 +23,10 @@ public interface FSet<E> extends Set<E>, FCollection<E> {
 	public <K> FMap<K, FSet<E>> groupByS(Function<? super E, ? extends K> f);
 
 	public ImFSet<E> toIm();
+	public FSet<E> toMu();
 	
-
+	public FSet<E> union(Set<E> s);
+	
+	public FSet<E> intersection(Set<E> s);
+	
 }

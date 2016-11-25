@@ -116,6 +116,10 @@ public class HashFMap<K, V> extends BaseFMap<K, V, HashFMap<K,V>> implements FMa
     protected HashFMapBuilder<K, V> builder() {
         return new HashFMapBuilder<K, V>(new HashMap<K, V>());
     }
+    
+    protected HashFMapBuilder<K, V> builder(Map<K, V> m) {
+        return new HashFMapBuilder<K, V>(new HashMap<K, V>(m));
+    }
 	
 	// ========== NEW F METHODS =========
 	@Override

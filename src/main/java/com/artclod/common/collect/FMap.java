@@ -30,4 +30,12 @@ public interface FMap<K, V> extends Map<K, V> {
 		return this.put(entry.getKey(), entry.getValue());
 	}
 	
+	public FMap<K, V> putCp(Map.Entry<K, V> entry);
+
+	public FMap<K, V> putCp(K key, V value);
+	
+	public FMap<K, V> putAllCp(Map<? extends K, ? extends V> m);
+	
+	public ImFMap<K, V> toIm();
+	
 }

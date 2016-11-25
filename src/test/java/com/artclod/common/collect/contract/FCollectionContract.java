@@ -1,6 +1,7 @@
 package com.artclod.common.collect.contract;
 
 import static java.util.Arrays.asList;
+import static org.hamcrest.Matchers.contains;
 import static org.hamcrest.Matchers.containsInAnyOrder;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
@@ -224,6 +225,18 @@ abstract public class FCollectionContract {
 	public void groupBy_empty_returns_empy() throws Exception {
 		Map<Integer, FCollection<Integer>> actual = this.<Integer> fCollection().groupBy(i -> i % 2);
 		assertTrue(actual.isEmpty());
+	}
+	
+	@Test
+	public void toList_returns_list_with_values() throws Exception {
+		FCollection<Integer> fCollection = fCollection(1, 2, 3);
+		assertThat(fCollection.toList(), contains(1, 2, 3));
+	}
+	
+	@Test
+	public void toSet_returns_set_with_values() throws Exception {
+		FCollection<Integer> fCollection = fCollection(1, 2, 3);
+		assertThat(fCollection.toSet(), containsInAnyOrder(1, 2, 3));
 	}
 	
 }
