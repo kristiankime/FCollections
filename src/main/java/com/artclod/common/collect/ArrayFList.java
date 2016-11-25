@@ -82,6 +82,10 @@ public class ArrayFList<E> extends BaseFList<E, ArrayFList<E>> {
 		return new ArrayFListBuilder<E>(new ArrayList<E>(c));
 	}
 	
+	public ArrayFList<E> toList() {
+    	return this;
+    }
+	
 	@Override
 	public <O> ArrayFList<O> map(Function<? super E, ? extends O> f) {
 		ArrayList<O> create = Lists.newArrayListWithCapacity(inner.size());

@@ -376,12 +376,57 @@ public interface FCollection<E> extends Collection<E> {
         return reduce(BinaryOperator.maxBy(comparator));
     }
     
+	/**
+	 * Converts this collection to an {@code FList}. If the Collection is already an {@code FList} the current Collection is returned.
+	 * 
+	 * @return An {@code FList} version of the collection. 
+	 */
 	public default FList<E> toList() {
     	return ArrayFList.create(this);
     }
+	
+	/**
+	 * Copies this collection to an {@code FList}.
+	 * 
+	 * @return A copy of this collection as an {@code FList}. 
+	 */
+	public default FList<E> copyToList() {
+    	return ArrayFList.create(this);
+    }
+	
+	/**
+	 * Converts this collection to an {@code ImFList}.
+	 * 
+	 * @return An {@code ImFList} version of the collection. 
+	 */
+	public default ImFList<E> toImList() {
+    	return GuavaImFList.create(this);
+    }
     
+	/**
+	 * Converts this collection to an {@code FSet}. If the Collection is already an {@code FSet} the current Collection is returned.
+	 * 
+	 * @return An {@code FSet} version of the collection. 
+	 */
 	public default FSet<E> toSet() {
     	return LinkedHashFSet.create(this);
     }
     
+	/**
+	 * Copies this collection to an {@code FSet}.
+	 * 
+	 * @return A copy of this collection as an {@code FSet}. 
+	 */
+	public default FSet<E> copyToSet() {
+    	return LinkedHashFSet.create(this);
+    }
+	
+	/**
+	 * Converts this collection to an {@code ImFSet}.
+	 * 
+	 * @return An {@code FSet} version of the collection. 
+	 */
+	public default ImFSet<E> toImSet() {
+    	return GuavaImFSet.create(this);
+    }
 }

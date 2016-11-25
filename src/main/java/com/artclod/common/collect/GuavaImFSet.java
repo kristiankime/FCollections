@@ -90,6 +90,14 @@ public class GuavaImFSet<E> extends BaseFSet<E, GuavaImFSet<E>> implements ImFSe
 	public ImmutableSet<E> toGuava() {
 		return inner;
 	}
+	
+	public LinkedHashFSet<E> toSet() {
+    	return new LinkedHashFSet<>(this);
+    }
+	
+	public GuavaImFSet<E> toImSet() {
+    	return this;
+    }
 
 	@Override
 	protected Iterator<E> reverseIterator() {

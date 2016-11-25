@@ -2,6 +2,7 @@ package com.artclod.common.collect.contract;
 
 import static java.util.Arrays.asList;
 import static org.hamcrest.Matchers.contains;
+import static org.hamcrest.Matchers.containsInAnyOrder;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertThat;
 import static org.junit.Assert.assertTrue;
@@ -10,8 +11,11 @@ import java.util.Map;
 
 import org.junit.Test;
 
+import com.artclod.common.collect.FCollection;
 import com.artclod.common.collect.FList;
+import com.artclod.common.collect.FSet;
 import com.artclod.common.collect.ImFList;
+import com.artclod.common.collect.ImFSet;
 import com.google.common.collect.Ordering;
 
 abstract public class FListContract extends FCollectionContract {
@@ -180,22 +184,64 @@ abstract public class FListContract extends FCollectionContract {
         assertEquals(asList(1, 2, 3), sorted);
     }
 	
+	// --- to 
 	@Test
-    public void toIm_lists_have_same_contents() throws Exception {
-		FList<Integer> original = fList(3, 1, 2);
-		ImFList<Integer> im = original.toIm();
-		assertEquals(original, im);
+	public void toSet_returns_set_with_same_values() throws Exception {
+		FList<Integer> fList = fList(1, 2, 3);
+		assertThat(fList.toSet(), containsInAnyOrder(1, 2, 3));
 	}
-		
+	
 	@Test
-    public void toMu_lists_have_same_contents_new_list_is_mutable() throws Exception {
-		FList<Integer> original = fList(3, 1, 2);
-		FList<Integer> mu = original.toMu();
+	public void copyToSet_returns_set_with_same_values() throws Exception {
+		FList<Integer> fList = fList(1, 2, 3);
+		assertThat(fList.copyToSet(), containsInAnyOrder(1, 2, 3));
+	}
+	
+	@Test
+    public void toSet_return_is_mutable() throws Exception {
+		FCollection<Integer> original = fCollection(3, 1, 2);
+		FSet<Integer> mu = original.toSet();
+		
+		mu.add(4);
+		assertThat(original, containsInAnyOrder(3, 2, 1)); // Here mutating new does not change the original
+		assertThat(mu, containsInAnyOrder(3, 2, 1, 4));
+	}
+
+	@Test
+    public void toImSet_lists_have_same_contents() throws Exception {
+		FCollection<Integer> original = fCollection(3, 1, 2);
+		ImFSet<Integer> im = original.toImSet();
+		assertThat(im, containsInAnyOrder(3, 2, 1));
+	}
+	
+	@Test
+	public void toList_returns_list_with_same_values() throws Exception {
+		FList<Integer> fCollection = fList(1, 2, 3);
+		assertThat(fCollection.toList(), contains(1, 2, 3));
+	}
+	
+	@Test
+	public void copyToList_returns_list_with_same_values() throws Exception {
+		FList<Integer> fCollection = fList(1, 2, 3);
+		assertThat(fCollection.copyToList(), contains(1, 2, 3));
+	}
+	
+	@Test
+    public void toList_return_is_mutable() throws Exception {
+		FCollection<Integer> original = fCollection(3, 1, 2);
+		FList<Integer> mu = original.toList();
 		assertEquals(original, mu);
 		
 		mu.add(4);
-		assertEquals(asList(3, 1, 2), original);
-		assertEquals(asList(3, 1, 2, 4), mu);
+		assertThat(original, contains(3, 1, 2, 4)); // Here mutating new changes the original
+		assertThat(mu, contains(3, 1, 2, 4));
+	}
+	
+	@Test
+    public void toImList_lists_have_same_contents() throws Exception {
+		FCollection<Integer> original = fCollection(3, 1, 2);
+		ImFList<Integer> im = original.toImList();
+		assertThat(im, contains(3, 1, 2));
 	}
 	
 }

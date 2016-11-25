@@ -70,6 +70,10 @@ public class LinkedFList<E> extends BaseFList<E, LinkedFList<E>> {
 		return new LinkedFListBuilder<E>(new LinkedList<E>(c));
 	}
 	
+	public LinkedFList<E> toList() {
+    	return this;
+    }
+	
 	@Override
 	public <O> LinkedFList<O> map(Function<? super E, ? extends O> f) {
 		LinkedList<O> create = Lists.newLinkedList();

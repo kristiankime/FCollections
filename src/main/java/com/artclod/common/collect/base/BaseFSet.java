@@ -7,9 +7,6 @@ import java.util.function.Function;
 
 import com.artclod.common.collect.FMap;
 import com.artclod.common.collect.FSet;
-import com.artclod.common.collect.GuavaImFSet;
-import com.artclod.common.collect.LinkedHashFSet;
-import com.google.common.collect.ImmutableSet;
 
 public abstract class BaseFSet<E, S extends FSet<E>> extends BaseFColletion<E, S> implements FSet<E> {
 	private static final long serialVersionUID = 1L;
@@ -25,14 +22,10 @@ public abstract class BaseFSet<E, S extends FSet<E>> extends BaseFColletion<E, S
 	public <K> FMap<K, FSet<E>> groupByS(Function<? super E, ? extends K> f) {
 		return (FMap<K, FSet<E>>) groupByInternal(f);
 	}
-	
-	public GuavaImFSet<E> toIm() {
-		return new GuavaImFSet<E>(ImmutableSet.copyOf(this));
-	}
-	
-	public LinkedHashFSet<E> toMu(){
-		return new LinkedHashFSet<E>(this);
-	}
+    
+	public S copyToSet() {
+    	return builder(this).build();
+    }
 	
 	public S union(Set<E> s) {
 		return addAllCp(s);

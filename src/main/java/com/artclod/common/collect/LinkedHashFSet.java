@@ -74,6 +74,10 @@ public class LinkedHashFSet<E> extends BaseFSet<E, LinkedHashFSet<E>> {
 	protected CollectionBuilder<E, LinkedHashFSet<E>> builder(Collection<E> c) {
 		return new LinkedHashFSetBuilder<E>(new LinkedHashSet<E>(c));
 	}
+	
+	public LinkedHashFSet<E> toSet() {
+    	return this;
+    }
 
     @Override
     protected Iterator<E> reverseIterator() {

@@ -28,9 +28,6 @@ public interface FList<E> extends List<E>, FCollection<E> {
 	
 	public <K> FMap<K, FList<E>> groupByL(Function<? super E, ? extends K> f);
 
-	public ImFList<E> toIm();
-	public FList<E> toMu();
-
 	/**
 	 * This is the same as {@link java.util.List#sort(Comparator)} but it returns the list.
 	 * 

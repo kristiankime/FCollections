@@ -1,7 +1,6 @@
 package com.artclod.common.collect.contract;
 
 import static java.util.Arrays.asList;
-import static org.hamcrest.Matchers.contains;
 import static org.hamcrest.Matchers.containsInAnyOrder;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
@@ -114,6 +113,7 @@ abstract public class FCollectionContract {
 		assertTrue(actual.isEmpty());
 	}
 
+	// -- mkString
 	@Test
 	public void mkString_no_sep() throws Exception {
 		String actual = fCollection(1, 2, 3).mkString();
@@ -138,6 +138,7 @@ abstract public class FCollectionContract {
 		assertEquals("[1, 2, 3]", actual);
 	}
 
+	// -- reduce
 	@Test
 	public void mkString_with_start_sep_end_no_elements_returns_start_plus_end() throws Exception {
 		String actual = fCollection().mkString("[", ", ", "]");
@@ -213,6 +214,7 @@ abstract public class FCollectionContract {
 		assertEquals(actual, 6);
 	}
 
+	// -- groupBy
 	@Test
 	public void groupBy_groups_as_specified() throws Exception {
 		Map<Integer, FCollection<Integer>> actual = this.<Integer> fCollection(0, 1, 2, 3).groupBy(i -> i % 2);
@@ -225,18 +227,6 @@ abstract public class FCollectionContract {
 	public void groupBy_empty_returns_empy() throws Exception {
 		Map<Integer, FCollection<Integer>> actual = this.<Integer> fCollection().groupBy(i -> i % 2);
 		assertTrue(actual.isEmpty());
-	}
-	
-	@Test
-	public void toList_returns_list_with_values() throws Exception {
-		FCollection<Integer> fCollection = fCollection(1, 2, 3);
-		assertThat(fCollection.toList(), contains(1, 2, 3));
-	}
-	
-	@Test
-	public void toSet_returns_set_with_values() throws Exception {
-		FCollection<Integer> fCollection = fCollection(1, 2, 3);
-		assertThat(fCollection.toSet(), containsInAnyOrder(1, 2, 3));
 	}
 	
 }

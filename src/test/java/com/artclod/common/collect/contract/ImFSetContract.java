@@ -8,6 +8,7 @@ import static org.junit.Assert.assertTrue;
 
 import org.junit.Test;
 
+import com.artclod.common.collect.FCollection;
 import com.artclod.common.collect.FSet;
 import com.artclod.common.collect.ImFMap;
 import com.artclod.common.collect.ImFSet;
@@ -99,4 +100,15 @@ public abstract class ImFSetContract extends FSetContract {
 		assertThat(actual.get(1), containsInAnyOrder(1, 3));
 	}
 	
+	
+	@Test
+    public void toSet_return_is_mutable() throws Exception {
+		FCollection<Integer> original = fCollection(3, 1, 2);
+		FSet<Integer> mu = original.toSet();
+		assertEquals(original, mu);
+		
+		mu.add(4);
+		assertThat(original, containsInAnyOrder(3, 2, 1)); // Here mutating new does not change the original
+		assertThat(mu, containsInAnyOrder(3, 2, 1, 4));
+	}
 }

@@ -11,6 +11,8 @@ import java.util.Map;
 
 import org.junit.Test;
 
+import com.artclod.common.collect.FCollection;
+import com.artclod.common.collect.FList;
 import com.artclod.common.collect.ImFList;
 import com.google.common.collect.Ordering;
 
@@ -189,4 +191,14 @@ public abstract class ImFListContract extends FListContract {
 		assertThat(actual.get(1), contains(1, 3));
 	}
 	
+	@Test
+    public void toList_return_is_mutable() throws Exception {
+		FCollection<Integer> original = fCollection(3, 1, 2);
+		FList<Integer> mu = original.toList();
+		assertEquals(original, mu);
+		
+		mu.add(4);
+		assertThat(original, contains(3, 1, 2)); // Here mutating new does not change the original
+		assertThat(mu, contains(3, 1, 2, 4));
+	}
 }

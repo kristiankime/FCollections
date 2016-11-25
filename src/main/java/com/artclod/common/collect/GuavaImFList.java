@@ -94,11 +94,19 @@ public class GuavaImFList<E> extends BaseFList<E, GuavaImFList<E>> implements Un
 		return inner;
 	}
 
-	public Builder<E> toGuavaBuilder() {
+	public ImmutableList.Builder<E> toGuavaBuilder() {
 		return ImmutableList.<E> builder().addAll(inner);
 	}
+	
+	public ArrayFList<E> toList() {
+    	return new ArrayFList<>(this);
+    }
+	
+	public GuavaImFList<E> toImList() {
+    	return this;
+    }
 
-	public ArrayList<E> toArrayList() {
+	private ArrayList<E> toArrayList() {
 		return Lists.newArrayList(this);
 	}
 

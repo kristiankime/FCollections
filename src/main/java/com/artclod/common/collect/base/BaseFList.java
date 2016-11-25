@@ -12,13 +12,10 @@ import java.util.function.Predicate;
 import java.util.function.UnaryOperator;
 import java.util.stream.Stream;
 
-import com.artclod.common.collect.ArrayFList;
 import com.artclod.common.collect.FList;
 import com.artclod.common.collect.FMap;
-import com.artclod.common.collect.GuavaImFList;
 import com.artclod.common.collect.ReverseListIterator;
 import com.artclod.common.collect.builder.CollectionBuilder;
-import com.google.common.collect.ImmutableList;
 import com.google.common.collect.Lists;
 
 public abstract class BaseFList<E, L extends FList<E>> extends BaseFColletion<E, L> implements FList<E> {
@@ -41,15 +38,7 @@ public abstract class BaseFList<E, L extends FList<E>> extends BaseFColletion<E,
 		return (FMap<K, FList<E>>) groupByInternal(f);
 	}
 	
-	public GuavaImFList<E> toIm(){
-		return new GuavaImFList<E>(ImmutableList.copyOf(this));
-	}
-	
-	public ArrayFList<E> toMu(){
-		return new ArrayFList<E>(this);
-	}
-	
-    public L toList() {
+	public L copyToList() {
     	return builder(this).build();
     }
 	

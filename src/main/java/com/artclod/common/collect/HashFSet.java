@@ -82,6 +82,10 @@ public class HashFSet<E> extends BaseFSet<E, HashFSet<E>> {
 		return new HashFSetBuilder<E>(new HashSet<E>(c));
 	}
 
+	public HashFSet<E> toSet() {
+    	return this;
+    }
+	
 	@Override
 	protected Iterator<E> reverseIterator() {
 		return iterator(); // There is no sensible reverse of a HashSet
