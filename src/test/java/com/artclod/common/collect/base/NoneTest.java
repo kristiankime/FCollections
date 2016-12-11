@@ -21,20 +21,20 @@ public class NoneTest {
 	}
 	
 	@Test
-	public void getOrElse_returns_or_value() throws Exception {
-		assertEquals(Option.<String> none().getOrElse("or"), "or");
-	}
+		public void orElse_returns_or_value() throws Exception {
+			assertEquals(Option.<String> none().getOrElse("or"), "or");
+		}
 	
 	
 	@Test
-	public void getOrElse_option_returns_or_value() throws Exception {
-		assertEquals(Option.<String> none().getOrElse(Option.some("or")), Option.some("or"));
-	}
+		public void orElse_option_returns_or_value() throws Exception {
+			assertEquals(Option.<String> none().orElse(Option.some("or")), Option.some("or"));
+		}
 	
 	@Test
-	public void getOrElse_supplier_returns_or_value() throws Exception {
-		assertEquals(Option.<String> none().getOrElse(() -> "or"), "or");
-	}
+		public void orElse_supplier_returns_or_value() throws Exception {
+			assertEquals(Option.<String> none().getOrElse(() -> "or"), "or");
+		}
 
 	// Has Values
 	@Test

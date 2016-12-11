@@ -22,6 +22,10 @@ public interface Option<T> extends Collection<T>, UnsupportMutationCollectionMix
 		return new Some<T>(t);
 	}
 	
+	public default boolean isPresent() {
+    	return !isEmpty();
+    }
+	
     public default boolean nonEmpty() {
     	return !isEmpty();
     }
@@ -30,11 +34,15 @@ public interface Option<T> extends Collection<T>, UnsupportMutationCollectionMix
 			
 	public T or(T defaultValue);
 	
+   public default T orElse(T defaultValue) {
+	   return or(defaultValue);
+    }
+	
 	public default T getOrElse(T defaultValue) {
 		return or(defaultValue);
 	}
 	
-	public Option<T> getOrElse(Option<? extends T> secondChoice);
+	public Option<T> orElse(Option<? extends T> secondChoice);
 		
 	public T getOrElse(Supplier<? extends T> supplier);
 	

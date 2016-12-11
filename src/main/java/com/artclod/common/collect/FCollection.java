@@ -3,10 +3,11 @@ package com.artclod.common.collect;
 import java.util.Collection;
 import java.util.Comparator;
 import java.util.Iterator;
-import java.util.Optional;
 import java.util.function.BinaryOperator;
 import java.util.function.Function;
 import java.util.function.Predicate;
+
+import com.artclod.common.collect.base.Option;
 
 /**
  * This interface is an extension of the {@link Collection} interface that adds many functional style methods.
@@ -228,7 +229,7 @@ public interface FCollection<E> extends Collection<E> {
      * Performs a <a href="package-summary.html#Reduction">reduction</a> on the
      * elements of this collection, using an
      * <a href="package-summary.html#Associativity">associative</a> accumulation
-     * function, and returns an {@code Optional} describing the reduced value,
+     * function, and returns an {@code Option} describing the reduced value,
      * if any. This is equivalent to:
      * <pre>{@code
      *     boolean foundAny = false;
@@ -241,7 +242,7 @@ public interface FCollection<E> extends Collection<E> {
      *         else
      *             result = accumulator.apply(result, element);
      *     }
-     *     return foundAny ? Optional.of(result) : Optional.empty();
+     *     return foundAny ? Option.of(result) : Option.none();
      * }</pre>
      *
      * but is not constrained to execute sequentially.
@@ -250,27 +251,27 @@ public interface FCollection<E> extends Collection<E> {
      * <a href="package-summary.html#Associativity">associative</a> function.
      *
      * @param accumulator an <a href="package-summary.html#Associativity">associative</a>, <a href="package-summary.html#NonInterference">non-interfering</a>, <a href="package-summary.html#Statelessness">stateless</a> function for combining two values
-     * @return an {@link Optional} describing the result of the reduction
+     * @return an {@link Option} describing the result of the reduction
      * @throws NullPointerException if the result of the reduction is null
      * @see #reduce(Object, BinaryOperator)
      * @see #min(Comparator)
      * @see #max(Comparator)
      */
-	public Optional<E> reduce(BinaryOperator<E> accumulator);
+	public Option<E> reduce(BinaryOperator<E> accumulator);
 	
 	/**
 	 * see {@link #reduce(BinaryOperator)} except when possible the operations will be done left to right.
 	 * @param accumulator an <a href="package-summary.html#Associativity">associative</a>, <a href="package-summary.html#NonInterference">non-interfering</a>, <a href="package-summary.html#Statelessness">stateless</a> function for combining two values
-	 * @return an {@link Optional} describing the result of the reduction
+	 * @return an {@link Option} describing the result of the reduction
 	 */
-	public Optional<E> reduceLeft(BinaryOperator<E> accumulator);
+	public Option<E> reduceLeft(BinaryOperator<E> accumulator);
 	
 	/**
 	 * see {@link #reduce(BinaryOperator)} except when possible the operations will be done right to left.
 	 * @param accumulator an <a href="package-summary.html#Associativity">associative</a>, <a href="package-summary.html#NonInterference">non-interfering</a>, <a href="package-summary.html#Statelessness">stateless</a> function for combining two values
-	 * @return an {@link Optional} describing the result of the reduction
+	 * @return an {@link Option} describing the result of the reduction
 	 */
-	public Optional<E> reduceRight(BinaryOperator<E> accumulator);
+	public Option<E> reduceRight(BinaryOperator<E> accumulator);
 	
     /**
      * Performs a <a href="package-summary.html#Reduction">reduction</a> on the
@@ -354,11 +355,11 @@ public interface FCollection<E> extends Collection<E> {
      * <a href="package-summary.html#Reduction">reduction</a>.
      *
      * @param comparator a <a href="package-summary.html#NonInterference">non-interfering</a>,  <a href="package-summary.html#Statelessness">stateless</a> {@code Comparator} to compare elements of this collection
-     * @return an {@code Optional} describing the minimum element of this collection,
-     * or an empty {@code Optional} if the collection is empty
+     * @return an {@code Option} describing the minimum element of this collection,
+     * or an empty {@code Option} if the collection is empty
      * @throws NullPointerException if the minimum element is null
      */
-	public default Optional<E> min(Comparator<? super E> comparator) {
+	public default Option<E> min(Comparator<? super E> comparator) {
         return reduce(BinaryOperator.minBy(comparator));
     }
 
@@ -368,11 +369,11 @@ public interface FCollection<E> extends Collection<E> {
      * <a href="package-summary.html#Reduction">reduction</a>.
      *
      * @param comparator a <a href="package-summary.html#NonInterference">non-interfering</a>, <a href="package-summary.html#Statelessness">stateless</a> {@code Comparator} to compare elements of this collection
-     * @return an {@code Optional} describing the maximum element of this collection,
-     * or an empty {@code Optional} if the collection is empty
+     * @return an {@code Option} describing the maximum element of this collection,
+     * or an empty {@code Option} if the collection is empty
      * @throws NullPointerException if the maximum element is null
      */
-	public default Optional<E> max(Comparator<? super E> comparator) {
+	public default Option<E> max(Comparator<? super E> comparator) {
         return reduce(BinaryOperator.maxBy(comparator));
     }
     

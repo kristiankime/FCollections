@@ -16,8 +16,6 @@
 
 package com.artclod.common.collect.base;
 
-import static com.google.common.base.Preconditions.checkNotNull;
-
 import java.io.Serializable;
 import java.util.Collection;
 import java.util.Collections;
@@ -50,11 +48,11 @@ public final class None<T> implements Option<T>, Serializable {
 		
 	@Override
 	public T or(T defaultValue) {
-	  return checkNotNull(defaultValue, "use Optional.orNull() instead of Optional.or(null)");
+	  return defaultValue;
 	}
 	
 	@SuppressWarnings("unchecked")
-	public Option<T> getOrElse(Option<? extends T> secondChoice) {
+	public Option<T> orElse(Option<? extends T> secondChoice) {
 		return (Option<T>) secondChoice;
 	}
 	

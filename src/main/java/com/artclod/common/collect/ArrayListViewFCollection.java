@@ -3,10 +3,11 @@ package com.artclod.common.collect;
 import java.util.Collection;
 import java.util.Iterator;
 import java.util.Objects;
-import java.util.Optional;
 import java.util.function.BinaryOperator;
 import java.util.function.Function;
 import java.util.function.Predicate;
+
+import com.artclod.common.collect.base.Option;
 
 public class ArrayListViewFCollection<E> implements ViewFCollection<E> {
 
@@ -152,17 +153,17 @@ public class ArrayListViewFCollection<E> implements ViewFCollection<E> {
 	}
 
 	@Override
-	public Optional<E> reduce(BinaryOperator<E> accumulator) {
+	public Option<E> reduce(BinaryOperator<E> accumulator) {
 		return ArrayFList.create(inner).reduce(accumulator);
 	}
 
 	@Override
-	public Optional<E> reduceLeft(BinaryOperator<E> accumulator) {
+	public Option<E> reduceLeft(BinaryOperator<E> accumulator) {
 		return ArrayFList.create(inner).reduceLeft(accumulator);
 	}
 
 	@Override
-	public Optional<E> reduceRight(BinaryOperator<E> accumulator) {
+	public Option<E> reduceRight(BinaryOperator<E> accumulator) {
 		return ArrayFList.create(inner).reduceRight(accumulator);
 	}
 

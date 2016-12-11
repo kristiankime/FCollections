@@ -10,6 +10,10 @@ public class T3<E1, E2, E3> extends T2<E1, E2> {
 		this._3 = _3;
 	}
 
+	public E3 get3() {
+		return _3;
+	}
+
 	@Override
 	public int hashCode() {
 		final int prime = 31;

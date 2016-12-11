@@ -7,7 +7,6 @@ import java.util.Collection;
 import java.util.Iterator;
 import java.util.LinkedHashMap;
 import java.util.Map.Entry;
-import java.util.Optional;
 import java.util.Spliterator;
 import java.util.function.BinaryOperator;
 import java.util.function.Consumer;
@@ -64,22 +63,22 @@ public abstract class BaseFColletion<E, C extends FCollection<E>> implements FCo
 	// ============ FCollection Methods (or support) =========	
 
 	// --- Reduce ---
-	public Optional<E> reduce(BinaryOperator<E> accumulator){
+	public Option<E> reduce(BinaryOperator<E> accumulator){
 		return reduceLeft(accumulator);
 	}
 	
-	public Optional<E> reduceLeft(BinaryOperator<E> accumulator){
-		if(isEmpty()) { return Optional.empty(); }
+	public Option<E> reduceLeft(BinaryOperator<E> accumulator){
+		if(isEmpty()) { return Option.none(); }
 		Iterator<E> iterator = iterator();
 		E first = iterator.next();
-		return Optional.of(reduceInner(first, accumulator, iterator));
+		return Option.of(reduceInner(first, accumulator, iterator));
 	}
 	
-	public Optional<E> reduceRight(BinaryOperator<E> accumulator){
-		if(isEmpty()) { return Optional.empty(); }
+	public Option<E> reduceRight(BinaryOperator<E> accumulator){
+		if(isEmpty()) { return Option.none(); }
 		Iterator<E> iterator = reverseIterator();
 		E first = iterator.next();
-		return Optional.of(reduceInner(first, accumulator, iterator));
+		return Option.of(reduceInner(first, accumulator, iterator));
 	}
 		
 	public E reduce(E identity, BinaryOperator<E> accumulator){

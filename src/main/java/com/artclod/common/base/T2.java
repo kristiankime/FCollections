@@ -14,6 +14,14 @@ public class T2<E1, E2> implements Map.Entry<E1, E2>, Serializable {
 		this._2 = _2;
 	}
 	
+	public E1 get1() {
+		return _1;
+	}
+
+	public E2 get2() {
+		return _2;
+	}
+
 	@Override
 	public E1 getKey() {
 		return _1;

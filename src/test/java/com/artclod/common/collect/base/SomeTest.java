@@ -23,19 +23,19 @@ public class SomeTest {
 	}
 	
 	@Test
-	public void getOrElse_returns_value() throws Exception {
-		assertEquals("value", Option.some("value").getOrElse("or"));
-	}
+		public void orElse_returns_value() throws Exception {
+			assertEquals("value", Option.some("value").getOrElse("or"));
+		}
 	
 	@Test
-	public void getOrElse_option_returns_value() throws Exception {
-		assertEquals(Option.some("value"), Option.some("value").getOrElse(Option.some("or")));
-	}
+		public void orElse_option_returns_value() throws Exception {
+			assertEquals(Option.some("value"), Option.some("value").orElse(Option.some("or")));
+		}
 	
 	@Test
-	public void getOrElse_supplier_returns_value() throws Exception {
-		assertEquals("value", Option.some("value").getOrElse(() -> "or"));
-	}
+		public void orElse_supplier_returns_value() throws Exception {
+			assertEquals("value", Option.some("value").getOrElse(() -> "or"));
+		}
 
 	// Has Values
 	@Test
