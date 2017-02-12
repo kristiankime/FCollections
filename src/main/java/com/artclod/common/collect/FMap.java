@@ -5,8 +5,10 @@ import java.util.function.BiFunction;
 import java.util.function.BiPredicate;
 import java.util.function.Function;
 import java.util.function.Predicate;
+import java.util.function.Supplier;
 
 import com.artclod.common.base.T2;
+import com.artclod.common.collect.base.Option;
 
 public interface FMap<K, V> extends Map<K, V> {
 
@@ -37,5 +39,24 @@ public interface FMap<K, V> extends Map<K, V> {
 	public FMap<K, V> putAllCp(Map<? extends K, ? extends V> m);
 	
 	public ImFMap<K, V> toIm();
+	
+	public default Option<V> getOp(K key) {
+		return Option.of(get(key));
+	}
+	
+	public default Option<V> putOp(K key, Option<V> value) {
+		if(value.isEmpty()) {
+			return Option.of(remove(key));
+		}
+		return Option.of(put(key, value.get()));
+	}
+	
+	public default V getOrElse(K key, Supplier<? extends V> supplier) {
+		V v = get(key);
+		if(v == null) {
+			return supplier.get();
+		}
+		return v;
+	}
 	
 }

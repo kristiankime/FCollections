@@ -143,6 +143,9 @@ public class GuavaImFSet<E> extends BaseFSet<E, GuavaImFSet<E>> implements ImFSe
 
 	@Override
 	public GuavaImFSet<E> addAllCp(Collection<? extends E> c) {
+		if(c.isEmpty()) {
+			return this;
+		}
 		LinkedHashSet<E> set = Sets.newLinkedHashSet(this);
 		set.addAll(c);
 		return new GuavaImFSet<E>(ImmutableSet.copyOf(set));
@@ -157,6 +160,9 @@ public class GuavaImFSet<E> extends BaseFSet<E, GuavaImFSet<E>> implements ImFSe
 
 	@Override
 	public GuavaImFSet<E> removeAllCp(Collection<?> c) {
+		if(c.isEmpty()) {
+			return this;
+		}
 		LinkedHashSet<E> set = Sets.newLinkedHashSet(this);
 		set.removeAll(c);
 		return new GuavaImFSet<E>(ImmutableSet.copyOf(set));

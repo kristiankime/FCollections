@@ -175,23 +175,28 @@ public class GuavaImFList<E> extends BaseFList<E, GuavaImFList<E>> implements Un
 		list.remove(o);
 		return new GuavaImFList<E>(ImmutableList.copyOf(list));
 	}
-//
-//	@Override
-//	public GuavaImFList<E> addAllCp(Collection<? extends E> c) {
-//		ArrayList<E> list = toArrayList();
-//		list.addAll(c);
-//		return new GuavaImFList<E>(ImmutableList.copyOf(list));
-//	}
-//
-//	@Override
-//	public GuavaImFList<E> addAllCp(int index, Collection<? extends E> c) {
-//		ArrayList<E> list = toArrayList();
-//		list.addAll(index, c);
-//		return new GuavaImFList<E>(ImmutableList.copyOf(list));
-//	}
-//
+
+	@Override
+	public GuavaImFList<E> addAllCp(Collection<? extends E> c) {
+		if(c.isEmpty()) {
+			return this;
+		}
+		return super.addAllCp(c);
+	}
+
+	@Override
+	public GuavaImFList<E> addAllCp(int index, Collection<? extends E> c) {
+		if(c.isEmpty()) {
+			return this;
+		}
+		return super.addAllCp(index, c);
+	}
+
 	@Override
 	public GuavaImFList<E> removeAllCp(Collection<?> c) {
+		if(c.isEmpty()) {
+			return this;
+		}
 		ArrayList<E> list = toArrayList();
 		list.removeAll(c);
 		return new GuavaImFList<E>(ImmutableList.copyOf(list));

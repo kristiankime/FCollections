@@ -7,6 +7,7 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertThat;
 import static org.junit.Assert.assertTrue;
 
+import java.util.Arrays;
 import java.util.Map;
 
 import org.junit.Test;
@@ -81,6 +82,15 @@ abstract public class FSetContract extends FCollectionContract {
 
 		assertEquals(newHashSet(0, 1, 2), before);
 		assertEquals(newHashSet(0, 1, 2, 3, 4, 5), after);
+	}
+	
+	@Test
+	public void addAllCp_adds_nothing_if_collection_empty() throws Exception {
+		FSet<Integer> before = this.<Integer> fSet(0, 1, 2);
+		FSet<Integer> after = before.addAllCp(Arrays.<Integer> asList());
+
+		assertEquals(newHashSet(0, 1, 2), before);
+		assertEquals(newHashSet(0, 1, 2), after);
 	}
 	
 	@Test

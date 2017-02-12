@@ -73,7 +73,7 @@ public abstract class BaseFList<E, L extends FList<E>> extends BaseFColletion<E,
 	public L addAllCp(int index, Collection<? extends E> c) {
 		ArrayList<E> data = Lists.newArrayList(inner);
 		data.addAll(index, c);
-		return builder(inner).build();
+		return builder(data).build();
 	}
 		
 	public L replaceAllCp(UnaryOperator<E> operator) {

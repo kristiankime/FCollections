@@ -13,6 +13,7 @@ import java.util.Map;
 import org.junit.Test;
 
 import com.artclod.common.collect.FMap;
+import com.artclod.common.collect.base.Option;
 import com.google.common.collect.ImmutableMap;
 
 @SuppressWarnings("unchecked")
@@ -50,25 +51,25 @@ abstract public class FMapContract {
 	}
 
 	@Test
-	public void constainsKey_true() throws Exception {
+	public void containsKey_true() throws Exception {
 		FMap<Integer, String> fMap = fMap( t(1, "a"), t(2, "b") );
 		assertTrue(fMap.containsKey(2));
 	}
 	
 	@Test
-	public void constainsKey_false() throws Exception {
+	public void containsKey_false() throws Exception {
 		FMap<Integer, String> fMap = fMap( t(1, "a"), t(2, "b") );
 		assertFalse(fMap.containsKey(Integer.MAX_VALUE));
 	}
 	
 	@Test
-	public void constainsValue_true() throws Exception {
+	public void containsValue_true() throws Exception {
 		FMap<Integer, String> fMap = fMap( t(1, "a"), t(2, "b") );
 		assertTrue(fMap.containsValue("a"));
 	}
 	
 	@Test
-	public void constainsValue_false() throws Exception {
+	public void containsValue_false() throws Exception {
 		FMap<Integer, String> fMap = fMap( t(1, "a"), t(2, "b") );
 		assertFalse(fMap.containsValue("Should not be found"));
 	}
@@ -83,6 +84,30 @@ abstract public class FMapContract {
 	public void get_doesnt_find_a_value() throws Exception {
 		FMap<Integer, String> fMap = fMap( t(1, "a"), t(2, "b") );
 		assertNull(fMap.get(Integer.MAX_VALUE));
+	}
+	
+	@Test
+	public void getOp_finds_a_value() throws Exception {
+		FMap<Integer, String> fMap = fMap( t(1, "a"), t(2, "b") );
+		assertEquals(fMap.getOp(1), Option.some("a"));
+	}
+	
+	@Test
+	public void getOp_doesnt_find_a_value() throws Exception {
+		FMap<Integer, String> fMap = fMap( t(1, "a"), t(2, "b") );
+		assertEquals(fMap.getOp(Integer.MAX_VALUE), Option.none());
+	}
+
+	@Test
+	public void getOrElse_finds_a_value() throws Exception {
+		FMap<Integer, String> fMap = fMap( t(1, "a"), t(2, "b") );
+		assertEquals(fMap.getOrElse(1, () -> "not used"), "a");
+	}
+	
+	@Test
+	public void getOrElse_doesnt_find_a_value() throws Exception {
+		FMap<Integer, String> fMap = fMap( t(1, "a"), t(2, "b") );
+		assertEquals(fMap.getOrElse(Integer.MAX_VALUE, () -> "value"), "value");
 	}
 	
 	@Test

@@ -7,6 +7,7 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertThat;
 import static org.junit.Assert.assertTrue;
 
+import java.util.Arrays;
 import java.util.Map;
 
 import org.junit.Test;
@@ -85,6 +86,33 @@ abstract public class FListContract extends FCollectionContract {
 	}
 	
 	@Test
+	public void addAllCp_index_copies_and_adds_all_elements_at_index() throws Exception {
+		FList<Integer> before = this.<Integer> fList(0, 1, 2);
+		FList<Integer> after = before.addAllCp(1, asList(3, 4, 5));
+
+		assertEquals(asList(0, 1, 2), before);
+		assertEquals(asList(0, 3, 4, 5, 1, 2), after);
+	}
+	
+	@Test
+	public void addAllCp_index_adds_nothing_if_collection_is_empty() throws Exception {
+		FList<Integer> before = this.<Integer> fList(0, 1, 2);
+		FList<Integer> after = before.addAllCp(1, Arrays.<Integer> asList());
+
+		assertEquals(asList(0, 1, 2), before);
+		assertEquals(asList(0, 1, 2), after);
+	}
+	
+	@Test
+	public void addAllCp_adds_nothing_if_collection_empty() throws Exception {
+		FList<Integer> before = this.<Integer> fList(0, 1, 2);
+		FList<Integer> after = before.addAllCp(Arrays.<Integer> asList());
+
+		assertEquals(asList(0, 1, 2), before);
+		assertEquals(asList(0, 1, 2), after);
+	}
+	
+	@Test
 	public void removeCp_copies_and_removes_element() throws Exception {
 		FList<Integer> before = this.<Integer> fList(0, 1, 2);
 		FList<Integer> after = before.removeCp(1);
@@ -100,6 +128,15 @@ abstract public class FListContract extends FCollectionContract {
 
 		assertEquals(asList(0, 1, 2, 3, 4), before);
 		assertEquals(asList(0, 2, 4), after);
+	}
+	
+	@Test
+	public void removeAllCp_removes_nothing_if_collection_is_empty() throws Exception {
+		FList<Integer> before = this.<Integer> fList(0, 1, 2, 3, 4);
+		FList<Integer> after = before.removeAllCp(Arrays.<Integer> asList());
+
+		assertEquals(asList(0, 1, 2, 3, 4), before);
+		assertEquals(asList(0, 1, 2, 3, 4), after);
 	}
 	
 	@Test
