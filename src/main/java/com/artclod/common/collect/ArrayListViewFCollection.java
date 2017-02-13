@@ -3,6 +3,7 @@ package com.artclod.common.collect;
 import java.util.Collection;
 import java.util.Iterator;
 import java.util.Objects;
+import java.util.function.BiFunction;
 import java.util.function.BinaryOperator;
 import java.util.function.Function;
 import java.util.function.Predicate;
@@ -180,6 +181,21 @@ public class ArrayListViewFCollection<E> implements ViewFCollection<E> {
 	@Override
 	public E reduceRight(E identity, BinaryOperator<E> accumulator) {
 		return ArrayFList.create(inner).reduceRight(identity, accumulator);
+	}
+	
+	@Override
+	public <O> O fold(O identity, BiFunction<O, E, O> op) {
+		return ArrayFList.create(inner).fold(identity, op);
+	}
+
+	@Override
+	public <O> O foldRight(O identity, BiFunction<O, E, O> op) {
+		return ArrayFList.create(inner).foldRight(identity, op);
+	}
+
+	@Override
+	public <O> O foldLeft(O identity, BiFunction<O, E, O> op) {
+		return ArrayFList.create(inner).foldLeft(identity, op);
 	}
 
 	@Override

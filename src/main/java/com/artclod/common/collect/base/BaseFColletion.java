@@ -8,6 +8,7 @@ import java.util.Iterator;
 import java.util.LinkedHashMap;
 import java.util.Map.Entry;
 import java.util.Spliterator;
+import java.util.function.BiFunction;
 import java.util.function.BinaryOperator;
 import java.util.function.Consumer;
 import java.util.function.Function;
@@ -97,6 +98,27 @@ public abstract class BaseFColletion<E, C extends FCollection<E>> implements FCo
 		E ret = first;
 		while(iterator.hasNext()) {
 			ret = f.apply(ret, iterator.next());
+		}
+		return ret;
+	}
+	
+	// --- Fold ---
+	public <O> O fold(O identity, BiFunction<O, E, O> op) {
+		return foldInner(identity, op, iterator());
+	}
+
+	public <O> O foldLeft(O identity, BiFunction<O, E, O> op) {
+		return foldInner(identity, op, iterator());
+	}
+
+	public <O> O foldRight(O identity, BiFunction<O, E, O> op) {
+		return foldInner(identity, op, reverseIterator());
+	}
+	
+	private <O> O foldInner(O identity, BiFunction<O, E, O> op, Iterator<E> iterator) {
+		O ret = identity;
+		while(iterator.hasNext()) {
+			ret = op.apply(ret, iterator.next());
 		}
 		return ret;
 	}

@@ -3,6 +3,7 @@ package com.artclod.common.collect;
 import java.util.Collection;
 import java.util.Comparator;
 import java.util.Iterator;
+import java.util.function.BiFunction;
 import java.util.function.BinaryOperator;
 import java.util.function.Function;
 import java.util.function.Predicate;
@@ -337,6 +338,44 @@ public interface FCollection<E> extends Collection<E> {
 	public E reduceRight(E identity, BinaryOperator<E> accumulator);
 
 	/**
+	 * Folds the elements of this collection using the specified <a href="package-summary.html#Associativity">associative</a> BiFunction.
+	 * 
+	 * The order in which operations are performed on elements is unspecified and may be nondeterministic.
+	 * 
+	 * Note: will not terminate for infinite-sized collections.
+	 * 
+	 * @param identity a neutral element for the fold operation; may be added to the result an arbitrary number of times, and must not change the result (e.g., Nil for list concatenation, 0 for addition, or 1 for multiplication).
+	 * @param op a binary operator that must be <a href="package-summary.html#Associativity">associative</a>.
+	 * @param <O> The type of the identity and return
+	 * @return the result of applying the fold operator op between all the elements and identity, or identity if this collection is empty.
+	 */
+	public <O> O fold(O identity, BiFunction<O, E, O> op);
+
+	/**
+	 * See {@link #fold(Object, BiFunction)} except when possible the operations will be done right to left.
+	 * 
+	 * Note: will not terminate for infinite-sized collections.
+	 * 
+	 * @param identity a neutral element for the fold operation; may be added to the result an arbitrary number of times, and must not change the result (e.g., Nil for list concatenation, 0 for addition, or 1 for multiplication).
+	 * @param op a binary operator that must be <a href="package-summary.html#Associativity">associative</a>.
+	 * @param <O> The type of the identity and return
+	 * @return the result of applying the fold operator op between all the elements and identity, or identity if this collection is empty.
+	 */
+	public <O> O foldRight(O identity, BiFunction<O, E, O> op);
+
+	/**
+	 * See {@link #fold(Object, BiFunction)} except when possible the operations will be done left to right.
+	 * 
+	 * Note: will not terminate for infinite-sized collections.
+	 * 
+	 * @param identity a neutral element for the fold operation; may be added to the result an arbitrary number of times, and must not change the result (e.g., Nil for list concatenation, 0 for addition, or 1 for multiplication).
+	 * @param op a binary operator that must be <a href="package-summary.html#Associativity">associative</a>.
+	 * @param <O> The type of the identity and return
+	 * @return the result of applying the fold operator op between all the elements and identity, or identity if this collection is empty.
+	 */
+	public <O> O foldLeft(O identity, BiFunction<O, E, O> op);
+
+	/**
 	 * Partitions the elements in this collection into a map of collections according to some discriminator function.
 	 * In other words all of the elements of the current will be grouped together based on the keys provided by the function.
 	 * 
@@ -430,4 +469,5 @@ public interface FCollection<E> extends Collection<E> {
 	public default ImFSet<E> toImSet() {
     	return GuavaImFSet.create(this);
     }
+
 }

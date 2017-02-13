@@ -138,13 +138,13 @@ abstract public class FCollectionContract {
 		assertEquals("[1, 2, 3]", actual);
 	}
 
-	// -- reduce
 	@Test
 	public void mkString_with_start_sep_end_no_elements_returns_start_plus_end() throws Exception {
 		String actual = fCollection().mkString("[", ", ", "]");
 		assertEquals("[]", actual);
 	}
 	
+	// -- reduce
 	@Test
 	public void reduce_no_elements_returns_empty() throws Exception {
 		assertFalse(this.<Integer> fCollection().reduce((a, b) -> a + b).isPresent());
@@ -190,7 +190,7 @@ abstract public class FCollectionContract {
 		int actual = fCollection(1, 2, 3).reduceRight(0, (a, b) -> a + b);
 		assertEquals(actual, 6);
 	}
-	
+
 	@Test
 	public void reduceLeft_no_elements_returns_empty() throws Exception {
 		assertFalse(this.<Integer> fCollection().reduceLeft((a, b) -> a + b).isPresent());
@@ -207,13 +207,47 @@ abstract public class FCollectionContract {
 		int actual = this.<Integer> fCollection().reduceLeft(0, (a, b) -> a + b);
 		assertEquals(actual, 0);
 	}
-	
+
 	@Test
 	public void reduceLeft_with_identity_works() throws Exception {
 		int actual = fCollection(1, 2, 3).reduceLeft(0, (a, b) -> a + b);
 		assertEquals(actual, 6);
 	}
 
+	// -- fold
+	@Test
+	public void fold_no_elements_returns_identity() throws Exception {
+		assertEquals("", this.<String> fCollection().fold("", (a, b) -> a + b));
+	}
+
+	@Test
+	public void fold_works() throws Exception {
+		int actual = fCollection(1, 2, 3).fold(0, (a, b) -> a + b);
+		assertEquals(6, actual);
+	}
+
+	@Test
+	public void foldLeft_no_elements_returns_identity() throws Exception {
+		assertEquals("", this.<String> fCollection().foldLeft("", (a, b) -> a + b));
+	}
+
+	@Test
+	public void foldLeft_works() throws Exception {
+		int actual = fCollection(1, 2, 3).foldLeft(0, (a, b) -> a + b);
+		assertEquals(6, actual);
+	}
+
+	@Test
+	public void foldRight_no_elements_returns_identity() throws Exception {
+		assertEquals("", this.<String> fCollection().foldRight("", (a, b) -> a + b));
+	}
+
+	@Test
+	public void foldRight_works() throws Exception {
+		int actual = fCollection(1, 2, 3).foldRight(0, (a, b) -> a + b);
+		assertEquals(6, actual);
+	}
+	
 	// -- groupBy
 	@Test
 	public void groupBy_groups_as_specified() throws Exception {
@@ -228,5 +262,4 @@ abstract public class FCollectionContract {
 		Map<Integer, FCollection<Integer>> actual = this.<Integer> fCollection().groupBy(i -> i % 2);
 		assertTrue(actual.isEmpty());
 	}
-	
 }
