@@ -7,7 +7,7 @@ import java.util.Map;
 import java.util.function.BiFunction;
 import java.util.function.Function;
 
-import com.artclod.common.base.T2;
+import com.artclod.common.base.Product2;
 import com.artclod.common.collect.base.BaseFMap;
 import com.artclod.common.collect.builder.MapBuilder;
 
@@ -123,11 +123,11 @@ public class HashFMap<K, V> extends BaseFMap<K, V, HashFMap<K,V>> implements FMa
 	
 	// ========== NEW F METHODS =========
 	@Override
-	public <NK, NV> FMap<NK, NV> map(BiFunction<? super K, ? super V, T2<? extends NK, ? extends NV>> f) {
+	public <NK, NV> FMap<NK, NV> map(BiFunction<? super K, ? super V, Product2<? extends NK, ? extends NV>> f) {
 		HashFMap<NK, NV> ret = new HashFMap<>(new HashMap<>(this.size()));
 		for (java.util.Map.Entry<K, V> entry : entrySet()) {
-			T2<? extends NK,? extends NV> t = f.apply(entry.getKey(), entry.getValue());
-			ret.put(t._1, t._2);
+			Product2<? extends NK,? extends NV> t = f.apply(entry.getKey(), entry.getValue());
+			ret.put(t.get1(), t.get2());
 		}
 		return ret;
 	}

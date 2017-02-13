@@ -6,7 +6,7 @@ import java.util.Map;
 import java.util.function.BiFunction;
 import java.util.function.Function;
 
-import com.artclod.common.base.T2;
+import com.artclod.common.base.Product2;
 import com.artclod.common.collect.base.BaseFMap;
 import com.artclod.common.collect.base.UnsupportMutationMapMixIn;
 import com.artclod.common.collect.builder.GuavaImFMapBuilder;
@@ -96,11 +96,11 @@ public class GuavaImFMap<K, V> extends BaseFMap<K, V, GuavaImFMap<K,V>> implemen
 	}
 	
 	@Override
-	public <NK, NV> GuavaImFMap<NK, NV> map(BiFunction<? super K, ? super V, T2<? extends NK, ? extends NV>> f) {
+	public <NK, NV> GuavaImFMap<NK, NV> map(BiFunction<? super K, ? super V, Product2<? extends NK, ? extends NV>> f) {
 		ImmutableMap.Builder<NK, NV> builder = ImmutableMap.<NK, NV> builder();
 		for (Map.Entry<K, V> entry : entrySet()) {
-			T2<? extends NK,? extends NV> t = f.apply(entry.getKey(), entry.getValue());
-			builder.put(t._1, t._2);
+			Product2<? extends NK,? extends NV> t = f.apply(entry.getKey(), entry.getValue());
+			builder.put(t.get1(), t.get2());
 		}
 		return new GuavaImFMap<>(builder.build());
 	}

@@ -7,7 +7,7 @@ import java.util.function.Function;
 import java.util.function.Predicate;
 import java.util.function.Supplier;
 
-import com.artclod.common.base.T2;
+import com.artclod.common.base.Product2;
 import com.artclod.common.collect.base.Option;
 
 public interface FMap<K, V> extends Map<K, V> {
@@ -20,7 +20,7 @@ public interface FMap<K, V> extends Map<K, V> {
 	
 	public ViewFSet<Map.Entry<K, V>> entrySet();
 
-	public <NK, NV> FMap<NK, NV> map(BiFunction<? super K, ? super V, T2<? extends NK, ? extends NV>> f);	
+	public <NK, NV> FMap<NK, NV> map(BiFunction<? super K, ? super V, Product2<? extends NK, ? extends NV>> f);	
 	
 	public <NV> FMap<K, NV> mapValues(Function<? super V, ? extends NV> f);	
 	
