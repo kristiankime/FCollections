@@ -80,8 +80,8 @@ public final class None<T> implements Option<T>, Serializable {
 	}
 	
 	@Override
-	public <O> Option<O> fold(O ifEmpty, Function<? super T, ? extends O> mapper) {
-		return new Some<O>(ifEmpty);
+	public <O> O fold(O ifEmpty, Function<? super T, ? extends O> mapper) {
+		return ifEmpty;
 	}
 	
 	// === Collection Methods ===

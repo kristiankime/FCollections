@@ -23,19 +23,19 @@ public class SomeTest {
 	}
 	
 	@Test
-		public void orElse_returns_value() throws Exception {
-			assertEquals("value", Option.some("value").getOrElse("or"));
-		}
+	public void orElse_returns_value() throws Exception {
+		assertEquals("value", Option.some("value").getOrElse("or"));
+	}
 	
 	@Test
-		public void orElse_option_returns_value() throws Exception {
-			assertEquals(Option.some("value"), Option.some("value").orElse(Option.some("or")));
-		}
-	
+	public void orElse_option_returns_value() throws Exception {
+		assertEquals(Option.some("value"), Option.some("value").orElse(Option.some("or")));
+	}
+
 	@Test
-		public void orElse_supplier_returns_value() throws Exception {
-			assertEquals("value", Option.some("value").getOrElse(() -> "or"));
-		}
+	public void orElse_supplier_returns_value() throws Exception {
+		assertEquals("value", Option.some("value").getOrElse(() -> "or"));
+	}
 
 	// Has Values
 	@Test
@@ -129,7 +129,7 @@ public class SomeTest {
 	
 	@Test
 	public void fold_returns_fold_value() throws Exception {
-		assertEquals(Option.some("value+"), Option.some("value").fold("ifempty", a -> a + "+"));
+		assertEquals("value+", Option.some("value").fold("ifempty", a -> a + "+"));
 	}
 	
 	// Serialize

@@ -64,11 +64,10 @@ public interface Either<L, R> extends Collection<R>, UnsupportMutationCollection
 	 * @param fa function that will be applied if this is a left
 	 * @param fb function that will be applied if this is a right
 	 *  
-	 * @param <A> Type of left value after folding
-	 * @param <B> Type of Right value after folding
-	 * @return transformed either
+	 * @param <O> Return type result
+	 * @return the results of applying the appropriate function
 	 */
-	public <A,B> Either<A,B> fold(Function<L, A> fa, Function<R, B> fb);
+	public <O> O fold(Function<L, O> fa, Function<R, O> fb);
 	
 	
 	/**

@@ -95,8 +95,8 @@ public final class Some<T> implements Option<T>, Serializable {
 	}
 
 	@Override
-	public <O> Option<O> fold(O ifEmpty, Function<? super T, ? extends O> mapper) {
-		return Option.of(mapper.apply(value));
+	public <O> O fold(O ifEmpty, Function<? super T, ? extends O> mapper) {
+		return mapper.apply(value);
 	}
 
 	@Override

@@ -56,6 +56,6 @@ public interface Option<T> extends Collection<T>, UnsupportMutationCollectionMix
 		return filter(predicate.negate());
 	}
 
-	public <O> Option<O> fold(O ifEmpty, Function<? super T, ? extends O> mapper);
+	public <O> O fold(O ifEmpty, Function<? super T, ? extends O> mapper);
 
 }

@@ -45,7 +45,7 @@ public class LeftTest {
 	@Test
 	public void fold_changes_value_with_left_function() throws Exception {
 		Left<String, Object> either = Either.left("value");
-		assertEquals(Either.left("left value"), either.fold(e -> "left " + e, e -> "right " + e));
+		assertEquals("left value", either.fold(e -> "left " + e, e -> "right " + e));
 	}
 	
 	@Test

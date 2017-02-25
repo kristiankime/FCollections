@@ -39,8 +39,8 @@ public class Left<L, R> implements Either<L, R> {
 	}
 	
 	@Override
-	public <A, B> Either<A, B> fold(Function<L, A> fa, Function<R, B> fb) {
-		return new Left<>(fa.apply(value));
+	public <O> O fold(Function<L, O> fa, Function<R, O> fb) {
+		return fa.apply(value);
 	}
 
 	@SuppressWarnings({ "unchecked", "rawtypes" })
